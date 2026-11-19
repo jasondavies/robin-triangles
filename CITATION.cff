@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper when using this work, and identify the commit used for computational results."
+type: software
+title: "The equilateral triangle is the extremal triangle for the lowest Robin eigenvalue, for every boundary parameter"
+authors:
+  - family-names: "Davies"
+    given-names: "Jason"
+abstract: "Among triangles of given area, the equilateral triangle is the unique minimiser of the lowest Robin eigenvalue for every positive boundary parameter and the unique maximiser for every negative one (the conjecture of Lotoreichik and Lu, AIM problem list Shape optimization with surface interactions, Conjecture 1.3). Computer-assisted proof with certified Crouzeix-Raviart lower bounds (alpha > 0, new) and an independent proof of the case alpha < 0, first proved by Y. Ma (Zenodo, doi:10.5281/zenodo.23191831)."
+license: Apache-2.0
+repository-code: "https://github.com/jasondavies/robin-triangles"
+preferred-citation:
+  type: unpublished
+  title: "The equilateral triangle is the extremal triangle for the lowest Robin eigenvalue, for every boundary parameter"
+  authors:
+    - family-names: "Davies"
+      given-names: "Jason"
+  year: 2026
+  notes: "Preprint draft."

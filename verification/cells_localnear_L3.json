@@ -1,0 +1,9 @@
+{
+ "tag": "L3",
+ "local_intervals": 142,
+ "near_intervals": 1420,
+ "near_cells": 86724,
+ "bad": [],
+ "ok": true,
+ "seconds": 230
+}

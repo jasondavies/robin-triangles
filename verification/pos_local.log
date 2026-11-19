@@ -1,0 +1,9 @@
+$ python local_check.py - - ./verification/positive/local_cert.json
+t_loc=3/50: c_l>=0.73610 rho<=0.29380 ok=True worst lhs/rhs=1.1758 at k=123
+
+[gate] ok   inequality (C) on every interval
+[gate] ok   t_* = 3/50, s = 1/10, K = 336: 337 inequalities
+[gate] ok   shape constants: computed 0.73612 / 0.29376, used 0.7361 / 0.2938
+[gate] ok   smallest quotient 1.1758 at k = 123 (alpha ~ 2.06)
+[gate] ok   quotient > 1.48 for alpha >= 30 and > 1.5 for alpha <= 0.6
+[gate] ok   identical to the committed local_cert.json

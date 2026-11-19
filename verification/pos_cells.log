@@ -1,0 +1,6 @@
+$ python recheck.py cells
+{'ok': True, 'B_cells': 99, 'prisms': 1730, 'min_relative_margin': 8.314295429489798e-06}
+
+[gate] ok   every prism and closing inequality re-evaluated from the stored bounds
+[gate] ok   1730 prisms
+[gate] ok   smallest relative margin 8e-6

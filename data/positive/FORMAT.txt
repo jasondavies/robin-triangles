@@ -1,0 +1,46 @@
+Certificates of Part II of paper/robin-triangles.tex (alpha > 0); one folder per run (profile):
+certs/ [kappa0 = 0.2983, default], certs_pw/ [0.3496], certs_liu/ [0.1893].
+All "p/q" strings are exact rationals; "m*2^e" strings are exact dyadic rationals (m, e integers).
+Notation as in Part II of paper/robin-triangles.tex.  Area 1; s_E^2 = 4/sqrt(3); theta_j = 0, 2pi/3, 4pi/3;
+e_j = (cos 2theta_j, sin 2theta_j) = (1,0), (-1/2,-sqrt3/2), (-1/2,+sqrt3/2).
+alpha-grid: alpha_k = (1/100) * 2^(k div 16) * RHO[k mod 16]/10^6,
+  RHO = [1000000,1044274,1090508,1138789,1189207,1241858,1296840,1354256,1414214,1476826,1542211,1610490,1681793,1756252,1834008,1915207]
+  (every record also carries its alpha explicitly).
+
+A "CR lower bound record" claims:  lb <= lambda_1 of a triangle with squared sides a_j^2, area |T| and Robin
+coefficients beta_j on side j, where (i) the Crouzeix-Raviart matrices K, M of the mesh of kind 'U' or 'A' with
+parameter n (paper, Section "Certified lower bounds") satisfy  K x >= sigma M x  for some positive vector x
+(so lambda_{1,h} >= sigma), and (ii) lb <= sigma / (1 + (kappa0*h)^2 sigma), h = largest element diameter.
+(lb was rounded down and multiplied by (1 - 2^-60).)
+
+ring_nodes.jsonl   one JSON object per line:
+   key=[k, sign, n], alpha, s="1/10", kind="U", n, N (number of unknowns), sigma, lb, xhash, lam_h, lb_float, sec
+   triangle: g1 = 1 - 2*sign*s, g2 = 1 + 2*sign*s;  l2_j = cos^2(theta_j)/g1 + sin^2(theta_j)/g2;
+             a_j^2 = s_E^2 * l2_j;  |T| = 1/sqrt(g1 g2);  beta_j = alpha (1 + sign*s*cos 2theta_j)/(sqrt(g1 g2) sqrt(l2_j)).
+   claim: lb <= Lambda_{sign}(alpha_k) of Lemma "ring".
+lam2_nodes.jsonl   key=[k, n], alpha, n, N, sigma2, g, lb, lam1_h, lam2_h, gersh_min, lb_float, sec
+   claim: the second eigenvalue of the CR pencil of the mesh 'U' (parameter n) of E with beta = alpha is >= sigma2,
+          and lb <= sigma2/(1 + (kappa0*h)^2 sigma2) <= lambda_2(E, alpha_k).   (k multiple of 4)
+local_cert.json    output of local_check.py: t_loc, shape constants c_l, rho, and per alpha-interval the two sides of
+                   inequality (C) (floats, for information); "ok" must be true.
+coverB_roots.json  list of the 100 root triangles; each vertex is a string "p/q,p/q" = (w1, w2).
+coverB_nodes_*.jsonl  w ("p/q,p/q"), k, alpha, n, kind ('U'|'A'), N, sigma, lb, lam_h, xhash
+   triangle T_w: a_j^2 = s_E^2 (1 + w.e_j)/sqrt(1-|w|^2), |T| = 1, beta_j = alpha_k.   claim: lb <= lambda_1(T_w, alpha_k).
+coverB_cells_*.jsonl  id ("r<i>" or "r<i>.<q>..." for sub-cells), type ('B','W','L','split'), verts (3 vertices),
+   and for type 'B':  prisms = [[k0,k1],...] (consecutive, starting at k0 = 0), ktop (= last k1),
+   nodes = {"i:k": [lb, n]}: the vertex bound b_i^k used for vertex i (0,1,2) at grid index k (it is the lb of the
+   node record with the same w, k, n).
+   claim (B): Corollary "prisms"(a) holds on every [alpha_k0, alpha_k1] and (b) holds at alpha_ktop.
+   claim (W): F >= 0 on the triangle.  claim (L): all vertices in |w| <= R_LOC.
+The outputs of the check scripts (coverage_check.json, weak_cert.json, summary.json, negative_controls.json,
+recheck_*.json, float_local.json, report_*.json of the independent verifier) are written by scripts/verify.py to
+verification/positive/, not to these folders.
+
+Additional files and fields (information only, not needed for verification):
+profile.json            {"profile", "kappa0"}: the interpolation constant with which all lb in this folder were computed.
+cell records also carry: level (mesh refinement level reached), sec, solves, sha (hash of the record).
+node records also carry: lam_h (float discrete eigenvalue), xhash (sha256 of the float eigenvector that was used).
+Cell types 'L' and 'split' are supported by the scripts but do not occur: all 100 root triangles are leaves
+(99 of type 'B', 1 of type 'W').
+The stored sigma is the certified Collatz-Wielandt quotient reduced by a relative 1e-7 (sigma2: the float discrete
+second eigenvalue reduced by 1e-6), so that a re-check with a different approximate eigenvector succeeds.

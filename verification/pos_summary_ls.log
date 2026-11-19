@@ -1,0 +1,50 @@
+$ python summary.py
+{
+ "profile": "ls",
+ "kappa0": 0.2983,
+ "ring_records": 674,
+ "ring_n": [
+  252
+ ],
+ "ring_N": 95634,
+ "ring_sec": 735,
+ "lam2_records": 85,
+ "lam2_n": [
+  25
+ ],
+ "lam2_N": 975,
+ "lam2_sec": 659,
+ "local_ok": true,
+ "local_min_quotient": 1.1758108113023633,
+ "local_worst_k": 123,
+ "c_l": 0.7361,
+ "rho": 0.2938,
+ "quotient_min_alpha_le_0.6": 1.5040989302851904,
+ "quotient_min_alpha_ge_30": 1.483385537166723,
+ "R1bound_over_lam0_max": 1.0172481826019173,
+ "cells": {
+  "B": 99,
+  "W": 1
+ },
+ "prisms": 1730,
+ "vertex_bounds_used": 1779,
+ "vertex_bounds_computed": 1901,
+ "cover_n_max": 184,
+ "cover_N_max": 51060,
+ "ktop_max": 286,
+ "ktop_min": 156,
+ "alpha_top_max": 2403.87096576,
+ "cover_sec": 199,
+ "kinds": {
+  "U": 1440,
+  "A": 339
+ },
+ "shape_vertices": 68
+}
+
+[gate] ok   record counts
+[gate] ok   mesh parameters: ring 252 (95634), lambda_2 25 (975)
+[gate] ok   cover statistics
+[gate] ok   smallest quotient 1.1758
+[gate] ok   times 12, 11, 3 min
+[gate] ok   2660 eigenvalue problems, < 30 min

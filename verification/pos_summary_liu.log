@@ -1,0 +1,49 @@
+$ python summary.py
+{
+ "profile": "liu",
+ "kappa0": 0.1893,
+ "ring_records": 674,
+ "ring_n": [
+  160
+ ],
+ "ring_N": 38640,
+ "ring_sec": 265,
+ "lam2_records": 85,
+ "lam2_n": [
+  16
+ ],
+ "lam2_N": 408,
+ "lam2_sec": 54,
+ "local_ok": true,
+ "local_min_quotient": 1.175692547655444,
+ "local_worst_k": 123,
+ "c_l": 0.7361,
+ "rho": 0.2938,
+ "quotient_min_alpha_le_0.6": 1.5045865000074288,
+ "quotient_min_alpha_ge_30": 1.4788287344758937,
+ "R1bound_over_lam0_max": 1.0199699284870487,
+ "cells": {
+  "B": 99,
+  "W": 1
+ },
+ "prisms": 1735,
+ "vertex_bounds_used": 1741,
+ "vertex_bounds_computed": 1855,
+ "cover_n_max": 117,
+ "cover_N_max": 20709,
+ "ktop_max": 290,
+ "ktop_min": 156,
+ "alpha_top_max": 2858.70129152,
+ "cover_sec": 67,
+ "kinds": {
+  "U": 1400,
+  "A": 341
+ },
+ "shape_vertices": 68
+}
+
+[gate] ok   record counts
+[gate] ok   mesh parameters: ring 160 (38640), lambda_2 16 (408)
+[gate] ok   cover statistics
+[gate] ok   smallest quotient 1.1757
+[gate] ok   times 4, 1, 1 min

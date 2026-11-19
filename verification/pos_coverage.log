@@ -1,0 +1,5 @@
+$ python coverage_check.py
+{'ok': True, 'roots': 100, 'leaves': {'B': 99, 'L': 0, 'W': 1}, 'boundary_sides': 36, 'boundary_kinds': {'disc': 4, 'bottom': 12, 'top': 12, 'thin': 8}, 'interior_point_root': [43]}
+
+[gate] ok   Proposition middle (a): exact coverage check
+[gate] ok   100 root triangles (99 B, 1 W), 36 boundary sides

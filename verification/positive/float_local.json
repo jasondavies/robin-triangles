@@ -1,0 +1,2720 @@
+{
+"note": "floating point, not a proof step",
+"fem": "conforming P2, n=28",
+"R1_over_a_at_0_1": 0.1281213452501369,
+"R1_over_a_max": 0.5809660881712153,
+"R1_over_a_max_alpha": 1.89033728,
+"R1_over_a_last": 0.48360160207518693,
+"alpha_last": 20971.52,
+"spare_factor": 1.7212708630685034,
+"node_bound_over_true_min": 1.0216202343675818,
+"node_bound_over_true_max": 1.0418483703030328,
+"interval_bound_over_true_near_2": 1.073048963952991,
+"interval_bound_over_true_max": 1.135495955909198,
+"interval_bound_over_true_max_alpha": 0.01,
+"hessian_min": 0.8734907708176955,
+"hessian_min_alpha": 1.28,
+"hessian_max": 2.0653129716460916,
+"gap_inner_min": 0.0013992037436367788,
+"gap_inner_max": 0.003391394108013257,
+"gap_samples": 255,
+"small_threshold_tall_isosceles_t_1_24": 0.011630789316294798,
+"seconds": 4.9,
+"rows": [
+{
+"k": 0,
+"alpha": 0.01,
+"R1_over_a": 0.014434133650372088,
+"hessian": 1.4837367459546742,
+"node_bound_over_true": 1.0418483703030328,
+"interval_bound_over_true": 1.135495955909198
+},
+{
+"k": 1,
+"alpha": 0.01044274,
+"R1_over_a": 0.015064543864256307,
+"hessian": 1.4830253157694098,
+"node_bound_over_true": 1.0417855081201617,
+"interval_bound_over_true": 1.1354096483471454
+},
+{
+"k": 2,
+"alpha": 0.01090508,
+"R1_over_a": 0.015722087809410343,
+"hessian": 1.4822831635656595,
+"node_bound_over_true": 1.0417301026182404,
+"interval_bound_over_true": 1.1353190612978712
+},
+{
+"k": 3,
+"alpha": 0.01138789,
+"R1_over_a": 0.016407901018252166,
+"hessian": 1.4815089946459232,
+"node_bound_over_true": 1.04167135862836,
+"interval_bound_over_true": 1.1352287308302946
+},
+{
+"k": 4,
+"alpha": 0.01189207,
+"R1_over_a": 0.017123151118336722,
+"hessian": 1.4807014767735913,
+"node_bound_over_true": 1.041615016361738,
+"interval_bound_over_true": 1.1351404925484454
+},
+{
+"k": 5,
+"alpha": 0.01241858,
+"R1_over_a": 0.017869079397498308,
+"hessian": 1.479859193128263,
+"node_bound_over_true": 1.0415593145486848,
+"interval_bound_over_true": 1.1350494324298739
+},
+{
+"k": 6,
+"alpha": 0.0129684,
+"R1_over_a": 0.018646942984947998,
+"hessian": 1.4789807074573063,
+"node_bound_over_true": 1.0415036768486092,
+"interval_bound_over_true": 1.1349610077858854
+},
+{
+"k": 7,
+"alpha": 0.01354256,
+"R1_over_a": 0.019458056254143163,
+"hessian": 1.4780645171974514,
+"node_bound_over_true": 1.0414519694679343,
+"interval_bound_over_true": 1.1348674308725055
+},
+{
+"k": 8,
+"alpha": 0.01414214,
+"R1_over_a": 0.020303789495801198,
+"hessian": 1.4771090548186623,
+"node_bound_over_true": 1.0413964138998353,
+"interval_bound_over_true": 1.134775172446463
+},
+{
+"k": 9,
+"alpha": 0.01476826,
+"R1_over_a": 0.021185553424376315,
+"hessian": 1.4761127051678018,
+"node_bound_over_true": 1.0413441513518944,
+"interval_bound_over_true": 1.1346827474546097
+},
+{
+"k": 10,
+"alpha": 0.01542211,
+"R1_over_a": 0.02210483991974471,
+"hessian": 1.47507375925961,
+"node_bound_over_true": 1.0412910366267676,
+"interval_bound_over_true": 1.1345869295494013
+},
+{
+"k": 11,
+"alpha": 0.0161049,
+"R1_over_a": 0.023063150048872445,
+"hessian": 1.4739904954323588,
+"node_bound_over_true": 1.0412386210641458,
+"interval_bound_over_true": 1.1344901438343067
+},
+{
+"k": 12,
+"alpha": 0.01681793,
+"R1_over_a": 0.024062090687161104,
+"hessian": 1.472861069947283,
+"node_bound_over_true": 1.0411844201154479,
+"interval_bound_over_true": 1.1343900607427135
+},
+{
+"k": 13,
+"alpha": 0.01756252,
+"R1_over_a": 0.02510327436099017,
+"hessian": 1.471683629992338,
+"node_bound_over_true": 1.04113108530515,
+"interval_bound_over_true": 1.1342898420312995
+},
+{
+"k": 14,
+"alpha": 0.01834008,
+"R1_over_a": 0.026188415269967312,
+"hessian": 1.4704562048913976,
+"node_bound_over_true": 1.0410777319955755,
+"interval_bound_over_true": 1.134187421321557
+},
+{
+"k": 15,
+"alpha": 0.01915207,
+"R1_over_a": 0.02731927096686587,
+"hessian": 1.4691767717927393,
+"node_bound_over_true": 1.0410240644353197,
+"interval_bound_over_true": 1.1340809194395545
+},
+{
+"k": 16,
+"alpha": 0.02,
+"R1_over_a": 0.028497640095839726,
+"hessian": 1.4678432579856695,
+"node_bound_over_true": 1.0409699292311276,
+"interval_bound_over_true": 1.1339747331598504
+},
+{
+"k": 17,
+"alpha": 0.02088548,
+"R1_over_a": 0.029725429241676166,
+"hessian": 1.4664534649666734,
+"node_bound_over_true": 1.040916005591314,
+"interval_bound_over_true": 1.133863406549998
+},
+{
+"k": 18,
+"alpha": 0.02181016,
+"R1_over_a": 0.031004566657152597,
+"hessian": 1.4650051657636773,
+"node_bound_over_true": 1.0408605310278265,
+"interval_bound_over_true": 1.133750030391937
+},
+{
+"k": 19,
+"alpha": 0.02277578,
+"R1_over_a": 0.0323370685869976,
+"hessian": 1.4634960295482393,
+"node_bound_over_true": 1.0408047468448653,
+"interval_bound_over_true": 1.1336324469642922
+},
+{
+"k": 20,
+"alpha": 0.02378414,
+"R1_over_a": 0.033724994406960564,
+"hessian": 1.4619236720813984,
+"node_bound_over_true": 1.0407482670991846,
+"interval_bound_over_true": 1.1335137974364533
+},
+{
+"k": 21,
+"alpha": 0.02483716,
+"R1_over_a": 0.03517052556610896,
+"hessian": 1.4602855659083058,
+"node_bound_over_true": 1.0406906363965358,
+"interval_bound_over_true": 1.1333900561003303
+},
+{
+"k": 22,
+"alpha": 0.0259368,
+"R1_over_a": 0.03667585155686051,
+"hessian": 1.4585791691473,
+"node_bound_over_true": 1.0406320674967042,
+"interval_bound_over_true": 1.133262261535259
+},
+{
+"k": 23,
+"alpha": 0.02708512,
+"R1_over_a": 0.03824324830008441,
+"hessian": 1.4568018362756514,
+"node_bound_over_true": 1.0405724386146031,
+"interval_bound_over_true": 1.1331314322067438
+},
+{
+"k": 24,
+"alpha": 0.02828428,
+"R1_over_a": 0.03987507332783868,
+"hessian": 1.4549508231144657,
+"node_bound_over_true": 1.040512083728819,
+"interval_bound_over_true": 1.132994966571666
+},
+{
+"k": 25,
+"alpha": 0.02953652,
+"R1_over_a": 0.041573733564861694,
+"hessian": 1.4530233228928282,
+"node_bound_over_true": 1.0404499190891783,
+"interval_bound_over_true": 1.1328563182531894
+},
+{
+"k": 26,
+"alpha": 0.03084422,
+"R1_over_a": 0.04334176130953094,
+"hessian": 1.4510163795189723,
+"node_bound_over_true": 1.0403863466657532,
+"interval_bound_over_true": 1.1327106870956183
+},
+{
+"k": 27,
+"alpha": 0.0322098,
+"R1_over_a": 0.04518167302148283,
+"hessian": 1.4489270473116234,
+"node_bound_over_true": 1.0403215016856646,
+"interval_bound_over_true": 1.1325627373233467
+},
+{
+"k": 28,
+"alpha": 0.03363586,
+"R1_over_a": 0.04709615222021792,
+"hessian": 1.4467521828061258,
+"node_bound_over_true": 1.040255022676283,
+"interval_bound_over_true": 1.1324072704952006
+},
+{
+"k": 29,
+"alpha": 0.03512504,
+"R1_over_a": 0.049087854108042395,
+"hessian": 1.4444886660216645,
+"node_bound_over_true": 1.0401870377584708,
+"interval_bound_over_true": 1.1322481036200276
+},
+{
+"k": 30,
+"alpha": 0.03668016,
+"R1_over_a": 0.05115958634178511,
+"hessian": 1.442133194489528,
+"node_bound_over_true": 1.0401172584591503,
+"interval_bound_over_true": 1.1320830658884398
+},
+{
+"k": 31,
+"alpha": 0.03830414,
+"R1_over_a": 0.05331419366323589,
+"hessian": 1.439682413644868,
+"node_bound_over_true": 1.0400453705676893,
+"interval_bound_over_true": 1.1319101450042621
+},
+{
+"k": 32,
+"alpha": 0.04,
+"R1_over_a": 0.05555455010971199,
+"hessian": 1.4371329250757743,
+"node_bound_over_true": 1.0399710814127587,
+"interval_bound_over_true": 1.131733461786001
+},
+{
+"k": 33,
+"alpha": 0.04177096,
+"R1_over_a": 0.05788368203816164,
+"hessian": 1.4344811458020685,
+"node_bound_over_true": 1.0398950993913627,
+"interval_bound_over_true": 1.1315486814881108
+},
+{
+"k": 34,
+"alpha": 0.04362032,
+"R1_over_a": 0.06030459968943772,
+"hessian": 1.431723499190096,
+"node_bound_over_true": 1.0398165397228376,
+"interval_bound_over_true": 1.1313579139877104
+},
+{
+"k": 35,
+"alpha": 0.04555156,
+"R1_over_a": 0.06282041852656119,
+"hessian": 1.428856276072757,
+"node_bound_over_true": 1.039735891582014,
+"interval_bound_over_true": 1.1311590039784032
+},
+{
+"k": 36,
+"alpha": 0.04756828,
+"R1_over_a": 0.06543426934605681,
+"hessian": 1.4258757363351076,
+"node_bound_over_true": 1.0396527213978015,
+"interval_bound_over_true": 1.1309548454520417
+},
+{
+"k": 37,
+"alpha": 0.04967432,
+"R1_over_a": 0.06814944160814675,
+"hessian": 1.4227779446399471,
+"node_bound_over_true": 1.0395667592101105,
+"interval_bound_over_true": 1.130741754210726
+},
+{
+"k": 38,
+"alpha": 0.0518736,
+"R1_over_a": 0.07096916306101372,
+"hessian": 1.4195590208812894,
+"node_bound_over_true": 1.0394782581139892,
+"interval_bound_over_true": 1.1305201994540548
+},
+{
+"k": 39,
+"alpha": 0.05417024,
+"R1_over_a": 0.07389674146248262,
+"hessian": 1.4162149777529194,
+"node_bound_over_true": 1.0393867614332424,
+"interval_bound_over_true": 1.1302909785179278
+},
+{
+"k": 40,
+"alpha": 0.05656856,
+"R1_over_a": 0.07693554875422887,
+"hessian": 1.4127417378482476,
+"node_bound_over_true": 1.0392923315452787,
+"interval_bound_over_true": 1.1300518807599902
+},
+{
+"k": 41,
+"alpha": 0.05907304,
+"R1_over_a": 0.08008895418704517,
+"hessian": 1.4091352091980993,
+"node_bound_over_true": 1.0391947756165172,
+"interval_bound_over_true": 1.129806075400199
+},
+{
+"k": 42,
+"alpha": 0.06168844,
+"R1_over_a": 0.08336045807448812,
+"hessian": 1.4053911314032301,
+"node_bound_over_true": 1.0390938964324425,
+"interval_bound_over_true": 1.1295484852663458
+},
+{
+"k": 43,
+"alpha": 0.0644196,
+"R1_over_a": 0.08675342246155869,
+"hessian": 1.4015053829165327,
+"node_bound_over_true": 1.0389897306395117,
+"interval_bound_over_true": 1.1292837809654126
+},
+{
+"k": 44,
+"alpha": 0.06727172,
+"R1_over_a": 0.09027140128826112,
+"hessian": 1.3974736023139687,
+"node_bound_over_true": 1.038881843847016,
+"interval_bound_over_true": 1.129006054687968
+},
+{
+"k": 45,
+"alpha": 0.07025008,
+"R1_over_a": 0.09391777161614784,
+"hessian": 1.3932916098435764,
+"node_bound_over_true": 1.038770479045206,
+"interval_bound_over_true": 1.1287199614225396
+},
+{
+"k": 46,
+"alpha": 0.07336032,
+"R1_over_a": 0.09769605706947913,
+"hessian": 1.3889550360637948,
+"node_bound_over_true": 1.038655511892454,
+"interval_bound_over_true": 1.1284228416204856
+},
+{
+"k": 47,
+"alpha": 0.07660828,
+"R1_over_a": 0.10160970629367905,
+"hessian": 1.3844595750599085,
+"node_bound_over_true": 1.0385364966293174,
+"interval_bound_over_true": 1.128113037118656
+},
+{
+"k": 48,
+"alpha": 0.08,
+"R1_over_a": 0.10566207010534963,
+"hessian": 1.3798010103779563,
+"node_bound_over_true": 1.0384130972314531,
+"interval_bound_over_true": 1.127792970798423
+},
+{
+"k": 49,
+"alpha": 0.08354192,
+"R1_over_a": 0.10985661369696019,
+"hessian": 1.3749749706148604,
+"node_bound_over_true": 1.0382859102914224,
+"interval_bound_over_true": 1.127460158954108
+},
+{
+"k": 50,
+"alpha": 0.08724064,
+"R1_over_a": 0.11419660104152228,
+"hessian": 1.3699772918814395,
+"node_bound_over_true": 1.0381544990232803,
+"interval_bound_over_true": 1.1271153449060858
+},
+{
+"k": 51,
+"alpha": 0.09110312,
+"R1_over_a": 0.11868530287873313,
+"hessian": 1.3648037785177065,
+"node_bound_over_true": 1.0380186589140967,
+"interval_bound_over_true": 1.1267564688006462
+},
+{
+"k": 52,
+"alpha": 0.09513656,
+"R1_over_a": 0.12332582393707062,
+"hessian": 1.3594504021199778,
+"node_bound_over_true": 1.0378774099579553,
+"interval_bound_over_true": 1.1263858590125058
+},
+{
+"k": 53,
+"alpha": 0.09934864,
+"R1_over_a": 0.1281213452501369,
+"hessian": 1.3539130222801792,
+"node_bound_over_true": 1.0377322253546812,
+"interval_bound_over_true": 1.1260009217840854
+},
+{
+"k": 54,
+"alpha": 0.1037472,
+"R1_over_a": 0.13307472066489626,
+"hessian": 1.3481878526945665,
+"node_bound_over_true": 1.0375822860878683,
+"interval_bound_over_true": 1.125601517175161
+},
+{
+"k": 55,
+"alpha": 0.10834048,
+"R1_over_a": 0.13818871623393258,
+"hessian": 1.3422711860486376,
+"node_bound_over_true": 1.0374273936933875,
+"interval_bound_over_true": 1.1251879522720563
+},
+{
+"k": 56,
+"alpha": 0.11313712,
+"R1_over_a": 0.14346596805144288,
+"hessian": 1.33615944378556,
+"node_bound_over_true": 1.0372661708290067,
+"interval_bound_over_true": 1.1247570653189662
+},
+{
+"k": 57,
+"alpha": 0.11814608,
+"R1_over_a": 0.1489088525697498,
+"hessian": 1.3298493279730401,
+"node_bound_over_true": 1.0371009378793714,
+"interval_bound_over_true": 1.124314247447098
+},
+{
+"k": 58,
+"alpha": 0.12337688,
+"R1_over_a": 0.15451970372842871,
+"hessian": 1.3233375717578155,
+"node_bound_over_true": 1.0369304167748155,
+"interval_bound_over_true": 1.1238531694201492
+},
+{
+"k": 59,
+"alpha": 0.1288392,
+"R1_over_a": 0.16030033613865763,
+"hessian": 1.3166214952773365,
+"node_bound_over_true": 1.0367545356832333,
+"interval_bound_over_true": 1.1233781544731698
+},
+{
+"k": 60,
+"alpha": 0.13454344,
+"R1_over_a": 0.1662525972609834,
+"hessian": 1.3096983681837537,
+"node_bound_over_true": 1.0365710365848986,
+"interval_bound_over_true": 1.1228816414134148
+},
+{
+"k": 61,
+"alpha": 0.14050016,
+"R1_over_a": 0.17237772589048514,
+"hessian": 1.3025661591700552,
+"node_bound_over_true": 1.036383883684588,
+"interval_bound_over_true": 1.122371735069863
+},
+{
+"k": 62,
+"alpha": 0.14672064,
+"R1_over_a": 0.17867688710706126,
+"hessian": 1.2952229189125952,
+"node_bound_over_true": 1.0361910458849914,
+"interval_bound_over_true": 1.121844216672122
+},
+{
+"k": 63,
+"alpha": 0.15321656,
+"R1_over_a": 0.185150784493758,
+"hessian": 1.2876672369724256,
+"node_bound_over_true": 1.035992445688984,
+"interval_bound_over_true": 1.1212971695408613
+},
+{
+"k": 64,
+"alpha": 0.16,
+"R1_over_a": 0.19179961392972908,
+"hessian": 1.2798983032442421,
+"node_bound_over_true": 1.0357846949505867,
+"interval_bound_over_true": 1.120729778132642
+},
+{
+"k": 65,
+"alpha": 0.16708384,
+"R1_over_a": 0.1986234002594401,
+"hessian": 1.2719155225028267,
+"node_bound_over_true": 1.035574120637395,
+"interval_bound_over_true": 1.1201459134458025
+},
+{
+"k": 66,
+"alpha": 0.17448128,
+"R1_over_a": 0.20562146855846786,
+"hessian": 1.2637191412973492,
+"node_bound_over_true": 1.0353576028824483,
+"interval_bound_over_true": 1.1195433154573124
+},
+{
+"k": 67,
+"alpha": 0.18220624,
+"R1_over_a": 0.21279277537849023,
+"hessian": 1.2553098712750235,
+"node_bound_over_true": 1.035135139806671,
+"interval_bound_over_true": 1.118920107727648
+},
+{
+"k": 68,
+"alpha": 0.19027312,
+"R1_over_a": 0.2201356221902502,
+"hessian": 1.2466892366472588,
+"node_bound_over_true": 1.034901454641814,
+"interval_bound_over_true": 1.1182732050824682
+},
+{
+"k": 69,
+"alpha": 0.19869728,
+"R1_over_a": 0.22764803203507505,
+"hessian": 1.2378591453163557,
+"node_bound_over_true": 1.0346666008617593,
+"interval_bound_over_true": 1.117610310003676
+},
+{
+"k": 70,
+"alpha": 0.2074944,
+"R1_over_a": 0.23532710722304565,
+"hessian": 1.228822658047699,
+"node_bound_over_true": 1.0344257821858738,
+"interval_bound_over_true": 1.116926646066628
+},
+{
+"k": 71,
+"alpha": 0.21668096,
+"R1_over_a": 0.24316940774744644,
+"hessian": 1.2195835611743766,
+"node_bound_over_true": 1.0341790557978976,
+"interval_bound_over_true": 1.1162225994212858
+},
+{
+"k": 72,
+"alpha": 0.22627424,
+"R1_over_a": 0.251170882220802,
+"hessian": 1.210146465884604,
+"node_bound_over_true": 1.0339182692751319,
+"interval_bound_over_true": 1.115487249884707
+},
+{
+"k": 73,
+"alpha": 0.23629216,
+"R1_over_a": 0.2593266733555715,
+"hessian": 1.2005170579784827,
+"node_bound_over_true": 1.0336592394418904,
+"interval_bound_over_true": 1.1147415182720368
+},
+{
+"k": 74,
+"alpha": 0.24675376,
+"R1_over_a": 0.2676314486328397,
+"hessian": 1.190701729833905,
+"node_bound_over_true": 1.0333945280858408,
+"interval_bound_over_true": 1.113972206747768
+},
+{
+"k": 75,
+"alpha": 0.2576784,
+"R1_over_a": 0.27607870029300147,
+"hessian": 1.1807084318543897,
+"node_bound_over_true": 1.0331243041836642,
+"interval_bound_over_true": 1.113183716748523
+},
+{
+"k": 76,
+"alpha": 0.26908688,
+"R1_over_a": 0.2846615750060328,
+"hessian": 1.1705457184237051,
+"node_bound_over_true": 1.0328360719076113,
+"interval_bound_over_true": 1.112356694601086
+},
+{
+"k": 77,
+"alpha": 0.28100032,
+"R1_over_a": 0.2933719549385366,
+"hessian": 1.1602238637036257,
+"node_bound_over_true": 1.0325542852921117,
+"interval_bound_over_true": 1.1115231879210645
+},
+{
+"k": 78,
+"alpha": 0.29344128,
+"R1_over_a": 0.3022012544543416,
+"hessian": 1.1497539493334845,
+"node_bound_over_true": 1.0322675434212594,
+"interval_bound_over_true": 1.1106681607215774
+},
+{
+"k": 79,
+"alpha": 0.30643312,
+"R1_over_a": 0.3111398887417735,
+"hessian": 1.1391485264850916,
+"node_bound_over_true": 1.031976138377558,
+"interval_bound_over_true": 1.1097903989900173
+},
+{
+"k": 80,
+"alpha": 0.32,
+"R1_over_a": 0.3201772535037026,
+"hessian": 1.1284216753292813,
+"node_bound_over_true": 1.031661079800759,
+"interval_bound_over_true": 1.1088705813555284
+},
+{
+"k": 81,
+"alpha": 0.33416768,
+"R1_over_a": 0.3293022214602172,
+"hessian": 1.1175884523545974,
+"node_bound_over_true": 1.0313596832163399,
+"interval_bound_over_true": 1.1079493875593647
+},
+{
+"k": 82,
+"alpha": 0.34896256,
+"R1_over_a": 0.3385024680614513,
+"hessian": 1.1066657289772768,
+"node_bound_over_true": 1.0310546105209735,
+"interval_bound_over_true": 1.1070078832153
+},
+{
+"k": 83,
+"alpha": 0.36441248,
+"R1_over_a": 0.34776497229497205,
+"hessian": 1.0956716368068466,
+"node_bound_over_true": 1.0307463233482712,
+"interval_bound_over_true": 1.1060451564516345
+},
+{
+"k": 84,
+"alpha": 0.38054624,
+"R1_over_a": 0.3570756984091038,
+"hessian": 1.0846259861399181,
+"node_bound_over_true": 1.0304063208563385,
+"interval_bound_over_true": 1.1050308799119295
+},
+{
+"k": 85,
+"alpha": 0.39739456,
+"R1_over_a": 0.36642013796227485,
+"hessian": 1.073549664452897,
+"node_bound_over_true": 1.0300906248610757,
+"interval_bound_over_true": 1.1040270718245555
+},
+{
+"k": 86,
+"alpha": 0.4149888,
+"R1_over_a": 0.3757825694855024,
+"hessian": 1.0624655563975955,
+"node_bound_over_true": 1.0297731830848462,
+"interval_bound_over_true": 1.103004354149812
+},
+{
+"k": 87,
+"alpha": 0.43336192,
+"R1_over_a": 0.38514662229754615,
+"hessian": 1.0513979160982982,
+"node_bound_over_true": 1.0294546691879107,
+"interval_bound_over_true": 1.1019641164354574
+},
+{
+"k": 88,
+"alpha": 0.45254848,
+"R1_over_a": 0.3944952694289964,
+"hessian": 1.0403724166160162,
+"node_bound_over_true": 1.0290930358884005,
+"interval_bound_over_true": 1.1008565257905845
+},
+{
+"k": 89,
+"alpha": 0.47258432,
+"R1_over_a": 0.40381069162850397,
+"hessian": 1.0294163491195805,
+"node_bound_over_true": 1.028770841220159,
+"interval_bound_over_true": 1.099780199313173
+},
+{
+"k": 90,
+"alpha": 0.49350752,
+"R1_over_a": 0.4130747535062387,
+"hessian": 1.0185580993269385,
+"node_bound_over_true": 1.0284495866385832,
+"interval_bound_over_true": 1.0986868053200225
+},
+{
+"k": 91,
+"alpha": 0.5153568,
+"R1_over_a": 0.4222683206579123,
+"hessian": 1.007827982010519,
+"node_bound_over_true": 1.0281301746617961,
+"interval_bound_over_true": 1.0975815005553715
+},
+{
+"k": 92,
+"alpha": 0.53817376,
+"R1_over_a": 0.4313722952545362,
+"hessian": 0.997257056708248,
+"node_bound_over_true": 1.0277517556059304,
+"interval_bound_over_true": 1.096390135275379
+},
+{
+"k": 93,
+"alpha": 0.56200064,
+"R1_over_a": 0.4403667343920175,
+"hessian": 0.9868781796299511,
+"node_bound_over_true": 1.0274335309434393,
+"interval_bound_over_true": 1.0952545256222754
+},
+{
+"k": 94,
+"alpha": 0.58688256,
+"R1_over_a": 0.4492318234700833,
+"hessian": 0.976724889152364,
+"node_bound_over_true": 1.0271197262134275,
+"interval_bound_over_true": 1.0941090591198452
+},
+{
+"k": 95,
+"alpha": 0.61286624,
+"R1_over_a": 0.4579474385411979,
+"hessian": 0.9668319244539424,
+"node_bound_over_true": 1.0268114589341297,
+"interval_bound_over_true": 1.092954337012245
+},
+{
+"k": 96,
+"alpha": 0.64,
+"R1_over_a": 0.46649327730964285,
+"hessian": 0.9572350686707467,
+"node_bound_over_true": 1.0264225693296531,
+"interval_bound_over_true": 1.0916939023291752
+},
+{
+"k": 97,
+"alpha": 0.66833536,
+"R1_over_a": 0.47484946072210144,
+"hessian": 0.9479704615451875,
+"node_bound_over_true": 1.0261214002800207,
+"interval_bound_over_true": 1.0905206370141292
+},
+{
+"k": 98,
+"alpha": 0.69792512,
+"R1_over_a": 0.4829960259730767,
+"hessian": 0.9390751482646253,
+"node_bound_over_true": 1.0258288418552266,
+"interval_bound_over_true": 1.0893449448460724
+},
+{
+"k": 99,
+"alpha": 0.72882496,
+"R1_over_a": 0.49091352839035834,
+"hessian": 0.930586373398376,
+"node_bound_over_true": 1.0255462237047455,
+"interval_bound_over_true": 1.0881679441356586
+},
+{
+"k": 100,
+"alpha": 0.76109248,
+"R1_over_a": 0.4985828888410845,
+"hessian": 0.9225416998333605,
+"node_bound_over_true": 1.025154376156992,
+"interval_bound_over_true": 1.0868557038627502
+},
+{
+"k": 101,
+"alpha": 0.79478912,
+"R1_over_a": 0.5059859676709082,
+"hessian": 0.9149783415745744,
+"node_bound_over_true": 1.024885460587668,
+"interval_bound_over_true": 1.085673754593666
+},
+{
+"k": 102,
+"alpha": 0.8299776,
+"R1_over_a": 0.5131050796927827,
+"hessian": 0.9079335931504905,
+"node_bound_over_true": 1.0246298880686546,
+"interval_bound_over_true": 1.0844975998936952
+},
+{
+"k": 103,
+"alpha": 0.86672384,
+"R1_over_a": 0.5199235783183902,
+"hessian": 0.9014441229083505,
+"node_bound_over_true": 1.0243891299855286,
+"interval_bound_over_true": 1.0833304024832138
+},
+{
+"k": 104,
+"alpha": 0.90509696,
+"R1_over_a": 0.5264259419928083,
+"hessian": 0.895545789247404,
+"node_bound_over_true": 1.0240025648035724,
+"interval_bound_over_true": 1.081988263435258
+},
+{
+"k": 105,
+"alpha": 0.94516864,
+"R1_over_a": 0.5325977767982986,
+"hessian": 0.8902735073561048,
+"node_bound_over_true": 1.0237822647678547,
+"interval_bound_over_true": 1.080832145453413
+},
+{
+"k": 106,
+"alpha": 0.98701504,
+"R1_over_a": 0.5384262198025166,
+"hessian": 0.8856607563028762,
+"node_bound_over_true": 1.023580242045783,
+"interval_bound_over_true": 1.079690507563749
+},
+{
+"k": 107,
+"alpha": 1.0307136,
+"R1_over_a": 0.5438995750287079,
+"hessian": 0.8817397149278066,
+"node_bound_over_true": 1.0233980396111995,
+"interval_bound_over_true": 1.0785694447891694
+},
+{
+"k": 108,
+"alpha": 1.07634752,
+"R1_over_a": 0.5490080230915576,
+"hessian": 0.8785405321996073,
+"node_bound_over_true": 1.023024953822572,
+"interval_bound_over_true": 1.077226740866567
+},
+{
+"k": 109,
+"alpha": 1.12400128,
+"R1_over_a": 0.5537431418728771,
+"hessian": 0.8760914849628355,
+"node_bound_over_true": 1.0228692971832274,
+"interval_bound_over_true": 1.0761323397571891
+},
+{
+"k": 110,
+"alpha": 1.17376512,
+"R1_over_a": 0.5580984909087657,
+"hessian": 0.8744184061512371,
+"node_bound_over_true": 1.0227366150243404,
+"interval_bound_over_true": 1.07533956451644
+},
+{
+"k": 111,
+"alpha": 1.22573248,
+"R1_over_a": 0.5620693748188279,
+"hessian": 0.8735446435564553,
+"node_bound_over_true": 1.022628376278742,
+"interval_bound_over_true": 1.0748965892572668
+},
+{
+"k": 112,
+"alpha": 1.28,
+"R1_over_a": 0.5656529315735684,
+"hessian": 0.8734907708176955,
+"node_bound_over_true": 1.0222759198809377,
+"interval_bound_over_true": 1.0743013505203536
+},
+{
+"k": 113,
+"alpha": 1.33667072,
+"R1_over_a": 0.5688483697139544,
+"hessian": 0.874274379867343,
+"node_bound_over_true": 1.0221987108757296,
+"interval_bound_over_true": 1.0740249442883258
+},
+{
+"k": 114,
+"alpha": 1.39585024,
+"R1_over_a": 0.5716567164670504,
+"hessian": 0.8759099097467433,
+"node_bound_over_true": 1.0221483628905053,
+"interval_bound_over_true": 1.0737865406187497
+},
+{
+"k": 115,
+"alpha": 1.45764992,
+"R1_over_a": 0.5740810075966776,
+"hessian": 0.8784084981885689,
+"node_bound_over_true": 1.0221261300141058,
+"interval_bound_over_true": 1.0735865211514137
+},
+{
+"k": 116,
+"alpha": 1.52218496,
+"R1_over_a": 0.5761261627879696,
+"hessian": 0.8817777976645527,
+"node_bound_over_true": 1.0217992016220894,
+"interval_bound_over_true": 1.073048963952991
+},
+{
+"k": 117,
+"alpha": 1.58957824,
+"R1_over_a": 0.5777990594882852,
+"hessian": 0.8860220656184272,
+"node_bound_over_true": 1.02180988480926,
+"interval_bound_over_true": 1.0729021638985987
+},
+{
+"k": 118,
+"alpha": 1.6599552,
+"R1_over_a": 0.5791083070139244,
+"hessian": 0.8911418115896197,
+"node_bound_over_true": 1.0218499145767617,
+"interval_bound_over_true": 1.0727962652296472
+},
+{
+"k": 119,
+"alpha": 1.73344768,
+"R1_over_a": 0.5800642882223702,
+"hessian": 0.8971339400272652,
+"node_bound_over_true": 1.0219201997452423,
+"interval_bound_over_true": 1.072732875517294
+},
+{
+"k": 120,
+"alpha": 1.81019392,
+"R1_over_a": 0.5806790333810579,
+"hessian": 0.903991769581547,
+"node_bound_over_true": 1.0216202343675818,
+"interval_bound_over_true": 1.0722542196362088
+},
+{
+"k": 121,
+"alpha": 1.89033728,
+"R1_over_a": 0.5809660881712153,
+"hessian": 0.9117049379325836,
+"node_bound_over_true": 1.0217218906295462,
+"interval_bound_over_true": 1.072241973353205
+},
+{
+"k": 122,
+"alpha": 1.97403008,
+"R1_over_a": 0.5809403934031029,
+"hessian": 0.920259818500584,
+"node_bound_over_true": 1.0218535017980381,
+"interval_bound_over_true": 1.0722684087225351
+},
+{
+"k": 123,
+"alpha": 2.0614272,
+"R1_over_a": 0.5806181294433105,
+"hessian": 0.9296389607520132,
+"node_bound_over_true": 1.022015531727632,
+"interval_bound_over_true": 1.0723377759639265
+},
+{
+"k": 124,
+"alpha": 2.15269504,
+"R1_over_a": 0.5800165533856969,
+"hessian": 0.9398221167359704,
+"node_bound_over_true": 1.0217395476715425,
+"interval_bound_over_true": 1.0719109806575609
+},
+{
+"k": 125,
+"alpha": 2.24800256,
+"R1_over_a": 0.579153863757805,
+"hessian": 0.9507854181442895,
+"node_bound_over_true": 1.0219275481440144,
+"interval_bound_over_true": 1.0720183681263058
+},
+{
+"k": 126,
+"alpha": 2.34753024,
+"R1_over_a": 0.5780489749604497,
+"hessian": 0.9625025266767765,
+"node_bound_over_true": 1.0221439866565194,
+"interval_bound_over_true": 1.072161405496987
+},
+{
+"k": 127,
+"alpha": 2.45146496,
+"R1_over_a": 0.5767213725461335,
+"hessian": 0.9749442472326716,
+"node_bound_over_true": 1.022388862999191,
+"interval_bound_over_true": 1.0723374565540738
+},
+{
+"k": 128,
+"alpha": 2.56,
+"R1_over_a": 0.5751909507353624,
+"hessian": 0.988078709551572,
+"node_bound_over_true": 1.022129186629501,
+"interval_bound_over_true": 1.0719407339436904
+},
+{
+"k": 129,
+"alpha": 2.67334144,
+"R1_over_a": 0.5734777454077695,
+"hessian": 1.001872359581517,
+"node_bound_over_true": 1.022390999082446,
+"interval_bound_over_true": 1.0721355926231004
+},
+{
+"k": 130,
+"alpha": 2.79170048,
+"R1_over_a": 0.5716018682140014,
+"hessian": 1.0162892586885688,
+"node_bound_over_true": 1.022677729689842,
+"interval_bound_over_true": 1.072356380800517
+},
+{
+"k": 131,
+"alpha": 2.91529984,
+"R1_over_a": 0.5695832479890175,
+"hessian": 1.0312920929973148,
+"node_bound_over_true": 1.0229889800292467,
+"interval_bound_over_true": 1.0725993525747852
+},
+{
+"k": 132,
+"alpha": 3.04436992,
+"R1_over_a": 0.5674415317645781,
+"hessian": 1.0468419464755172,
+"node_bound_over_true": 1.0227341167706892,
+"interval_bound_over_true": 1.0721930132064619
+},
+{
+"k": 133,
+"alpha": 3.17915648,
+"R1_over_a": 0.5651958106812837,
+"hessian": 1.0628994608778377,
+"node_bound_over_true": 1.0230506570068918,
+"interval_bound_over_true": 1.0724265905430022
+},
+{
+"k": 134,
+"alpha": 3.3199104,
+"R1_over_a": 0.5628646556841262,
+"hessian": 1.0794238332960089,
+"node_bound_over_true": 1.023387125464942,
+"interval_bound_over_true": 1.072671419836417
+},
+{
+"k": 135,
+"alpha": 3.46689536,
+"R1_over_a": 0.560465869016909,
+"hessian": 1.0963739680268603,
+"node_bound_over_true": 1.0237428860721909,
+"interval_bound_over_true": 1.0729251306569139
+},
+{
+"k": 136,
+"alpha": 3.62038784,
+"R1_over_a": 0.5580163793642584,
+"hessian": 1.1137086758896606,
+"node_bound_over_true": 1.0234796592018853,
+"interval_bound_over_true": 1.0724586095517488
+},
+{
+"k": 137,
+"alpha": 3.78067456,
+"R1_over_a": 0.5555321941843445,
+"hessian": 1.1313865795191227,
+"node_bound_over_true": 1.0238281532667188,
+"interval_bound_over_true": 1.0726710735260796
+},
+{
+"k": 138,
+"alpha": 3.94806016,
+"R1_over_a": 0.5530282099450523,
+"hessian": 1.1493671358519422,
+"node_bound_over_true": 1.0241909690966227,
+"interval_bound_over_true": 1.072877302909836
+},
+{
+"k": 139,
+"alpha": 4.1228544,
+"R1_over_a": 0.5505183527158672,
+"hessian": 1.1676094036981366,
+"node_bound_over_true": 1.0245674252185955,
+"interval_bound_over_true": 1.0730787007987697
+},
+{
+"k": 140,
+"alpha": 4.30539008,
+"R1_over_a": 0.5480152755882848,
+"hessian": 1.1860740971673793,
+"node_bound_over_true": 1.0242840418761574,
+"interval_bound_over_true": 1.0725051223913125
+},
+{
+"k": 141,
+"alpha": 4.49600512,
+"R1_over_a": 0.5455305959080652,
+"hessian": 1.204721833773325,
+"node_bound_over_true": 1.0246417820661198,
+"interval_bound_over_true": 1.0726331726303038
+},
+{
+"k": 142,
+"alpha": 4.69506048,
+"R1_over_a": 0.5430746444115574,
+"hessian": 1.2235150513997772,
+"node_bound_over_true": 1.025008532745152,
+"interval_bound_over_true": 1.072743055033964
+},
+{
+"k": 143,
+"alpha": 4.90292992,
+"R1_over_a": 0.5406566196673807,
+"hessian": 1.2424170357860338,
+"node_bound_over_true": 1.025383755013033,
+"interval_bound_over_true": 1.0728311844767497
+},
+{
+"k": 144,
+"alpha": 5.12,
+"R1_over_a": 0.5382846032214917,
+"hessian": 1.261392026754991,
+"node_bound_over_true": 1.0250728139827248,
+"interval_bound_over_true": 1.0721147609029607
+},
+{
+"k": 145,
+"alpha": 5.34668288,
+"R1_over_a": 0.5359654586142918,
+"hessian": 1.280406368879393,
+"node_bound_over_true": 1.0254206580881835,
+"interval_bound_over_true": 1.0721089408991291
+},
+{
+"k": 146,
+"alpha": 5.58340096,
+"R1_over_a": 0.5337050514073313,
+"hessian": 1.2994271707059015,
+"node_bound_over_true": 1.0257732035526954,
+"interval_bound_over_true": 1.0720755474130408
+},
+{
+"k": 147,
+"alpha": 5.83059968,
+"R1_over_a": 0.5315081727358584,
+"hessian": 1.3184233986232685,
+"node_bound_over_true": 1.0261301372738438,
+"interval_bound_over_true": 1.0720122828624175
+},
+{
+"k": 148,
+"alpha": 6.08873984,
+"R1_over_a": 0.5293786814923754,
+"hessian": 1.3373652317690545,
+"node_bound_over_true": 1.0257905269091565,
+"interval_bound_over_true": 1.0711344832260985
+},
+{
+"k": 149,
+"alpha": 6.35831296,
+"R1_over_a": 0.527319451827319,
+"hessian": 1.356225148550617,
+"node_bound_over_true": 1.0261150875889085,
+"interval_bound_over_true": 1.0709678734607853
+},
+{
+"k": 150,
+"alpha": 6.6398208,
+"R1_over_a": 0.5253326196035321,
+"hessian": 1.374976376426758,
+"node_bound_over_true": 1.0264413442007718,
+"interval_bound_over_true": 1.0707691749069894
+},
+{
+"k": 151,
+"alpha": 6.93379072,
+"R1_over_a": 0.5234195349215823,
+"hessian": 1.3935939673101185,
+"node_bound_over_true": 1.0267691930245386,
+"interval_bound_over_true": 1.07053942852222
+},
+{
+"k": 152,
+"alpha": 7.24077568,
+"R1_over_a": 0.5215808532102142,
+"hessian": 1.4120546752819811,
+"node_bound_over_true": 1.026406092606933,
+"interval_bound_over_true": 1.0695057060341708
+},
+{
+"k": 153,
+"alpha": 7.56134912,
+"R1_over_a": 0.5198166492142873,
+"hessian": 1.4303365617692532,
+"node_bound_over_true": 1.0267001305116608,
+"interval_bound_over_true": 1.06917667563516
+},
+{
+"k": 154,
+"alpha": 7.89612032,
+"R1_over_a": 0.5181264136499317,
+"hessian": 1.448419780861477,
+"node_bound_over_true": 1.0269940554507815,
+"interval_bound_over_true": 1.0688158770424
+},
+{
+"k": 155,
+"alpha": 8.2457088,
+"R1_over_a": 0.5165092657377374,
+"hessian": 1.466285070841436,
+"node_bound_over_true": 1.027287890334525,
+"interval_bound_over_true": 1.0684287857365737
+},
+{
+"k": 156,
+"alpha": 8.61078016,
+"R1_over_a": 0.514963848612055,
+"hessian": 1.4839155815145344,
+"node_bound_over_true": 1.0269110979087261,
+"interval_bound_over_true": 1.0672709176376554
+},
+{
+"k": 157,
+"alpha": 8.99201024,
+"R1_over_a": 0.5134885658567049,
+"hessian": 1.5012949450945743,
+"node_bound_over_true": 1.0271724383570517,
+"interval_bound_over_true": 1.0667975281491087
+},
+{
+"k": 158,
+"alpha": 9.39012096,
+"R1_over_a": 0.5120814922409697,
+"hessian": 1.5184089296598193,
+"node_bound_over_true": 1.0274327007518433,
+"interval_bound_over_true": 1.0663007355592076
+},
+{
+"k": 159,
+"alpha": 9.80585984,
+"R1_over_a": 0.5107405220896226,
+"hessian": 1.5352443401689535,
+"node_bound_over_true": 1.0276919654185204,
+"interval_bound_over_true": 1.0657817113835346
+},
+{
+"k": 160,
+"alpha": 10.24,
+"R1_over_a": 0.5094634134539285,
+"hessian": 1.551789003993757,
+"node_bound_over_true": 1.0273133450421763,
+"interval_bound_over_true": 1.0645460709491228
+},
+{
+"k": 161,
+"alpha": 10.69336576,
+"R1_over_a": 0.5082477617778174,
+"hessian": 1.5680326518651513,
+"node_bound_over_true": 1.0275430891285349,
+"interval_bound_over_true": 1.0639632341017355
+},
+{
+"k": 162,
+"alpha": 11.16680192,
+"R1_over_a": 0.5070911351562944,
+"hessian": 1.5839656405343556,
+"node_bound_over_true": 1.0277712768313119,
+"interval_bound_over_true": 1.063366080042181
+},
+{
+"k": 163,
+"alpha": 11.66119936,
+"R1_over_a": 0.5059910395882011,
+"hessian": 1.5995798125856795,
+"node_bound_over_true": 1.027997976356976,
+"interval_bound_over_true": 1.0627559921987246
+},
+{
+"k": 164,
+"alpha": 12.17747968,
+"R1_over_a": 0.5049449905658251,
+"hessian": 1.614867879218607,
+"node_bound_over_true": 1.0276290533955619,
+"interval_bound_over_true": 1.0614911693501827
+},
+{
+"k": 165,
+"alpha": 12.71662592,
+"R1_over_a": 0.5039504790930355,
+"hessian": 1.629824236476818,
+"node_bound_over_true": 1.027829912327309,
+"interval_bound_over_true": 1.0608405942619648
+},
+{
+"k": 166,
+"alpha": 13.2796416,
+"R1_over_a": 0.5030050779075391,
+"hessian": 1.6444436659359982,
+"node_bound_over_true": 1.0280289595048404,
+"interval_bound_over_true": 1.06018425473223
+},
+{
+"k": 167,
+"alpha": 13.86758144,
+"R1_over_a": 0.5021063980253938,
+"hessian": 1.6587221643887313,
+"node_bound_over_true": 1.0282262242524833,
+"interval_bound_over_true": 1.0595247630217246
+},
+{
+"k": 168,
+"alpha": 14.48155136,
+"R1_over_a": 0.5012521099937063,
+"hessian": 1.6726567990569992,
+"node_bound_over_true": 1.027876488698761,
+"interval_bound_over_true": 1.0582755582048675
+},
+{
+"k": 169,
+"alpha": 15.12269824,
+"R1_over_a": 0.5004399717708417,
+"hessian": 1.6862453768765762,
+"node_bound_over_true": 1.02805163526809,
+"interval_bound_over_true": 1.057597254470553
+},
+{
+"k": 170,
+"alpha": 15.79224064,
+"R1_over_a": 0.4996678001692571,
+"hessian": 1.69948700107816,
+"node_bound_over_true": 1.0282248003211245,
+"interval_bound_over_true": 1.056919910646376
+},
+{
+"k": 171,
+"alpha": 16.4914176,
+"R1_over_a": 0.49893354020071506,
+"hessian": 1.712380935234631,
+"node_bound_over_true": 1.028395974675849,
+"interval_bound_over_true": 1.056247933554543
+},
+{
+"k": 172,
+"alpha": 17.22156032,
+"R1_over_a": 0.49823518881757206,
+"hessian": 1.7249279184223358,
+"node_bound_over_true": 1.0280721181656567,
+"interval_bound_over_true": 1.0550532986898271
+},
+{
+"k": 173,
+"alpha": 17.98402048,
+"R1_over_a": 0.4975708743189888,
+"hessian": 1.7371287512554792,
+"node_bound_over_true": 1.0282245984667968,
+"interval_bound_over_true": 1.0543789026869275
+},
+{
+"k": 174,
+"alpha": 18.78024192,
+"R1_over_a": 0.496938788661545,
+"hessian": 1.7489854574505683,
+"node_bound_over_true": 1.0283749619754161,
+"interval_bound_over_true": 1.0537128571867163
+},
+{
+"k": 175,
+"alpha": 19.61171968,
+"R1_over_a": 0.49633722840898337,
+"hessian": 1.7605004822296824,
+"node_bound_over_true": 1.0285231869816196,
+"interval_bound_over_true": 1.0530556402910993
+},
+{
+"k": 176,
+"alpha": 20.48,
+"R1_over_a": 0.49576458998626244,
+"hessian": 1.7716766765308154,
+"node_bound_over_true": 1.0282290688915006,
+"interval_bound_over_true": 1.0519433182482427
+},
+{
+"k": 177,
+"alpha": 21.38673152,
+"R1_over_a": 0.49521933515136674,
+"hessian": 1.7825178731237463,
+"node_bound_over_true": 1.028361583005215,
+"interval_bound_over_true": 1.051297444450134
+},
+{
+"k": 178,
+"alpha": 22.33360384,
+"R1_over_a": 0.49470003077255337,
+"hessian": 1.7930280046144047,
+"node_bound_over_true": 1.0284918917124992,
+"interval_bound_over_true": 1.0506641957878335
+},
+{
+"k": 179,
+"alpha": 23.32239872,
+"R1_over_a": 0.49420531431209214,
+"hessian": 1.80321166572255,
+"node_bound_over_true": 1.0286199672063296,
+"interval_bound_over_true": 1.0500436213573023
+},
+{
+"k": 180,
+"alpha": 24.35495936,
+"R1_over_a": 0.4937339089986951,
+"hessian": 1.8130736885550647,
+"node_bound_over_true": 1.0283570497218733,
+"interval_bound_over_true": 1.0490287661061075
+},
+{
+"k": 181,
+"alpha": 25.43325184,
+"R1_over_a": 0.4932845934282275,
+"hessian": 1.8226196539140442,
+"node_bound_over_true": 1.0284719548256638,
+"interval_bound_over_true": 1.0484281103561905
+},
+{
+"k": 182,
+"alpha": 26.5592832,
+"R1_over_a": 0.49285623623812025,
+"hessian": 1.8318550404702891,
+"node_bound_over_true": 1.0285846189744419,
+"interval_bound_over_true": 1.047842046910121
+},
+{
+"k": 183,
+"alpha": 27.73516288,
+"R1_over_a": 0.49244776511439126,
+"hessian": 1.8407857495096553,
+"node_bound_over_true": 1.0286950232722838,
+"interval_bound_over_true": 1.0472711417299851
+},
+{
+"k": 184,
+"alpha": 28.96310272,
+"R1_over_a": 0.4920581665389454,
+"hessian": 1.8494179974925518,
+"node_bound_over_true": 1.0284629597756132,
+"interval_bound_over_true": 1.0463597539432152
+},
+{
+"k": 185,
+"alpha": 30.24539648,
+"R1_over_a": 0.4916864901660331,
+"hessian": 1.8577581014062186,
+"node_bound_over_true": 1.0285623246803135,
+"interval_bound_over_true": 1.0458137071103866
+},
+{
+"k": 186,
+"alpha": 31.58448128,
+"R1_over_a": 0.4913318287926359,
+"hessian": 1.865812813314977,
+"node_bound_over_true": 1.0286594755165681,
+"interval_bound_over_true": 1.0452824301360581
+},
+{
+"k": 187,
+"alpha": 32.9828352,
+"R1_over_a": 0.4909933444274701,
+"hessian": 1.8735886217114768,
+"node_bound_over_true": 1.0287544032870934,
+"interval_bound_over_true": 1.0447675109092283
+},
+{
+"k": 188,
+"alpha": 34.44312064,
+"R1_over_a": 0.49067022861510484,
+"hessian": 1.8810925485146128,
+"node_bound_over_true": 1.0285516262952772,
+"interval_bound_over_true": 1.043960580644549
+},
+{
+"k": 189,
+"alpha": 35.96804096,
+"R1_over_a": 0.49036173533320576,
+"hessian": 1.8883312951447178,
+"node_bound_over_true": 1.0286373060605818,
+"interval_bound_over_true": 1.0434718678887906
+},
+{
+"k": 190,
+"alpha": 37.56048384,
+"R1_over_a": 0.4900671468237146,
+"hessian": 1.8953119401312521,
+"node_bound_over_true": 1.028720848917044,
+"interval_bound_over_true": 1.0429985739997334
+},
+{
+"k": 191,
+"alpha": 39.22343936,
+"R1_over_a": 0.4897857903478365,
+"hessian": 1.902041462767366,
+"node_bound_over_true": 1.0288022605088634,
+"interval_bound_over_true": 1.0425401319872611
+},
+{
+"k": 192,
+"alpha": 40.96,
+"R1_over_a": 0.48951703446447625,
+"hessian": 1.9085267429971897,
+"node_bound_over_true": 1.0286264778177638,
+"interval_bound_over_true": 1.0418338291790108
+},
+{
+"k": 193,
+"alpha": 42.77346304,
+"R1_over_a": 0.4892602717166135,
+"hessian": 1.9147749016692017,
+"node_bound_over_true": 1.0287001383769105,
+"interval_bound_over_true": 1.0414021570236434
+},
+{
+"k": 194,
+"alpha": 44.66720768,
+"R1_over_a": 0.4890149365821797,
+"hessian": 1.9207927959300768,
+"node_bound_over_true": 1.028771782927006,
+"interval_bound_over_true": 1.040985246588144
+},
+{
+"k": 195,
+"alpha": 46.64479744,
+"R1_over_a": 0.48878048887365927,
+"hessian": 1.9265873539532246,
+"node_bound_over_true": 1.028841428682439,
+"interval_bound_over_true": 1.0405824562216253
+},
+{
+"k": 196,
+"alpha": 48.70991872,
+"R1_over_a": 0.4885564207681865,
+"hessian": 1.9321653410890633,
+"node_bound_over_true": 1.028689999633588,
+"interval_bound_over_true": 1.0399690602836698
+},
+{
+"k": 197,
+"alpha": 50.86650368,
+"R1_over_a": 0.48834224243936974,
+"hessian": 1.9375336596643955,
+"node_bound_over_true": 1.028753148479236,
+"interval_bound_over_true": 1.039591899402569
+},
+{
+"k": 198,
+"alpha": 53.1185664,
+"R1_over_a": 0.48813749877144186,
+"hessian": 1.9426988794158908,
+"node_bound_over_true": 1.0288144311998328,
+"interval_bound_over_true": 1.0392281739555704
+},
+{
+"k": 199,
+"alpha": 55.47032576,
+"R1_over_a": 0.4879417549674406,
+"hessian": 1.947667546633748,
+"node_bound_over_true": 1.0288738749025819,
+"interval_bound_over_true": 1.0388776865301033
+},
+{
+"k": 200,
+"alpha": 57.92620544,
+"R1_over_a": 0.48775459681038924,
+"hessian": 1.9524461345343298,
+"node_bound_over_true": 1.0287440691480085,
+"interval_bound_over_true": 1.038347983878168
+},
+{
+"k": 201,
+"alpha": 60.49079296,
+"R1_over_a": 0.4875756332317209,
+"hessian": 1.9570409363934882,
+"node_bound_over_true": 1.0287980622204291,
+"interval_bound_over_true": 1.0380212857139959
+},
+{
+"k": 202,
+"alpha": 63.16896256,
+"R1_over_a": 0.4874044871672819,
+"hessian": 1.9614582621314756,
+"node_bound_over_true": 1.0288503626448668,
+"interval_bound_over_true": 1.0377063203974715
+},
+{
+"k": 203,
+"alpha": 65.9656704,
+"R1_over_a": 0.4872408086351688,
+"hessian": 1.9657040666386263,
+"node_bound_over_true": 1.0289009949835628,
+"interval_bound_over_true": 1.0374035678935307
+},
+{
+"k": 204,
+"alpha": 68.88624128,
+"R1_over_a": 0.4870842560968901,
+"hessian": 1.9697843989667279,
+"node_bound_over_true": 1.0287901561133774,
+"interval_bound_over_true": 1.03694882527821
+},
+{
+"k": 205,
+"alpha": 71.93608192,
+"R1_over_a": 0.48693451285901307,
+"hessian": 1.9737049478340771,
+"node_bound_over_true": 1.0288362155166926,
+"interval_bound_over_true": 1.0366672388164122
+},
+{
+"k": 206,
+"alpha": 75.12096768,
+"R1_over_a": 0.4867912710065246,
+"hessian": 1.977471433069573,
+"node_bound_over_true": 1.0288807540898244,
+"interval_bound_over_true": 1.036396428268853
+},
+{
+"k": 207,
+"alpha": 78.44687872,
+"R1_over_a": 0.4866542399744982,
+"hessian": 1.9810893578833493,
+"node_bound_over_true": 1.028923802547179,
+"interval_bound_over_true": 1.036135836069127
+},
+{
+"k": 208,
+"alpha": 81.92,
+"R1_over_a": 0.48652314518980677,
+"hessian": 1.984564020868808,
+"node_bound_over_true": 1.02882944808784,
+"interval_bound_over_true": 1.0357473478955794
+},
+{
+"k": 209,
+"alpha": 85.54692608,
+"R1_over_a": 0.4863977200297964,
+"hessian": 1.9879007086720362,
+"node_bound_over_true": 1.0288686618972551,
+"interval_bound_over_true": 1.0355058171752762
+},
+{
+"k": 210,
+"alpha": 89.33441536,
+"R1_over_a": 0.4862777149505529,
+"hessian": 1.9911044355074041,
+"node_bound_over_true": 1.0289065211520516,
+"interval_bound_over_true": 1.0352737946894435
+},
+{
+"k": 211,
+"alpha": 93.28959488,
+"R1_over_a": 0.4861628897312691,
+"hessian": 1.9941801318963934,
+"node_bound_over_true": 1.0289430637454287,
+"interval_bound_over_true": 1.0350507671664293
+},
+{
+"k": 212,
+"alpha": 97.41983744,
+"R1_over_a": 0.4860530172278643,
+"hessian": 1.9971325290589421,
+"node_bound_over_true": 1.0288629349647467,
+"interval_bound_over_true": 1.0347197783164745
+},
+{
+"k": 213,
+"alpha": 101.73300736,
+"R1_over_a": 0.4859478766190623,
+"hessian": 1.9999663261267777,
+"node_bound_over_true": 1.0288962597526785,
+"interval_bound_over_true": 1.0345135195274455
+},
+{
+"k": 214,
+"alpha": 106.2371328,
+"R1_over_a": 0.48584726186785027,
+"hessian": 2.0026859497282685,
+"node_bound_over_true": 1.028928391557251,
+"interval_bound_over_true": 1.0343154397544878
+},
+{
+"k": 215,
+"alpha": 110.94065152,
+"R1_over_a": 0.4857509749048967,
+"hessian": 2.0052957252830206,
+"node_bound_over_true": 1.0289593714252594,
+"interval_bound_over_true": 1.0341253133977608
+},
+{
+"k": 216,
+"alpha": 115.85241088,
+"R1_over_a": 0.4856588259678241,
+"hessian": 2.007799857536006,
+"node_bound_over_true": 1.0288914539611294,
+"interval_bound_over_true": 1.033843775189516
+},
+{
+"k": 217,
+"alpha": 120.98158592,
+"R1_over_a": 0.4855706350615351,
+"hessian": 2.0102023811003993,
+"node_bound_over_true": 1.0289197288927725,
+"interval_bound_over_true": 1.0336682830099935
+},
+{
+"k": 218,
+"alpha": 126.33792512,
+"R1_over_a": 0.4854862276295617,
+"hessian": 2.0125072694110546,
+"node_bound_over_true": 1.028946966892981,
+"interval_bound_over_true": 1.033499653693097
+},
+{
+"k": 219,
+"alpha": 131.9313408,
+"R1_over_a": 0.48540544116090434,
+"hessian": 2.0147182463473228,
+"node_bound_over_true": 1.0289732024697558,
+"interval_bound_over_true": 1.0333380454758356
+},
+{
+"k": 220,
+"alpha": 137.77248256,
+"R1_over_a": 0.4853281161402496,
+"hessian": 2.016839025940125,
+"node_bound_over_true": 1.028915719408756,
+"interval_bound_over_true": 1.0330992115175586
+},
+{
+"k": 221,
+"alpha": 143.87216384,
+"R1_over_a": 0.4852541042710332,
+"hessian": 2.018873080607507,
+"node_bound_over_true": 1.0289396779460227,
+"interval_bound_over_true": 1.0329500737003074
+},
+{
+"k": 222,
+"alpha": 150.24193536,
+"R1_over_a": 0.4851832606562022,
+"hessian": 2.020823849313715,
+"node_bound_over_true": 1.028962740387034,
+"interval_bound_over_true": 1.0328070064316348
+},
+{
+"k": 223,
+"alpha": 156.89375744,
+"R1_over_a": 0.4851154481346355,
+"hessian": 2.0226946130469408,
+"node_bound_over_true": 1.0289849263655602,
+"interval_bound_over_true": 1.0326696657483025
+},
+{
+"k": 224,
+"alpha": 163.84,
+"R1_over_a": 0.48505053670531456,
+"hessian": 2.0244885052370623,
+"node_bound_over_true": 1.0289363403391272,
+"interval_bound_over_true": 1.0324675470983284
+},
+{
+"k": 225,
+"alpha": 171.09385216,
+"R1_over_a": 0.48498839962822554,
+"hessian": 2.0262086148383758,
+"node_bound_over_true": 1.0289566214326364,
+"interval_bound_over_true": 1.0323410423466717
+},
+{
+"k": 226,
+"alpha": 178.66883072,
+"R1_over_a": 0.48492891801772103,
+"hessian": 2.0278578551596373,
+"node_bound_over_true": 1.028976125848685,
+"interval_bound_over_true": 1.0322197603223078
+},
+{
+"k": 227,
+"alpha": 186.57918976,
+"R1_over_a": 0.4848719770677625,
+"hessian": 2.029439064349523,
+"node_bound_over_true": 1.0289948814384768,
+"interval_bound_over_true": 1.0321033963535096
+},
+{
+"k": 228,
+"alpha": 194.83967488,
+"R1_over_a": 0.48481746797106107,
+"hessian": 2.0309549486816634,
+"node_bound_over_true": 1.0289538500526851,
+"interval_bound_over_true": 1.0319324804784615
+},
+{
+"k": 229,
+"alpha": 203.46601472,
+"R1_over_a": 0.48476528462131496,
+"hessian": 2.0324081710188615,
+"node_bound_over_true": 1.0289710002390495,
+"interval_bound_over_true": 1.0318253989264514
+},
+{
+"k": 230,
+"alpha": 212.4742656,
+"R1_over_a": 0.48471532785853566,
+"hessian": 2.0338012297853414,
+"node_bound_over_true": 1.0289874820790073,
+"interval_bound_over_true": 1.0317227251922914
+},
+{
+"k": 231,
+"alpha": 221.88130304,
+"R1_over_a": 0.48466750212966114,
+"hessian": 2.035136549133171,
+"node_bound_over_true": 1.0290033201871682,
+"interval_bound_over_true": 1.0316243201089847
+},
+{
+"k": 232,
+"alpha": 231.70482176,
+"R1_over_a": 0.4846217156934737,
+"hessian": 2.0364164708891312,
+"node_bound_over_true": 1.0289687061930912,
+"interval_bound_over_true": 1.0314798139863253
+},
+{
+"k": 233,
+"alpha": 241.96317184,
+"R1_over_a": 0.4845778813798728,
+"hessian": 2.037643231108279,
+"node_bound_over_true": 1.0289831948753372,
+"interval_bound_over_true": 1.031389341563336
+},
+{
+"k": 234,
+"alpha": 252.67585024,
+"R1_over_a": 0.4845359144686322,
+"hessian": 2.038819017399244,
+"node_bound_over_true": 1.0289971136772513,
+"interval_bound_over_true": 1.031302515450755
+},
+{
+"k": 235,
+"alpha": 263.8626816,
+"R1_over_a": 0.48449573600083484,
+"hessian": 2.039945874335347,
+"node_bound_over_true": 1.0290104791403458,
+"interval_bound_over_true": 1.0312194026963086
+},
+{
+"k": 236,
+"alpha": 275.54496512,
+"R1_over_a": 0.484457268303455,
+"hessian": 2.0410258271503205,
+"node_bound_over_true": 1.0289812913703453,
+"interval_bound_over_true": 1.0310974049706203
+},
+{
+"k": 237,
+"alpha": 287.74432768,
+"R1_over_a": 0.48442043910060767,
+"hessian": 2.0420607649030997,
+"node_bound_over_true": 1.0289935240421149,
+"interval_bound_over_true": 1.0310209510424424
+},
+{
+"k": 238,
+"alpha": 300.48387072,
+"R1_over_a": 0.4843851776432395,
+"hessian": 2.0430525476909036,
+"node_bound_over_true": 1.0290052711063318,
+"interval_bound_over_true": 1.0309476835282065
+},
+{
+"k": 239,
+"alpha": 313.78751488,
+"R1_over_a": 0.4843514168837261,
+"hessian": 2.0440029443209715,
+"node_bound_over_true": 1.029016549192615,
+"interval_bound_over_true": 1.0308774175963922
+},
+{
+"k": 240,
+"alpha": 327.68,
+"R1_over_a": 0.48431909320553534,
+"hessian": 2.0449136386643736,
+"node_bound_over_true": 1.0289919501639218,
+"interval_bound_over_true": 1.0307745730716575
+},
+{
+"k": 241,
+"alpha": 342.18770432,
+"R1_over_a": 0.4842881444956112,
+"hessian": 2.0457862828939177,
+"node_bound_over_true": 1.0290022750612207,
+"interval_bound_over_true": 1.0307100153177384
+},
+{
+"k": 242,
+"alpha": 357.33766144,
+"R1_over_a": 0.48425851244407847,
+"hessian": 2.0466224317179114,
+"node_bound_over_true": 1.0290121819694265,
+"interval_bound_over_true": 1.0306481775909258
+},
+{
+"k": 243,
+"alpha": 373.15837952,
+"R1_over_a": 0.4842301406757298,
+"hessian": 2.047423594142859,
+"node_bound_over_true": 1.0290217046969081,
+"interval_bound_over_true": 1.0305888902958809
+},
+{
+"k": 244,
+"alpha": 389.67934976,
+"R1_over_a": 0.4842029757160626,
+"hessian": 2.0481912054056615,
+"node_bound_over_true": 1.0290009691696804,
+"interval_bound_over_true": 1.030502188190771
+},
+{
+"k": 245,
+"alpha": 406.93202944,
+"R1_over_a": 0.48417696535693117,
+"hessian": 2.048926672406029,
+"node_bound_over_true": 1.0290096751828097,
+"interval_bound_over_true": 1.0304477434175592
+},
+{
+"k": 246,
+"alpha": 424.9485312,
+"R1_over_a": 0.4841520607804722,
+"hessian": 2.049631313004256,
+"node_bound_over_true": 1.0290180331432888,
+"interval_bound_over_true": 1.0303955751836835
+},
+{
+"k": 247,
+"alpha": 443.76260608,
+"R1_over_a": 0.484128214902145,
+"hessian": 2.050306402213454,
+"node_bound_over_true": 1.0290260500853572,
+"interval_bound_over_true": 1.0303456029258036
+},
+{
+"k": 248,
+"alpha": 463.40964352,
+"R1_over_a": 0.4841053824793627,
+"hessian": 2.0509531685862172,
+"node_bound_over_true": 1.029008594311712,
+"interval_bound_over_true": 1.0302724874121454
+},
+{
+"k": 249,
+"alpha": 483.92634368,
+"R1_over_a": 0.484083520495964,
+"hessian": 2.0515727828055756,
+"node_bound_over_true": 1.0290159358599356,
+"interval_bound_over_true": 1.030226624381396
+},
+{
+"k": 250,
+"alpha": 505.35170048,
+"R1_over_a": 0.4840625871096162,
+"hessian": 2.052166387042596,
+"node_bound_over_true": 1.0290229792478967,
+"interval_bound_over_true": 1.0301826337305529
+},
+{
+"k": 251,
+"alpha": 527.7253632,
+"R1_over_a": 0.4840425433082459,
+"hessian": 2.0527350475613293,
+"node_bound_over_true": 1.0290297344132686,
+"interval_bound_over_true": 1.030140544339843
+},
+{
+"k": 252,
+"alpha": 551.08993024,
+"R1_over_a": 0.48402335068213415,
+"hessian": 2.0532798175022555,
+"node_bound_over_true": 1.0290150411206453,
+"interval_bound_over_true": 1.0300789472210863
+},
+{
+"k": 253,
+"alpha": 575.48865536,
+"R1_over_a": 0.48400497347857974,
+"hessian": 2.053801678227547,
+"node_bound_over_true": 1.0290212289196912,
+"interval_bound_over_true": 1.0300402841751344
+},
+{
+"k": 254,
+"alpha": 600.96774144,
+"R1_over_a": 0.4839873766746408,
+"hessian": 2.054301593689399,
+"node_bound_over_true": 1.0290271622645943,
+"interval_bound_over_true": 1.0300032498735718
+},
+{
+"k": 255,
+"alpha": 627.57502976,
+"R1_over_a": 0.4839705270651787,
+"hessian": 2.0547804792445383,
+"node_bound_over_true": 1.029032857670693,
+"interval_bound_over_true": 1.0299677472499484
+},
+{
+"k": 256,
+"alpha": 655.36,
+"R1_over_a": 0.4839543931309934,
+"hessian": 2.0552392051060986,
+"node_bound_over_true": 1.0290204894735133,
+"interval_bound_over_true": 1.029915909200954
+},
+{
+"k": 257,
+"alpha": 684.37540864,
+"R1_over_a": 0.4839389440792733,
+"hessian": 2.055678623373748,
+"node_bound_over_true": 1.0290257061157246,
+"interval_bound_over_true": 1.0298833283343478
+},
+{
+"k": 258,
+"alpha": 714.67532288,
+"R1_over_a": 0.4839241509937722,
+"hessian": 2.056099535100479,
+"node_bound_over_true": 1.0290307041707742,
+"interval_bound_over_true": 1.0298521257498188
+},
+{
+"k": 259,
+"alpha": 746.31675904,
+"R1_over_a": 0.4839099859043376,
+"hessian": 2.0565027165420195,
+"node_bound_over_true": 1.0290354958168921,
+"interval_bound_over_true": 1.0298222220640088
+},
+{
+"k": 260,
+"alpha": 779.35869952,
+"R1_over_a": 0.4838964222709836,
+"hessian": 2.0568889051894352,
+"node_bound_over_true": 1.0290250871877953,
+"interval_bound_over_true": 1.029778583931145
+},
+{
+"k": 261,
+"alpha": 813.86405888,
+"R1_over_a": 0.48388343416966156,
+"hessian": 2.0572588227758453,
+"node_bound_over_true": 1.0290294790257752,
+"interval_bound_over_true": 1.0297511516650617
+},
+{
+"k": 262,
+"alpha": 849.8970624,
+"R1_over_a": 0.48387099735428646,
+"hessian": 2.05761314487443,
+"node_bound_over_true": 1.0290336921937566,
+"interval_bound_over_true": 1.029724871629581
+},
+{
+"k": 263,
+"alpha": 887.52521216,
+"R1_over_a": 0.48385908843089465,
+"hessian": 2.0579525242632384,
+"node_bound_over_true": 1.0290377251902012,
+"interval_bound_over_true": 1.0296997047091323
+},
+{
+"k": 264,
+"alpha": 926.81928704,
+"R1_over_a": 0.48384768491311736,
+"hessian": 2.0582775892166807,
+"node_bound_over_true": 1.0290289683130565,
+"interval_bound_over_true": 1.0296629446552963
+},
+{
+"k": 265,
+"alpha": 967.85268736,
+"R1_over_a": 0.48383676541532883,
+"hessian": 2.0585889378748776,
+"node_bound_over_true": 1.0290326648907913,
+"interval_bound_over_true": 1.0296398650961651
+},
+{
+"k": 266,
+"alpha": 1010.70340096,
+"R1_over_a": 0.48382630912800956,
+"hessian": 2.0588871530905526,
+"node_bound_over_true": 1.0290362105175843,
+"interval_bound_over_true": 1.0296177352917348
+},
+{
+"k": 267,
+"alpha": 1055.4507264,
+"R1_over_a": 0.48381629664610065,
+"hessian": 2.059172778703218,
+"node_bound_over_true": 1.0290396117341876,
+"interval_bound_over_true": 1.0295965632557451
+},
+{
+"k": 268,
+"alpha": 1102.17986048,
+"R1_over_a": 0.48380670885698307,
+"hessian": 2.0594463511597394,
+"node_bound_over_true": 1.0290322370946945,
+"interval_bound_over_true": 1.0295656262646524
+},
+{
+"k": 269,
+"alpha": 1150.97731072,
+"R1_over_a": 0.4837975279676845,
+"hessian": 2.059708370125141,
+"node_bound_over_true": 1.0290353644727488,
+"interval_bound_over_true": 1.0295461945828033
+},
+{
+"k": 270,
+"alpha": 1201.93548288,
+"R1_over_a": 0.4837887365427999,
+"hessian": 2.059959325853289,
+"node_bound_over_true": 1.0290383398810137,
+"interval_bound_over_true": 1.0295275766097332
+},
+{
+"k": 271,
+"alpha": 1255.15005952,
+"R1_over_a": 0.48378031804875365,
+"hessian": 2.060199683586246,
+"node_bound_over_true": 1.0290411996620437,
+"interval_bound_over_true": 1.029509737257248
+},
+{
+"k": 272,
+"alpha": 1310.72,
+"R1_over_a": 0.4837722567884973,
+"hessian": 2.0604298853465077,
+"node_bound_over_true": 1.0290350036765632,
+"interval_bound_over_true": 1.0294837196985223
+},
+{
+"k": 273,
+"alpha": 1368.75081728,
+"R1_over_a": 0.4837645374226258,
+"hessian": 2.060650363552191,
+"node_bound_over_true": 1.0290376247762183,
+"interval_bound_over_true": 1.029467357950597
+},
+{
+"k": 274,
+"alpha": 1429.35064576,
+"R1_over_a": 0.48375714554458954,
+"hessian": 2.0608615245361124,
+"node_bound_over_true": 1.0290401394276205,
+"interval_bound_over_true": 1.0294516924546528
+},
+{
+"k": 275,
+"alpha": 1492.63351808,
+"R1_over_a": 0.48375006721620606,
+"hessian": 2.061063761760525,
+"node_bound_over_true": 1.0290425475835805,
+"interval_bound_over_true": 1.0294366801599484
+},
+{
+"k": 276,
+"alpha": 1558.71739904,
+"R1_over_a": 0.4837432892099633,
+"hessian": 2.061257448848395,
+"node_bound_over_true": 1.0290373338995245,
+"interval_bound_over_true": 1.029414792455762
+},
+{
+"k": 277,
+"alpha": 1627.72811776,
+"R1_over_a": 0.48373679860253344,
+"hessian": 2.0614429511576975,
+"node_bound_over_true": 1.02903954121769,
+"interval_bound_over_true": 1.0294010230419937
+},
+{
+"k": 278,
+"alpha": 1699.7941248,
+"R1_over_a": 0.483730583305774,
+"hessian": 2.061620610566799,
+"node_bound_over_true": 1.0290416499648558,
+"interval_bound_over_true": 1.0293878342383893
+},
+{
+"k": 279,
+"alpha": 1775.05042432,
+"R1_over_a": 0.4837246316544443,
+"hessian": 2.0617907572223504,
+"node_bound_over_true": 1.0290436770366105,
+"interval_bound_over_true": 1.029375210374647
+},
+{
+"k": 280,
+"alpha": 1853.63857408,
+"R1_over_a": 0.4837189324341147,
+"hessian": 2.061953708708881,
+"node_bound_over_true": 1.0290392943879536,
+"interval_bound_over_true": 1.0293567846205922
+},
+{
+"k": 281,
+"alpha": 1935.70537472,
+"R1_over_a": 0.4837134749780263,
+"hessian": 2.0621097672507074,
+"node_bound_over_true": 1.029041153545155,
+"interval_bound_over_true": 1.0293452098549503
+},
+{
+"k": 282,
+"alpha": 2021.40680192,
+"R1_over_a": 0.48370824890505926,
+"hessian": 2.0622592271767917,
+"node_bound_over_true": 1.0290429300723596,
+"interval_bound_over_true": 1.0293341132330767
+},
+{
+"k": 283,
+"alpha": 2110.9014528,
+"R1_over_a": 0.48370324453401586,
+"hessian": 2.0624023630498836,
+"node_bound_over_true": 1.029044641254242,
+"interval_bound_over_true": 1.0293234974373595
+},
+{
+"k": 284,
+"alpha": 2204.35972096,
+"R1_over_a": 0.4836984523279895,
+"hessian": 2.0625394455333477,
+"node_bound_over_true": 1.029040944979967,
+"interval_bound_over_true": 1.0293079961488052
+},
+{
+"k": 285,
+"alpha": 2301.95462144,
+"R1_over_a": 0.48369386340795656,
+"hessian": 2.0626707266806465,
+"node_bound_over_true": 1.0290425213890777,
+"interval_bound_over_true": 1.0292982561318194
+},
+{
+"k": 286,
+"alpha": 2403.87096576,
+"R1_over_a": 0.4836894690721222,
+"hessian": 2.062796453666484,
+"node_bound_over_true": 1.0290440074092453,
+"interval_bound_over_true": 1.029288922477765
+},
+{
+"k": 287,
+"alpha": 2510.30011904,
+"R1_over_a": 0.48368526106800636,
+"hessian": 2.062916860984536,
+"node_bound_over_true": 1.0290454444942252,
+"interval_bound_over_true": 1.0292799812747289
+},
+{
+"k": 288,
+"alpha": 2621.44,
+"R1_over_a": 0.48368123156005227,
+"hessian": 2.0630321713592514,
+"node_bound_over_true": 1.0290423393754873,
+"interval_bound_over_true": 1.0292669484386898
+},
+{
+"k": 289,
+"alpha": 2737.50163456,
+"R1_over_a": 0.4836773728903065,
+"hessian": 2.0631426025783814,
+"node_bound_over_true": 1.029043657787179,
+"interval_bound_over_true": 1.029258763027337
+},
+{
+"k": 290,
+"alpha": 2858.70129152,
+"R1_over_a": 0.48367367786607607,
+"hessian": 2.0632483592486,
+"node_bound_over_true": 1.0290449406525308,
+"interval_bound_over_true": 1.0292509141992843
+},
+{
+"k": 291,
+"alpha": 2985.26703616,
+"R1_over_a": 0.4836701395278578,
+"hessian": 2.0633496394250304,
+"node_bound_over_true": 1.0290461245821019,
+"interval_bound_over_true": 1.0292433838846498
+},
+{
+"k": 292,
+"alpha": 3117.43479808,
+"R1_over_a": 0.4836667512705382,
+"hessian": 2.063446631130457,
+"node_bound_over_true": 1.0290435206713555,
+"interval_bound_over_true": 1.0292324263235082
+},
+{
+"k": 293,
+"alpha": 3255.45623552,
+"R1_over_a": 0.483663506640286,
+"hessian": 2.0635395181599927,
+"node_bound_over_true": 1.0290446282127927,
+"interval_bound_over_true": 1.029225528273525
+},
+{
+"k": 294,
+"alpha": 3399.5882496,
+"R1_over_a": 0.4836603996000709,
+"hessian": 2.0636284724701186,
+"node_bound_over_true": 1.0290456816008613,
+"interval_bound_over_true": 1.0292189210790428
+},
+{
+"k": 295,
+"alpha": 3550.10084864,
+"R1_over_a": 0.4836574243236496,
+"hessian": 2.063713660068884,
+"node_bound_over_true": 1.0290466978012918,
+"interval_bound_over_true": 1.029212600912314
+},
+{
+"k": 296,
+"alpha": 3707.27714816,
+"R1_over_a": 0.48365457520956573,
+"hessian": 2.0637952406064914,
+"node_bound_over_true": 1.029044508928029,
+"interval_bound_over_true": 1.0292033776484488
+},
+{
+"k": 297,
+"alpha": 3871.41074944,
+"R1_over_a": 0.4836518469296309,
+"hessian": 2.0638733659804935,
+"node_bound_over_true": 1.0290454393906445,
+"interval_bound_over_true": 1.0291975792659358
+},
+{
+"k": 298,
+"alpha": 4042.81360384,
+"R1_over_a": 0.4836492342979738,
+"hessian": 2.0639481840784484,
+"node_bound_over_true": 1.0290463256480025,
+"interval_bound_over_true": 1.0291920206949845
+},
+{
+"k": 299,
+"alpha": 4221.8029056,
+"R1_over_a": 0.48364673247820783,
+"hessian": 2.0640198328404153,
+"node_bound_over_true": 1.0290471819694436,
+"interval_bound_over_true": 1.0291867058778608
+},
+{
+"k": 300,
+"alpha": 4408.71944192,
+"R1_over_a": 0.4836443367057062,
+"hessian": 2.064088448206379,
+"node_bound_over_true": 1.029045334489077,
+"interval_bound_over_true": 1.0291789493241859
+},
+{
+"k": 301,
+"alpha": 4603.90924288,
+"R1_over_a": 0.48364204254440246,
+"hessian": 2.0641541567569184,
+"node_bound_over_true": 1.0290461273415235,
+"interval_bound_over_true": 1.0291741208040304
+},
+{
+"k": 302,
+"alpha": 4807.74193152,
+"R1_over_a": 0.48363984564649815,
+"hessian": 2.064217082590367,
+"node_bound_over_true": 1.0290469654119736,
+"interval_bound_over_true": 1.0291694485844671
+},
+{
+"k": 303,
+"alpha": 5020.60023808,
+"R1_over_a": 0.4836377418885542,
+"hessian": 2.0642773434209003,
+"node_bound_over_true": 1.029047587506664,
+"interval_bound_over_true": 1.0291649272390182
+},
+{
+"k": 304,
+"alpha": 5242.88,
+"R1_over_a": 0.4836357273553186,
+"hessian": 2.064335051038448,
+"node_bound_over_true": 1.0290460429204646,
+"interval_bound_over_true": 1.0291584097158326
+},
+{
+"k": 305,
+"alpha": 5475.00326912,
+"R1_over_a": 0.4836337982200705,
+"hessian": 2.0643903147312392,
+"node_bound_over_true": 1.0290467038275193,
+"interval_bound_over_true": 1.0291543044383633
+},
+{
+"k": 306,
+"alpha": 5717.40258304,
+"R1_over_a": 0.4836319508885394,
+"hessian": 2.064443237162284,
+"node_bound_over_true": 1.0290473284533816,
+"interval_bound_over_true": 1.0291503758553444
+},
+{
+"k": 307,
+"alpha": 5970.53407232,
+"R1_over_a": 0.48363018188280077,
+"hessian": 2.0644939176900676,
+"node_bound_over_true": 1.029047939213258,
+"interval_bound_over_true": 1.0291466320035874
+},
+{
+"k": 308,
+"alpha": 6234.86959616,
+"R1_over_a": 0.4836284879019929,
+"hessian": 2.064542450628604,
+"node_bound_over_true": 1.0290466689431892,
+"interval_bound_over_true": 1.029141146420796
+},
+{
+"k": 309,
+"alpha": 6510.91247104,
+"R1_over_a": 0.4836268657206772,
+"hessian": 2.0645889281545813,
+"node_bound_over_true": 1.0290471843966638,
+"interval_bound_over_true": 1.0291376862763895
+},
+{
+"k": 310,
+"alpha": 6799.1764992,
+"R1_over_a": 0.48362531232173506,
+"hessian": 2.0646334365004226,
+"node_bound_over_true": 1.029047735903881,
+"interval_bound_over_true": 1.0291343851019006
+},
+{
+"k": 311,
+"alpha": 7100.20169728,
+"R1_over_a": 0.4836238247932393,
+"hessian": 2.064676058904026,
+"node_bound_over_true": 1.0290482299455435,
+"interval_bound_over_true": 1.029131213166816
+},
+{
+"k": 312,
+"alpha": 7414.55429632,
+"R1_over_a": 0.48362240033555837,
+"hessian": 2.0647168754051117,
+"node_bound_over_true": 1.0290471314400864,
+"interval_bound_over_true": 1.0291266181939822
+},
+{
+"k": 313,
+"alpha": 7742.82149888,
+"R1_over_a": 0.48362103628561276,
+"hessian": 2.064755962148851,
+"node_bound_over_true": 1.0290476411018832,
+"interval_bound_over_true": 1.0291237202722632
+},
+{
+"k": 314,
+"alpha": 8085.62720768,
+"R1_over_a": 0.48361973005136916,
+"hessian": 2.064793393259914,
+"node_bound_over_true": 1.0290480457486555,
+"interval_bound_over_true": 1.0291209189683395
+},
+{
+"k": 315,
+"alpha": 8443.6058112,
+"R1_over_a": 0.483618479215428,
+"hessian": 2.0648292378732007,
+"node_bound_over_true": 1.0290484739567087,
+"interval_bound_over_true": 1.0291182582085863
+},
+{
+"k": 316,
+"alpha": 8817.43888384,
+"R1_over_a": 0.48361728139622095,
+"hessian": 2.0648635641108846,
+"node_bound_over_true": 1.0290475471842304,
+"interval_bound_over_true": 1.0291143810547667
+},
+{
+"k": 317,
+"alpha": 9207.81848576,
+"R1_over_a": 0.4836161343763687,
+"hessian": 2.0648964354019004,
+"node_bound_over_true": 1.0290479534011447,
+"interval_bound_over_true": 1.0291120492611987
+},
+{
+"k": 318,
+"alpha": 9615.48386304,
+"R1_over_a": 0.48361503598256156,
+"hessian": 2.064927913923329,
+"node_bound_over_true": 1.0290485345492522,
+"interval_bound_over_true": 1.0291097125408566
+},
+{
+"k": 319,
+"alpha": 10041.20047616,
+"R1_over_a": 0.483613984153623,
+"hessian": 2.06495805864922,
+"node_bound_over_true": 1.0290486785053812,
+"interval_bound_over_true": 1.0291073626633742
+},
+{
+"k": 320,
+"alpha": 10485.76,
+"R1_over_a": 0.4836129769324088,
+"hessian": 2.0649869255816244,
+"node_bound_over_true": 1.029047901075661,
+"interval_bound_over_true": 1.02910414154843
+},
+{
+"k": 321,
+"alpha": 10950.00653824,
+"R1_over_a": 0.4836120124060002,
+"hessian": 2.0650145694633473,
+"node_bound_over_true": 1.0290483169067879,
+"interval_bound_over_true": 1.0291020971682583
+},
+{
+"k": 322,
+"alpha": 11434.80516608,
+"R1_over_a": 0.48361108877765996,
+"hessian": 2.0650410417159537,
+"node_bound_over_true": 1.0290485596029817,
+"interval_bound_over_true": 1.029100103173965
+},
+{
+"k": 323,
+"alpha": 11941.06814464,
+"R1_over_a": 0.48361020430877566,
+"hessian": 2.0650663921015484,
+"node_bound_over_true": 1.0290488793924213,
+"interval_bound_over_true": 1.0290982206979975
+},
+{
+"k": 324,
+"alpha": 12469.73919232,
+"R1_over_a": 0.4836093573492474,
+"hessian": 2.065090667852901,
+"node_bound_over_true": 1.0290482095759297,
+"interval_bound_over_true": 1.0290954605557046
+},
+{
+"k": 325,
+"alpha": 13021.82494208,
+"R1_over_a": 0.4836085462866573,
+"hessian": 2.06511391512818,
+"node_bound_over_true": 1.0290484702079516,
+"interval_bound_over_true": 1.0290937616016302
+},
+{
+"k": 326,
+"alpha": 13598.3529984,
+"R1_over_a": 0.4836077696126781,
+"hessian": 2.065136177107407,
+"node_bound_over_true": 1.0290488084163683,
+"interval_bound_over_true": 1.029092115628394
+},
+{
+"k": 327,
+"alpha": 14200.40339456,
+"R1_over_a": 0.4836070258716157,
+"hessian": 2.0651574954679384,
+"node_bound_over_true": 1.0290490013696783,
+"interval_bound_over_true": 1.029090507188546
+},
+{
+"k": 328,
+"alpha": 14829.10859264,
+"R1_over_a": 0.48360631366385703,
+"hessian": 2.0651779102834187,
+"node_bound_over_true": 1.029048464002512,
+"interval_bound_over_true": 1.029088216839838
+},
+{
+"k": 329,
+"alpha": 15485.64299776,
+"R1_over_a": 0.4836056316580521,
+"hessian": 2.06519745967565,
+"node_bound_over_true": 1.029048722540174,
+"interval_bound_over_true": 1.0290867858562214
+},
+{
+"k": 330,
+"alpha": 16171.25441536,
+"R1_over_a": 0.4836049785583754,
+"hessian": 2.0652161807522065,
+"node_bound_over_true": 1.0290489590670064,
+"interval_bound_over_true": 1.029085382178054
+},
+{
+"k": 331,
+"alpha": 16887.2116224,
+"R1_over_a": 0.48360435315628075,
+"hessian": 2.06523410812183,
+"node_bound_over_true": 1.0290491324827777,
+"interval_bound_over_true": 1.0290840632774167
+},
+{
+"k": 332,
+"alpha": 17634.87776768,
+"R1_over_a": 0.4836037542611268,
+"hessian": 2.0652512758837323,
+"node_bound_over_true": 1.0290487360150375,
+"interval_bound_over_true": 1.0290821267027022
+},
+{
+"k": 333,
+"alpha": 18415.63697152,
+"R1_over_a": 0.4836031807643483,
+"hessian": 2.0652677157871167,
+"node_bound_over_true": 1.0290488744161477,
+"interval_bound_over_true": 1.0290808913621963
+},
+{
+"k": 334,
+"alpha": 19230.96772608,
+"R1_over_a": 0.4836026315794184,
+"hessian": 2.065283458952508,
+"node_bound_over_true": 1.0290490915403379,
+"interval_bound_over_true": 1.029079744006594
+},
+{
+"k": 335,
+"alpha": 20082.40095232,
+"R1_over_a": 0.4836021056758559,
+"hessian": 2.0652985348962227,
+"node_bound_over_true": 1.029049284012378,
+"interval_bound_over_true": 1.0290786478707312
+},
+{
+"k": 336,
+"alpha": 20971.52,
+"R1_over_a": 0.48360160207518693,
+"hessian": 2.0653129716460916,
+"node_bound_over_true": 1.0290489312451387
+}
+]
+}

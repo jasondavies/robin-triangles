@@ -1,0 +1,33 @@
+$ python scripts/cells.py replay ./cells
+{'tag': 'L1', 'local_intervals': 132, 'near_intervals': 1320, 'near_cells': 81426, 'bad': [], 'ok': True, 'seconds': 213}
+{'tag': 'L2', 'local_intervals': 140, 'near_intervals': 1400, 'near_cells': 87060, 'bad': [], 'ok': True, 'seconds': 225}
+{'tag': 'L3', 'local_intervals': 142, 'near_intervals': 1420, 'near_cells': 86724, 'bad': [], 'ok': True, 'seconds': 230}
+{'file': 'far_F1.json', 'verified_cells': 3797, 'stored_cells': 3797, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 22}
+{'file': 'far_F2.json', 'verified_cells': 2562, 'stored_cells': 2562, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 13}
+{'file': 'far_F3.json', 'verified_cells': 2181, 'stored_cells': 2181, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 11}
+{'file': 'far_F4.json', 'verified_cells': 2118, 'stored_cells': 2118, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 10}
+{'file': 'far_F5.json', 'verified_cells': 2875, 'stored_cells': 2875, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 14}
+{'file': 'far_F6.json', 'verified_cells': 3141, 'stored_cells': 3141, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 14}
+{'file': 'far_F7.json', 'verified_cells': 2865, 'stored_cells': 2865, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 11}
+{'file': 'far_F8.json', 'verified_cells': 4508, 'stored_cells': 4508, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 18}
+{'file': 'far_F9.json', 'verified_cells': 7130, 'stored_cells': 7130, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 31}
+{'file': 'far_G1.json', 'verified_cells': 2087, 'stored_cells': 2087, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 8}
+{'file': 'far_G2.json', 'verified_cells': 2303, 'stored_cells': 2303, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 9}
+{'file': 'far_G3.json', 'verified_cells': 3042, 'stored_cells': 3042, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 16}
+{'file': 'far_G4.json', 'verified_cells': 4631, 'stored_cells': 4631, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 25}
+{'file': 'far_G5.json', 'verified_cells': 6097, 'stored_cells': 6097, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 38}
+{'file': 'far_G6.json', 'verified_cells': 7527, 'stored_cells': 7527, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 49}
+{'file': 'far_G7.json', 'verified_cells': 9011, 'stored_cells': 9011, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 55}
+{'file': 'far_G8.json', 'verified_cells': 10299, 'stored_cells': 10299, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 65}
+{'file': 'far_G9.json', 'verified_cells': 11592, 'stored_cells': 11592, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 78}
+{'file': 'far_G10.json', 'verified_cells': 13003, 'stored_cells': 13003, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 79}
+{'file': 'far_G11.json', 'verified_cells': 1175, 'stored_cells': 1175, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 4}
+{'file': 'far_G12.json', 'verified_cells': 1434, 'stored_cells': 1434, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 6}
+{'file': 'far_G13.json', 'verified_cells': 1702, 'stored_cells': 1702, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 5}
+{'file': 'far_G14.json', 'verified_cells': 2019, 'stored_cells': 2019, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 8}
+{'file': 'far_G15.json', 'verified_cells': 2618, 'stored_cells': 2618, 'unused': 0, 'bad': [], 'nbad': 0, 'ok': True, 'seconds': 9}
+cells replay ok: True ; content hashes match the recorded run: True
+
+[gate] ok   every stored cell re-verified; coverage and counts as recorded
+[gate] ok   counts 414 / 4140 / 109717
+[gate] ok   M- and beta-intervals cover 6/5 <= beta <= 3

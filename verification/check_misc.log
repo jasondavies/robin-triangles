@@ -1,0 +1,13 @@
+$ python check_misc.py
+beta=0.3: g closed forms 0.033787929770 formula 0.033787929770;  B/N 5.2388860852 formula 5.2388860852;  (D-beta B)/N -1.4654591565 lam0 -1.4654591565
+beta=0.8: g closed forms 0.093627353428 formula 0.093627353428;  B/N 6.8579117084 formula 6.8579117084;  (D-beta B)/N -4.4589883694 lam0 -4.4589883694
+beta=1.2: g closed forms 0.141952935488 formula 0.141952935488;  B/N 8.8080779901 formula 8.8080779901;  (D-beta B)/N -7.5688955240 lam0 -7.5688955240
+beta=2.0: g closed forms 0.215873805564 formula 0.215873805564;  B/N 14.8327026873 formula 14.8327026873;  (D-beta B)/N -16.8574374710 lam0 -16.8574374710
+beta=4.0: g closed forms 0.249578203157 formula 0.249578203157;  B/N 31.9563417360 formula 31.9563417360;  (D-beta B)/N -64.0205161445 lam0 -64.0205161445
+geomA sampling: 205912 triangles with p<=1.384; min (p-1)/(tau-2) = 0.14454088174206017 (needs > 0.1425)
+M=4.0: gamma/G0/(1-t)=2.9998 (3), (mu_hi-1)/(1-t)=2.6676 (8/3), (1-rho_lo)/(1-t)=0.6666 (2/3), Lam/G0/(1-t)=7.0088 (7), rhs=2.24980 (9/4), (1-t)/(6 e^(-2 H beta))=0.99270
+M=6.0: gamma/G0/(1-t)=3.0000 (3), (mu_hi-1)/(1-t)=2.6667 (8/3), (1-rho_lo)/(1-t)=0.6667 (2/3), Lam/G0/(1-t)=7.0004 (7), rhs=2.25007 (9/4), (1-t)/(6 e^(-2 H beta))=0.99982
+M=8.0: gamma/G0/(1-t)=3.0000 (3), (mu_hi-1)/(1-t)=2.6681 (8/3), (1-rho_lo)/(1-t)=0.6667 (2/3), Lam/G0/(1-t)=7.0014 (7), rhs=2.25000 (9/4), (1-t)/(6 e^(-2 H beta))=1.00000
+
+[gate] ok   check_misc.json reports ok
+[gate] ok   sampled min (p-1)/(tau-2) = 0.1445... on 205912 triangles

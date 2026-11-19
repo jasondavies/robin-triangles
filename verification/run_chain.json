@@ -1,0 +1,8 @@
+{
+ "tested": 3000,
+ "failures": 120,
+ "max_W_among_failures": 2.060396513851727e-16,
+ "q_err": 2.884727833088952e-14,
+ "LamT_ratio": 0.7143824419177401,
+ "ok": true
+}

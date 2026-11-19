@@ -1,0 +1,9 @@
+$ python validate_chain.py
+corner lemma on 573 (triangle, vertex, beta) samples: max (R[u] + beta^2/sin^2(theta/2))/beta^2 = -1.465e-04 (must be < 0); divergence identity rel. error 2.9e-14
+worst slacks (must be >= 0 up to rounding):  {'rho': -4.441e-16, 'mu': -4.283e-13, 'Lam': 3.31e-08, 'p': 0.0003632, 'q': 0.0005946, 'crit': 0.6066}
+worst Q(c)/(D3 W) (must be < 0) and Q - (p' - |Pq|^2/Lam) (must be <= 0): -0.8060885655542697
+
+[gate] ok   validate_chain.json reports ok
+[gate] ok   400 near-region samples
+[gate] ok   corner bound on 573 samples
+[gate] ok   divergence identity <= 1e-13

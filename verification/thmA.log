@@ -1,0 +1,16 @@
+$ python thmA.py
+step1 True g(beta_A) encl [0.1419529354876010981969483507685508927 +/- 6.78e-38] max cell bound [0.14201399812893996583977812164889828555 +/- 3.36e-39]
+step2 True [1.3835037091565293185090237238083299368 +/- 8.39e-38]
+local box Hessian PD on 16 x 16 sub-boxes: True
+strip True
+cells 344 fails 0 maxdepth 15
+THEOREM A certified: True
+
+[gate] ok   Theorem A certificate complete
+[gate] ok   beta_A = 6/5, G_A = 0.1425, q_A = 1.384
+[gate] ok   2000 intervals, every bound on g below G_A
+[gate] ok   g(beta_A) = 0.14195...
+[gate] ok   1.3835037091 <= q(beta_A) <= 1.3835037092 < q_A
+[gate] ok   256 Hessian sub-boxes of the box of half-width 1/40
+[gate] ok   strip y < 19/100 and region up to y = 87/100
+[gate] ok   344 boxes

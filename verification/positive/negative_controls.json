@@ -1,0 +1,10 @@
+{
+"N1 CW rejects sigma above lambda_h": true,
+"N2 mesh U refused for obtuse triangle": true,
+"N3 cell certifier: passes for lambda_0, fails for 1.01*lambda_0 and for lambda_0(1+0.6 t^2)": true,
+"N4 local check: fails for t_loc=3/25 and for ring/lambda_2 bounds lowered by 1%; passes unchanged": true,
+"N5 coverage check fails with one root triangle removed": true,
+"S1 sandwich lb < P2-FEM value, relative gap < 1.5e-2": true,
+"S1_gap_min": 0.00011522792000990146,
+"S1_gap_max": 0.013028815198444408
+}

@@ -1,0 +1,10 @@
+$ python negative_controls.py
+PASS N1 CW rejects sigma above lambda_h : lam_h=8.554369533 certified sigma=8.554369532
+PASS N2 mesh U refused for obtuse triangle
+PASS N3 cell certifier: passes for lambda_0, fails for 1.01*lambda_0 and for lambda_0(1+0.6 t^2) : plain=True fail(1.01)=True fail(false quadratic bound)=True
+PASS N4 local check: fails for t_loc=3/25 and for ring/lambda_2 bounds lowered by 1%; passes unchanged : worst quotient: t_loc=3/25 -> 0.821, unchanged -> 1.1758
+PASS N5 coverage check fails with one root triangle removed
+PASS S1 sandwich lb < P2-FEM value, relative gap < 1.5e-2 : gap in [1.15e-04, 1.30e-02]
+
+[gate] ok   negative controls N1-N5 rejected, sandwich S1 holds
+[gate] ok   sandwich (float): largest relative gap 1.3e-2

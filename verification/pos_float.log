@@ -1,0 +1,30 @@
+$ python float_local.py
+{
+ "note": "floating point, not a proof step",
+ "fem": "conforming P2, n=28",
+ "R1_over_a_at_0_1": 0.1281213452501369,
+ "R1_over_a_max": 0.5809660881712153,
+ "R1_over_a_max_alpha": 1.89033728,
+ "R1_over_a_last": 0.48360160207518693,
+ "alpha_last": 20971.52,
+ "spare_factor": 1.7212708630685034,
+ "node_bound_over_true_min": 1.0216202343675818,
+ "node_bound_over_true_max": 1.0418483703030328,
+ "interval_bound_over_true_near_2": 1.073048963952991,
+ "interval_bound_over_true_max": 1.135495955909198,
+ "interval_bound_over_true_max_alpha": 0.01,
+ "hessian_min": 0.8734907708176955,
+ "hessian_min_alpha": 1.28,
+ "hessian_max": 2.0653129716460916,
+ "gap_inner_min": 0.0013992037436367788,
+ "gap_inner_max": 0.003391394108013257,
+ "gap_samples": 255,
+ "small_threshold_tall_isosceles_t_1_24": 0.011630789316294798,
+ "seconds": 4.9
+}
+
+[gate] ok   R_1/a: 0.13, max 0.581 near 1.9, 0.484; factor 1.72
+[gate] ok   Hessian between 0.87 and 2.07
+[gate] ok   ring bound exceeds R_1 by 2-4 % (nodes), 7 % near 2, <= 14 %
+[gate] ok   true gap at t = 0.057: 0.14-0.34 %
+[gate] ok   weak-coupling threshold 0.0116

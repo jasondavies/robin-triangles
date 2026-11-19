@@ -1,0 +1,10 @@
+$ python direct_check.py
+M=0.5: closed-vs-quad rel err {'G0': '6.7e-16', 'G1': '4.4e-16', 'lN1': '-8.5e-14', 'bB1': '8.9e-16', 'bk': '-7.8e-16'} |P_E 1|/G0=1.7e-14
+M=1.3: closed-vs-quad rel err {'G0': '2.7e-15', 'G1': '2.4e-15', 'lN1': '-9.3e-15', 'bB1': '6.7e-16', 'bk': '4.4e-16'} |P_E 1|/G0=8.1e-15
+M=2.0: closed-vs-quad rel err {'G0': '5.3e-15', 'G1': '5.3e-15', 'lN1': '6.4e-15', 'bB1': '2.2e-16', 'bk': '0.0e+00'} |P_E 1|/G0=1.1e-14
+M=3.0: closed-vs-quad rel err {'G0': '3.1e-15', 'G1': '2.9e-15', 'lN1': '4.0e-15', 'bB1': '6.7e-16', 'bk': '4.4e-16'} |P_E 1|/G0=1.1e-14
+M=5.0: closed-vs-quad rel err {'G0': '6.2e-15', 'G1': '6.4e-15', 'lN1': '5.6e-15', 'bB1': '-2.7e-15', 'bk': '-2.6e-15'} |P_E 1|/G0=1.7e-14
+M=7.0: closed-vs-quad rel err {'G0': '8.2e-15', 'G1': '8.2e-15', 'lN1': '1.0e-14', 'bB1': '-5.9e-15', 'bk': '-5.9e-15'} |P_E 1|/G0=3.1e-14
+
+[gate] ok   direct_check.json reports ok
+[gate] ok   referee quadrature vs closed forms <= 1e-13

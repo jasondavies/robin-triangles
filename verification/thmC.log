@@ -1,0 +1,9 @@
+$ python large_beta.py
+OK {'M_C': '13/10', 'beta_C_lower': '98087792826838810241200969075987127103*2^-126', 'beta_C_upper': '98087792826838810241200969075987127109*2^-126', 'cells': 6700, 'worst_ratio_upper': '102305868612029996929889691961697380537*2^-127', 'tail_ratio_upper': '93986315508708971925507549031720696459*2^-145', 'M_tail': '8', 'dM': '1/1000', 'THEOREM_C_CERTIFIED': True, 'python_flint': '0.9.0', 'prec_bits': 128}
+
+[gate] ok   Lemma certC certificate complete
+[gate] ok   intervals of width 1/1000 tile [13/10, 8], tail M >= 8
+[gate] ok   6700 intervals
+[gate] ok   1.1530164635 <= beta(13/10) <= 1.1530164636 < 1.1531 < 6/5
+[gate] ok   worst ratio <= 0.6013
+[gate] ok   tail ratio <= 2.11e-6

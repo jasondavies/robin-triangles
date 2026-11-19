@@ -1,0 +1,25 @@
+$ python test_independent.py
+1. lambda0 vs FEM
+   beta 0.5 formula -2.567665225539847 FEM-Richardson -2.567665214580908
+   beta 2.0 formula -16.857437471019832 FEM-Richardson -16.85741648944774
+   beta 4.0 formula -64.02051614448378 FEM-Richardson -64.01935513112403
+2. PDE and boundary condition of psi0
+   beta 0.7 interior residual (-lap - lam psi)/psi -2.2464057897770628e-08
+   side 0 BC residual (last) 1.7423481940295565e-09
+   side 1 BC residual (last) 1.739968255992976e-09
+   side 2 BC residual (last) 1.7415548813506965e-09
+   beta 3.0 interior residual (-lap - lam psi)/psi -9.645240902147698e-07
+   side 0 BC residual (last) 4.5632232941653683e-08
+   side 1 BC residual (last) 4.5623560167562676e-08
+   side 2 BC residual (last) 4.5632232941653683e-08
+3. Hellmann-Feynman check by quadrature
+   beta 0.7 B/N quad 6.472076461611768 dlam/dalpha 6.472076461611778 | E/N quad 0.7376654171450643 lam0+beta B/N 0.7376654170774124 | Rayleigh -3.792788105983173 -3.792788106050832
+   beta 3.0 B/N quad 23.696174687288433 dlam/dalpha 23.696174687288156 | E/N quad 34.93066231332472 lam0+beta B/N 34.93066228202669 | Rayleigh -36.15786174854059 -36.15786177983777
+4. six-wave transplant Rayleigh quotient: tensor formula vs direct quadrature on T
+   (a,b) (1.1, -0.2) formula -20.545111510651733 quadrature -20.54511151065237
+   (a,b) (1.7, -0.5) formula 12.537613032018541 quadrature 12.537613032018564
+   (a,b) (1.02, -0.01) formula -15.806215242671165 quadrature -15.806215242671039
+ALL CHECKS OK
+
+[gate] ok   test_independent.json reports ok
+[gate] ok   beta = 2: FEM -16.857416, lambda_0 -16.857437

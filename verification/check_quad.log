@@ -1,0 +1,7 @@
+$ python check_quad.py
+2.0 area 1.0000000000000002 relerr A 5.831800986993799e-14 relerr N 5.085454333094661e-14
+3.0 area 1.0 relerr A 8.706360283431525e-14 relerr N 6.178370895980793e-14
+1.3 area 1.0 relerr A 2.2350653894958292e-14 relerr N 2.6069634546132074e-14
+
+[gate] ok   check_quad.json reports ok
+[gate] ok   closed forms vs quadrature on T <= 1e-13

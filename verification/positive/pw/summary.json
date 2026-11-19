@@ -1,0 +1,42 @@
+{
+ "profile": "pw",
+ "kappa0": 0.3496,
+ "ring_records": 674,
+ "ring_n": [
+  295
+ ],
+ "ring_N": 130980,
+ "ring_sec": 1015,
+ "lam2_records": 85,
+ "lam2_n": [
+  30
+ ],
+ "lam2_N": 1395,
+ "lam2_sec": 1435,
+ "local_ok": true,
+ "local_min_quotient": 1.175883723458295,
+ "local_worst_k": 123,
+ "c_l": 0.7361,
+ "rho": 0.2938,
+ "quotient_min_alpha_le_0.6": 1.5040212379066458,
+ "quotient_min_alpha_ge_30": 1.4844897953913214,
+ "R1bound_over_lam0_max": 1.0167559146209255,
+ "cells": {
+  "B": 99,
+  "W": 1
+ },
+ "prisms": 1730,
+ "vertex_bounds_used": 1779,
+ "vertex_bounds_computed": 1901,
+ "cover_n_max": 216,
+ "cover_N_max": 70308,
+ "ktop_max": 286,
+ "ktop_min": 156,
+ "alpha_top_max": 2403.87096576,
+ "cover_sec": 293,
+ "kinds": {
+  "A": 339,
+  "U": 1440
+ },
+ "shape_vertices": 68
+}

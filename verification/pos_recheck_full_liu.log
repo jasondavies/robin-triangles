@@ -1,0 +1,4 @@
+$ python recheck.py full
+{'ok': True, 'mode': 'full', 'vertex_records': 1741, 'vertex_records_used_by_cells': 1741, 'ring_records': 674, 'lam2_records': 85, 'seconds': 208}
+
+[gate] ok   original code: all used vertex bounds, ring and lambda_2 bounds re-certified

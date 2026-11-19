@@ -1,0 +1,5 @@
+$ python negative_c.py
+FAIL on 21/20 1051/1000  [1.1780086971071310376587558718334758991 +/- 2.22e-38]
+FAIL on 1 1001/1000 c None
+
+[gate] ok   certificate fails when started at M = 21/20 or M = 1

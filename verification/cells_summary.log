@@ -1,0 +1,8 @@
+$ python -c pass
+
+[gate] ok   414 local and 4140 near M-intervals
+[gate] ok   109717 far cells in 24 beta-ranges
+[gate] ok   far cell counts add up
+[gate] ok   radii r and R as printed
+[gate] ok   beta-ranges tile [6/5, 3]
+[gate] ok   a SHA-256 is recorded for every certificate file

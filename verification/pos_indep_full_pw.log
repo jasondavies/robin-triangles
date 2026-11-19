@@ -1,0 +1,30 @@
+$ python ./code/verify_positive/verify_indep.py ./data/positive/certs_pw 0.3496 --v1 full --all-nodes --fresh --no-controls --no-sanity --out ./verification/positive --name full_certs_pw
+====================================================================================================
+verify_indep  certdir=certs_pw  kappa0=437/1250  v1=full  2026-11-19 22:25:57
+selftests: {"interval_arithmetic_selftest": true, "assembly_cross_check_max_abs_diff": 3.469446951953614e-18, "explicit_coordinates_cross_check_max_abs_diff": 3.552713678800501e-15, "CR_E_n40_vs_closed_formula": [5.209232748834683, 5.209083011797626], "CR_E_n40_corrected_kappa0_0.1893": 5.207829576106899, "ok": true}
+V4: cover ...
+V4a coverage: {"ok": true, "roots": 100, "in_unit_disc": true, "side_matching": true, "boundary_sides": 36, "boundary_kinds": {"bottom": 12, "disc": 4, "top": 12, "thin": 8}, "bad_boundary_sides": 0, "point_in_omega_B": true, "interior_point_root": [43]}
+V4b/c cells: {"ok": true, "leaves": {"B": 99, "W": 1, "L": 0}, "fails": [], "n_fails": 0, "n_prisms": 1730, "n_points_checked": 284316, "ktop_max": 286, "alpha_ktop_max": 2403.87096576, "min_prism_quotient": 1.0000143989597365, "min_prism_quotient_cell": "r7", "min_closing_quotient": 1.0010282012290332, "used_nodes": 1779, "node_records": 1901}  [7.7 s]
+V2: second eigenvalue records ...
+V2: {"records_in_file": 85, "checked": 85, "passed": 85, "fails": [], "keys_complete_0_4_336": true, "n_values": [30], "N_values": [1395], "negative_pivot_histogram": {"1": 85}, "min_abs_pivot": 1.2929343042108261e-06, "min_lb_rel_slack": 8.673617379923937e-19, "max_lb_rel_slack": 8.673617379990337e-19, "arb_prec_bits": 320, "ok": true, "seconds": 16.0}
+V3: local lemma ...
+V3: {"shape_constants_own": {"c_l_lower": 0.7404121563864912, "rho_upper": 0.2893048105795111, "grid": "20 x 420 boxes on (0,3/50] x [0,pi/3]"}, "paper_constants": {"c_l": 0.7361, "rho": 0.2938}, "lemma_shapeconst_verified": true, "rstar_lt_tanh_2tstar": true, "tanh_2tstar": 0.11942729853438588, "missing_ring_bounds": 0, "missing_lam2_bounds": 0, "constants": {"eta": 0.11307956328284248, "eps": 0.007208644148266593, "s_star": 1.0024017285925755}, "inequalities": 337, "passed": 337, "min_quotient": 1.175883723458295, "min_quotient_k": 123, "min_quotient_alpha": 2.0614272, "tail_quotient": 1.5363887089490385, "min_quotient_alpha_ge_30": 1.4844897953913214, "min_quotient_alpha_le_0.6": 1.5040212379066458, "with_own_constants": {"c_l": 0.740412, "rho": 0.289305, "passed": 337, "min_quotient": 1.1802699323073882, "min_quotient_k": 123}, "local_cert_json": {"present": true, "ok_flag": true, "c_l": 0.7361, "rho": 0.2938, "worst_ratio": 1.175883723458295, "worst_k": 123, "n_intervals": 337, "max_rel_diff_ratio": 2.220446049250313e-16, "max_rel_diff_dplus": 2.220446049250313e-16, "max_rel_diff_dminus": 2.220446049250313e-16, "max_rel_diff_gamma": 2.220446049250313e-16, "stored_constants_not_sharper_than_own": true}, "ok": true, "seconds": 3.4}
+V1: Crouzeix-Raviart records (full) ...
+  V1 progress 200/2575  (197 s)
+  V1 progress 400/2575  (393 s)
+  V1 progress 600/2575  (600 s)
+  V1 progress 800/2575  (688 s)
+  V1 progress 1000/2575  (733 s)
+  V1 progress 1200/2575  (772 s)
+  V1 progress 1400/2575  (813 s)
+  V1 progress 1600/2575  (835 s)
+  V1 progress 1800/2575  (851 s)
+  V1 progress 2000/2575  (859 s)
+  V1 progress 2200/2575  (863 s)
+  V1 progress 2400/2575  (866 s)
+V1: {"mode": "full", "ring": {"checked": 674, "passed": 674, "failed": 0, "min_cw_rel_margin": 9.274965849411794e-08, "max_cw_rel_margin": 1.0099507276745343e-07, "min_lb_rel_slack": 8.673617379907717e-19, "max_lb_rel_slack": 8.673617379972181e-19, "max_N": 130980, "sum_N": 88280520, "retried": 0, "kinds": {"U": 674, "A": 0}, "min_2cot_U": 0.7071067811865446, "solve_seconds": 676.9, "records_in_file": 674, "unparsable_lines": 0, "complete_k0_336_both_signs": true, "duplicate_keys": 0, "n_values": [295], "all_ring_verified": true}, "cover_nodes": {"checked": 1901, "passed": 1901, "failed": 0, "min_cw_rel_margin": 9.963747450738199e-08, "max_cw_rel_margin": 0.010769566572133321, "min_lb_rel_slack": 8.673617379904188e-19, "max_lb_rel_slack": 8.673617379971436e-19, "max_N": 70308, "sum_N": 29088180, "retried": 0, "kinds": {"U": 1545, "A": 356}, "min_2cot_U": 0.07539695323831994, "solve_seconds": 189.9, "records_in_files": 1901, "referenced_by_B_cells": 1779, "referenced_and_verified": 1779, "all_referenced_verified": true}, "fails": [], "n_fails": 0, "ok": true, "records_taken_from_cache_of_earlier_run_of_this_verifier": 0, "records_computed_in_this_run": 2575, "seconds": 870.2}
+SUMMARY: {"selftests": true, "V1": true, "V2": true, "V3": true, "V4": true, "V5": null, "sanity": null}  total 899 s;  report -> ./verification/positive/report_full_certs_pw.json
+
+[gate] ok   independent verifier, V1 full
+[gate] ok   all 674 ring bounds re-certified
+[gate] ok   all 1901 stored vertex bounds re-certified

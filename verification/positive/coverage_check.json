@@ -1,0 +1,1 @@
+{"ok": true, "roots": 100, "leaves": {"B": 99, "L": 0, "W": 1}, "boundary_sides": 36, "boundary_kinds": {"disc": 4, "bottom": 12, "top": 12, "thin": 8}, "interior_point_root": [43]}

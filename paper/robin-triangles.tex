@@ -1,0 +1,2404 @@
+\pdfoutput=1
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\input{claims}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\emergencystretch=3em
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{E}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\Gp}{G_{\perp}}
+\newcommand{\Bp}{B_{\perp}}
+\newcommand{\Np}{N_{\perp}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cP}{\mathcal{P}}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\diam}{diam}
+
+\title{The equilateral triangle is the extremal triangle for the lowest Robin eigenvalue, for every
+boundary parameter}
+\author{Jason Davies\thanks{\href{mailto:jason@jasondavies.com}{\nolinkurl{jason@jasondavies.com}}}}
+\date{November 19, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Let $\lambda_1(T,\alpha)$ be the lowest eigenvalue of the Laplacian on a triangle $T$ with the Robin
+condition $\partial_\nu u+\alpha u=0$. Lotoreichik and Lu conjectured that, among triangles of given
+area, the equilateral triangle minimises $\lambda_1(T,\alpha)$ when $\alpha>0$ and maximises it when
+$\alpha<0$. We prove both halves, with the equilateral triangle as the unique extremiser; the same holds
+at fixed perimeter. The proof is computer-assisted.
+
+For $\alpha>0$ the result is new; previously the inequality was known for all triangles only when
+$\alpha\sqrt{|T|}$ is smaller than an absolute but non-explicit constant (Ferudun). Thin triangles are
+handled by slicing, and $\alpha\sqrt{|T|}\le1/100$ by an explicit vector field and a Schur-complement
+criterion. Near the equilateral triangle $E$, the second-order perturbation constant of $E$ is bounded
+from above through certified \emph{lower} bounds for two perturbed eigenvalue problems, uniformly in
+$\alpha$. The remaining compact set of shapes is covered by $\clpRoots$ cells; an exact identity in the
+Klein model of the hyperbolic plane of shapes, together with concavity, reduces each cell to certified
+Crouzeix--Raviart lower bounds at its vertices, which are checked in exact integer and ball arithmetic.
+
+For $\alpha<0$ the first proof is due to Ma (computer-assisted, 2026); ours was found independently.
+Write $\beta=-\alpha\sqrt{|T|}$. For $\beta\le6/5$ two trial functions suffice. For
+$\beta\ge\clbetaCbound$ an exact corner bound disposes of all triangles with a small angle, and on the
+remaining near-equilateral triangles three transplanted corner waves, with a one-step perturbation
+estimate, reduce the problem to a one-variable inequality, which is verified in ball arithmetic.
+\end{abstract}
+
+\noindent\textbf{AI transparency statement.} The results, their proofs, the code for the certified
+computations and this manuscript were produced by artificial intelligence. The human author initiated
+the broader research and directed the AI systems, but did not write the text and has not checked the
+arguments. Details are given at the end of the paper.
+
+\section{Introduction}\label{sec:intro}
+
+For a bounded Lipschitz domain $\Omega\subset\R^2$ and $\alpha\in\R$ let
+\begin{equation}\label{eq:var}
+  \lambda_1(\Omega,\alpha)=\inf_{0\neq u\in H^1(\Omega)}
+  \frac{\int_\Omega|\nabla u|^2+\alpha\int_{\partial\Omega}u^2}{\int_\Omega u^2}
+\end{equation}
+be the lowest eigenvalue of $-\Delta$ with the Robin condition $\partial_\nu u+\alpha u=0$, where $\nu$
+is the outer normal. For $\alpha>0$ the Bossel--Daners inequality~\cite{Bossel,Daners} states that the
+disc minimises $\lambda_1(\cdot,\alpha)$ among domains of given area. For $\alpha<0$ we have
+$\lambda_1<0$, and Bareket's conjecture~\cite{Bareket} that the disc maximises $\lambda_1(\cdot,\alpha)$
+among simply connected planar domains of given area is open (see~\cite{AFK,KLV} for its history). The
+polygonal analogue for triangles is the following.
+
+\begin{quote}
+\textbf{Conjecture} (Lotoreichik--Lu; AIM problem list~\cite{AimPL}, Conjecture~1.3; see
+also~\cite{LaSi,KLV}). Among all triangles of a given area, $\lambda_1(T,\alpha)$ is minimised by the
+equilateral triangle when $\alpha>0$ and maximised by it when $\alpha<0$.
+\end{quote}
+
+We prove the conjecture. By scaling, $\lambda_1(sT,\alpha)=s^{-2}\lambda_1(T,s\alpha)$ for $s>0$, so
+only the dimensionless coupling $\alpha\sqrt{|T|}$ matters.
+
+\begin{theorem}\label{thm:main}
+Let $T$ be a triangle and let $\E_T$ be the equilateral triangle with $|\E_T|=|T|$.
+\begin{enumerate}
+\item[\textup{(1)}] If $\alpha>0$, then $\lambda_1(T,\alpha)\ge\lambda_1(\E_T,\alpha)$.
+\item[\textup{(2)}] If $\alpha<0$, then $\lambda_1(T,\alpha)\le\lambda_1(\E_T,\alpha)$.
+\end{enumerate}
+In both cases equality holds only if $T$ is equilateral.
+\end{theorem}
+
+\begin{corollary}[fixed perimeter]\label{cor:perimeter}
+Let $T$ be a triangle and let $\E^T$ be the equilateral triangle with the same perimeter as $T$. Then
+$\lambda_1(T,\alpha)\ge\lambda_1(\E^T,\alpha)$ if $\alpha>0$ and $\lambda_1(T,\alpha)\le\lambda_1(\E^T,\alpha)$ if
+$\alpha<0$. In both cases equality holds only if $T$ is equilateral.
+\end{corollary}
+
+As $\alpha\to+\infty$, Theorem~\ref{thm:main}(1) becomes the P\'olya--Szeg\H{o}
+theorem for the Dirichlet eigenvalue~\cite{PS}, which is proved by Steiner symmetrisation; as
+$\alpha\to0^\pm$ both parts reduce to the isoperimetric inequality for triangles, because
+$\lambda_1(T,\alpha)=\alpha P/|T|+O(\alpha^2)$, with $P$ the perimeter. Steiner symmetrisation does not
+control the boundary term in~\eqref{eq:var}.
+
+\paragraph{Priority and related work.} The case $\alpha<0$ was first proved by Yicen Ma~\cite{Ma}, in a
+computer-assisted preprint deposited on Zenodo on 6 October 2026, which has not been refereed. The code
+and certificate files that the preprint describes are not part of the deposit; an AI referee working
+for us re-implemented its middle-range criterion in Arb ball arithmetic and confirmed it on
+$1\le\beta\le10$ ($\clmaBoxes$ boxes; the script is in our repository, labelled as a check of prior
+work). We found the proof in Part~I independently and learned of~\cite{Ma} only after it was complete;
+Part~I is therefore an independent second proof of Theorem~\ref{thm:main}(2). The two proofs share
+several ingredients: the trial functions for small coupling and the identity of
+Lemma~\ref{lem:transplant} (which is (5) of~\cite{Ma}), the exact corner bound of
+Lemma~\ref{lem:corner} (which is (7)--(8) of~\cite{Ma}), the same threshold angle separating
+near-equilateral from far triangles, and the convexity bound for the strain
+(Lemma~\ref{lem:geomC}). They differ in the treatment of near-equilateral triangles. Ma uses the span of
+$u$, $xu$, $yu$ ($u$ the equilateral ground state), the trial function $(1-\tau\,v\cdot x)u$ and Taylor
+bounds in the strain, certifies $1\le\beta\le10$ by interval arithmetic and treats $\beta\le1$ and
+$\beta\ge10$ analytically. We use the three transplanted corner waves, exact side-ratio identities and an
+estimate of the tunnelling gap, certify a single one-variable inequality for all
+$\beta\ge\clbetaCbound$, and use the two-function argument of Theorem~\ref{thm:A} for $\beta\le6/5$.
+The perimeter version of the case $\alpha<0$ (Corollary~\ref{cor:perimeter}), a second,
+independently written certificate and public code are specific to Part~I. Ma does not treat $\alpha>0$.
+
+For $\alpha>0$, Ferudun~\cite{Ferudun} proved, in an unrefereed AI-assisted preprint, the comparison of
+Theorem~\ref{thm:main} for $0<|\alpha|\sqrt{|T|}<\varepsilon$, with an absolute but non-explicit
+$\varepsilon$; for $\alpha>0$ this is the only earlier result covering all triangles that we know of.
+Krej\v{c}i\v{r}\'{i}k, Lotoreichik and Vu~\cite{KLV} proved, for $\alpha<0$, that the equilateral
+triangle is a strict local maximiser for $\beta\le0.92$ (numerically up to about $1.63$), and that the
+comparison holds for each fixed triangle when $\beta$ is sufficiently small or sufficiently large, with
+thresholds depending on the triangle, and uniformly for small $\beta$ on compact sets of shapes.
+Carbotti, Cito and Pallara~\cite{CCP} prove the existence of optimal generalised polygons without
+identifying them. For the Robin \emph{torsional rigidity}, Gui, Hu, Li and Yang~\cite{GHLY} proved that
+the equilateral triangle is the maximiser among triangles of given area for every positive boundary
+parameter, by cutting the polygon from its incentre into cells with Neumann conditions on the cuts;
+torsional rigidity is additive over the cells, whereas for the eigenvalue this relaxation gives only the
+smallest cell eigenvalue, which is not enough. For the Dirichlet problem, Endo, Liu and
+Mariano~\cite{ELM} proved sharp inequalities on triangles with certified finite elements; part of our
+strategy for $\alpha>0$ (Crouzeix--Raviart lower bounds~\cite{CR,Liu,CG}) is of the same type.
+
+\paragraph{The case $\alpha<0$ (Part~I).} Write $\beta=-\alpha\sqrt{|T|}>0$, let $\E$ be the equilateral
+triangle of area~$1$ and let $\beta(M)$ be the increasing parametrisation of the coupling introduced in
+\S\ref{sec:prelim}; put $\beta_C=\beta(13/10)$, so that $\clbetaClo\le\beta_C\le\clbetaChi$
+(Lemma~\ref{lem:certC}). Theorem~\ref{thm:main}(2) follows from two overlapping results.
+
+\begin{theorem}\label{thm:A}
+If $0<\beta\le6/5$, then $\lambda_1(T,-\beta)<\lambda_1(\E,-\beta)$ for every non-equilateral triangle $T$
+of area~$1$.
+\end{theorem}
+
+\begin{theorem}\label{thm:C}
+If $\beta\ge\beta_C$, then $\lambda_1(T,-\beta)<\lambda_1(\E,-\beta)$ for every non-equilateral triangle
+$T$ of area~$1$.
+\end{theorem}
+
+The proof of Theorem~\ref{thm:A} (Section~\ref{sec:A}) uses only the constant function and the affinely
+transplanted ground state of $\E$, together with a two-variable inequality checked in interval
+arithmetic. The transplanted ground state alone cannot work for large $\beta$: its second variation at
+$\E$ changes sign at $\beta\approx\clgLocalBeta$ (Remark~\ref{rem:A}). The proof of
+Theorem~\ref{thm:C} (Section~\ref{sec:C}) has two parts.
+\begin{itemize}
+\item \emph{A corner bound.} For every triangle, every angle $\theta$ and every $\beta>0$,
+$\lambda_1(T,-\beta)<-\beta^2/\sin^2(\theta/2)$ (Lemma~\ref{lem:corner}). Since
+$\lambda_1(\E,-\beta)=-4\beta^2/\tanh^2M$, this settles every triangle whose smallest angle $\theta$
+satisfies $\sin(\theta/2)\le\frac12\tanh M$. What remains is a neighbourhood of $\E$ of size about
+$1-\tanh M\approx6e^{-2\cdot3^{1/4}\beta}$.
+\item \emph{Three corner waves.} The ground state of $\E$ is a sum of three functions $\varphi_i$, each a
+plane wave concentrated at one corner plus its reflection in the opposite side. On a near-equilateral
+triangle we use the span of their affine transplants. A deformation couples the transplanted ground
+state to the two-dimensional complement, which lies only a tunnelling splitting of order $1-\tanh M$
+above the ground state. A single step of second-order perturbation theory then gains more than the
+deformation costs, by a factor of order $(1-\tanh M)^{-1}$. The resulting criterion reduces to a
+one-variable inequality in $M$, which we verify in ball arithmetic for all $M\ge13/10$
+(Lemma~\ref{lem:certC}).
+\end{itemize}
+
+\paragraph{The case $\alpha>0$ (Part~II).} Here we need \emph{lower} bounds for $\lambda_1(T,\alpha)$,
+which no trial function provides. With $|T|=1$, the shapes of triangles form the hyperbolic plane, and we
+use its Klein model: a point $w$ of the unit disc, with $w=0$ for $\E$. The parameter set
+$\{(w,\alpha)\}$ is covered by four regions (Section~\ref{p-sec:overview}): thin triangles, for all
+$\alpha$ (Theorem~\ref{p-thm:thin}, by slicing); weak coupling $\alpha\le1/100$, for all shapes
+(Theorem~\ref{p-thm:uniform}); a neighbourhood $|w|\le0.1194$ of $\E$, for all $\alpha\ge1/100$
+(Proposition~\ref{p-prop:local}); and the remaining compact middle region, for all $\alpha\ge1/100$
+(Proposition~\ref{p-prop:middle}). Near $\E$ a Schur-complement criterion needs an \emph{upper} bound
+for a second-order perturbation constant $R_1(\alpha)$ of $\E$, accurate to a few per cent and uniform
+in $\alpha$; we obtain it from certified lower bounds for the eigenvalues of two perturbed problems at
+distance $1/10$ from $\E$ in opposite directions, for which the first-order errors cancel
+(Lemma~\ref{p-lem:ring}). In the middle region, the lowest eigenvalue is a concave function of the
+coefficients of the quadratic form pulled back to $\E$; convex combinations of these coefficients are
+exactly the Euclidean triangles of the Klein model, up to an explicit factor
+(Lemma~\ref{p-lem:cell}). Certified Crouzeix--Raviart lower bounds at the vertices of $\clpRoots$ cells
+and at grid points in $\alpha$ then cover the whole region.
+
+\paragraph{Organisation.} Part~I (Sections~\ref{sec:prelim}--\ref{sec:cross}) proves
+Theorem~\ref{thm:main}(2) and Corollary~\ref{cor:perimeter} for $\alpha<0$, and Part~II
+(Sections~\ref{p-sec:overview}--\ref{p-sec:proof}) proves Theorem~\ref{thm:main}(1) and
+Corollary~\ref{cor:perimeter} for $\alpha>0$. The two parts are
+independent of each other, and each has its own notation. Section~\ref{sec:verif} describes the
+implementation, the verification and the remaining caveats. Appendix~\ref{p-sec:large} contains a
+strong-coupling bound for individual triangles that is not used in the proof.
+
+\part{The case \texorpdfstring{$\alpha<0$}{alpha < 0}}
+\section{Preliminaries}\label{sec:prelim}
+
+In this part $\alpha<0$, and the notation is independent of Part~II. Throughout, $|T|=1$ by scaling,
+and $\alpha=-\beta<0$. Each map
+$\alpha\mapsto\int|\nabla u|^2+\alpha\int_{\partial T}u^2$ is affine. By~\eqref{eq:var} we therefore have
+the following.
+
+\begin{lemma}\label{lem:concave}
+For fixed $T$, the function $\alpha\mapsto\lambda_1(T,\alpha)$ is concave and nondecreasing on $\R$, and
+$\lambda_1(T,0)=0$. Consequently $\beta\mapsto|\lambda_1(T,-\beta)|/\beta$ is nondecreasing on
+$(0,\infty)$. For each fixed $u\in H^1(T)\setminus\{0\}$, the Rayleigh quotient $R_\alpha[u]$ is affine
+in $\alpha$, and $R_\alpha[u]\ge\lambda_1(T,\alpha)$, with equality only if $u$ is a ground state.
+\end{lemma}
+
+\begin{proof}
+An infimum of nondecreasing affine functions is concave and nondecreasing. If $f$ is concave with
+$f(0)=0$ and $\alpha<\alpha'<0$, then $f(\alpha')\ge(\alpha'/\alpha)f(\alpha)$, so
+$f(\alpha')/\alpha'\le f(\alpha)/\alpha$. The last statement is the variational principle.
+\end{proof}
+
+\subsection{The equilateral triangle}
+
+Let $\E$ be the equilateral triangle of area $1$. Its height is $H=3^{1/4}$, its side length
+$\ell=2/H$, its inradius $r=H/3$ and its perimeter $P_*=6/H=\sqrt{12\sqrt3}$. Let $d_i(x)$ be the
+distance from $x$ to the $i$th side. For $M>0$ put
+\begin{equation}\label{eq:param}
+  t=\tanh M,\quad L=-\artanh(t/2),\quad K=M-L,\quad k=\frac{2K}{H},\quad
+  \beta(M)=\frac{tK}{H},\quad \lambda_0(M)=-\frac{4K^2}{H^2}.
+\end{equation}
+
+\begin{proposition}[{cf.~\cite{McCartin,KLV}}]\label{prop:equi}
+The map $M\mapsto\beta(M)$ is a smooth increasing bijection $(0,\infty)\to(0,\infty)$. For
+$\beta=\beta(M)$, the function
+\[
+  \psi_0=\sum_{i=0}^2\varphi_i,\qquad \varphi_i=\cosh(L+k\,d_i),
+\]
+is a positive ground state of the Robin Laplacian on $\E$ with $\alpha=-\beta$, and
+$\lambda_1(\E,-\beta)=\lambda_0(M)=-4\beta^2/\tanh^2M$. If $n_i$ is the inward unit normal of side~$i$,
+then $\psi_0$ is a combination of the six plane waves $e^{\pm k n_i\cdot x}$.
+\end{proposition}
+
+\begin{proof}
+The functions $t$, $K$, and hence $\beta=tK/H$, are increasing in $M$, with limits $0$ and $\infty$. Since
+$|\nabla d_i|=1$, each $\varphi_i$ satisfies $\Delta\varphi_i=k^2\varphi_i$, so $-\Delta\psi_0=\lambda_0\psi_0$.
+On side~$0$ we have $d_0=0$, $\partial_\nu d_0=-1$, $\partial_\nu d_1=\partial_\nu d_2=\frac12$ (the
+normals meet at $120^\circ$) and $d_1+d_2=H$. Write $y=kd_1-K$, so that $L+kd_1=M+y$ and $L+kd_2=M-y$.
+On side~$0$,
+\[
+  \psi_0=\cosh L+2\cosh M\cosh y,\qquad
+  \partial_\nu\psi_0=k\bigl(-\sinh L+\sinh M\cosh y\bigr).
+\]
+Hence $\partial_\nu\psi_0-\beta\psi_0=0$ there, for all $y$, if and only if $k\sinh L=-\beta\cosh L$ and
+$k\sinh M=2\beta\cosh M$, that is, $\tanh L=-\beta/k$ and $\tanh M=2\beta/k$. Both hold
+by~\eqref{eq:param}. By symmetry the same holds on the other sides. A positive eigenfunction is a ground
+state, because eigenfunctions with different eigenvalues are $L^2$-orthogonal and the ground state does
+not change sign. Finally $\lambda_0=-k^2=-4\beta^2/t^2$. With the centroid at the origin we have
+$d_i=n_i\cdot x+r$, so $\varphi_i$ is a combination of $e^{\pm kn_i\cdot x}$.
+\end{proof}
+
+Let $N=\int_\E\psi_0^2$, $\mathcal G=\int_\E|\nabla\psi_0|^2$ and $B=\int_{\partial\E}\psi_0^2$, so that
+$\lambda_0=(\mathcal G-\beta B)/N$.
+
+\begin{lemma}\label{lem:HF}
+Let $K_M=dK/dM=1+\frac{2(1-t^2)}{4-t^2}$. Then
+\[
+  \frac BN=\frac{d\lambda_1(\E,\alpha)}{d\alpha}=\frac{8KK_M}{H\,[(1-t^2)K+tK_M]},\qquad
+  \frac{\mathcal G}N=\lambda_0+\beta\frac BN,
+\]
+\[
+  g:=\frac{\mathcal G/N}{2\beta B/N}=\frac14-\frac{K}{2\sinh(2M)K_M}\le\frac{\tanh^2M}{4}.
+\]
+Moreover $K$ is increasing in $M$ and $K_M$ is decreasing.
+\end{lemma}
+
+\begin{proof}
+For every $\alpha'$ we have $\lambda_1(\E,\alpha')\le R_{\alpha'}[\psi_0]=\lambda_0+(\alpha'-\alpha)B/N$.
+So $B/N$ is a supergradient at $\alpha$ of the concave function $\lambda_1(\E,\cdot)$. By
+Proposition~\ref{prop:equi} that function is a smooth function of $M$, and $d\beta/dM>0$, so it is
+differentiable. Hence $B/N$ equals the derivative $(d\lambda_0/dM)/(d\alpha/dM)$, which gives the stated
+formula. The identity for $\mathcal G/N$ is $\lambda_0=(\mathcal G-\beta B)/N$.
+
+Substituting gives $g=\frac14-\frac{(1-t^2)K}{4tK_M}$, and $(1-t^2)/t=2/\sinh 2M$. For the bound we use
+$K\ge M+\frac12\tanh M\ge\frac32\tanh M$ and $K_M\le\frac32$. These give
+$K/(\sinh 2M\,K_M)\ge1/(2\cosh^2M)$, hence $g\le\frac14-\frac1{4\cosh^2M}=\frac14\tanh^2M$. Finally $K_M$
+decreases because $s\mapsto(1-s)/(4-s)$ decreases on $[0,1]$.
+\end{proof}
+
+\subsection{Affine transplantation}
+
+Let $\E$ have its centroid at the origin and vertices $V_0=(-\ell/2,-r)$, $V_1=(\ell/2,-r)$, $V_2=(0,2r)$.
+Side~$s$ joins $V_s$ to $V_{s+1}$ and has unit direction $e_s$. For $a>0$ and $b\in\R$ let
+\[
+  D_{a,b}=\begin{pmatrix}a&b\\0&1/a\end{pmatrix},\qquad T_{a,b}=D_{a,b}\E .
+\]
+
+\begin{lemma}\label{lem:shape}
+Every triangle is similar to exactly one $T_{a,b}$ with $(a,b)$ in
+\[
+  \mathcal D=\Bigl\{a\ge1,\ -\tfrac{a}{\sqrt3}\Bigl(\sqrt{4-3a^{-4}}-1\Bigr)\le b\le0\Bigr\}.
+\]
+The equilateral triangle corresponds to $(1,0)$. If $T_{a,b}$ has perimeter $P$, then $P/P_*\ge 2a/3$.
+\end{lemma}
+
+\begin{proof}
+Normalise a longest side to $[0,1]$ and the apex to $(x,y)$ with $0\le x\le\frac12$ and
+$(1-x)^2+y^2\le1$, then scale by $\sigma=\sqrt{2/y}$ to area $1$. The linear map that takes the edge
+vectors $V_1-V_0$, $V_2-V_0$ of $\E$ to $(\sigma,0)$ and $(\sigma x,\sigma y)$ is $D_{a,b}$ with
+$a=\sigma/\ell$ and $b=\sigma(x-\frac12)/H$. A direct computation turns the constraints on $(x,y)$ into
+$(a,b)\in\mathcal D$. Finally $P=\sigma(1+|(x,y)|+|(1-x,y)|)\ge2\sigma=2a\ell$ and $P_*=3\ell$.
+\end{proof}
+
+Let $D$ be a real $2\times2$ matrix with $\det D=1$, and let $T=D\E+x_0$. For $u\in H^1(\E)$ let
+$\tilde u(x)=u(D^{-1}(x-x_0))$. Then
+\begin{equation}\label{eq:transplant}
+  \int_{T}|\nabla\tilde u|^2=\int_\E\nabla u^{\top}\mathcal A\,\nabla u,\qquad
+  \int_T\tilde u^2=\int_\E u^2,\qquad
+  \int_{\partial T}\tilde u^2=\sum_{s=0}^2\rho_s\int_{\text{side }s}u^2,
+\end{equation}
+where $\mathcal A=D^{-1}D^{-\top}$ and $\rho_s=|De_s|$ is the ratio of the length of side~$s$ of $T$ to
+$\ell$. For $D=D_{a,b}$ we have
+$\mathcal A=\left(\begin{smallmatrix}a^{-2}+b^2&-ab\\-ab&a^2\end{smallmatrix}\right)$.
+
+\begin{lemma}[transplanted ground state]\label{lem:transplant}
+Let $T$ be a triangle of area $1$ with sides $a_0,a_1,a_2$. Let $p=(a_0+a_1+a_2)/P_*\ge1$ and
+$\tau=(a_0^2+a_1^2+a_2^2)/(2\sqrt3)\ge2$. Then
+\[
+  \lambda_1(T,-\beta)\le\frac{\mathcal G}N\cdot\frac\tau2-\beta\frac BN\,p
+  =\lambda_0+\frac{\mathcal G}N\Bigl(\frac\tau2-1\Bigr)-\beta\frac BN(p-1).
+\]
+\end{lemma}
+
+\begin{proof}
+Take $u=\psi_0$ in~\eqref{eq:transplant}. The matrix $\int_\E\nabla\psi_0\nabla\psi_0^{\top}$ commutes with the
+rotation by $120^\circ$, so it equals $\frac{\mathcal G}2I$. Hence the gradient term is
+$\frac{\mathcal G}2\tr\mathcal A$. For a $2\times2$ matrix of determinant one,
+$\tr(D^{-1}D^{-\top})=\tr(D^\top D)$. Since $\sum_se_se_s^\top=\frac32I$, we get
+$\sum_s a_s^2=\ell^2\sum_s|De_s|^2=\frac32\ell^2\tr(D^\top D)$. As $\frac32\ell^2=2\sqrt3$, this gives
+$\tr\mathcal A=\tau$. By symmetry each side of $\E$ carries $B/3$, so the boundary term is
+$\frac B3\sum_s a_s/\ell=Bp$. Finally, $\tau\ge2$ because $\tr(D^\top D)\ge2\det D$, and $p\ge1$ is the
+isoperimetric inequality for triangles.
+\end{proof}
+
+\section{Small coupling: proof of Theorem~\ref{thm:A}}\label{sec:A}
+
+Set $\beta_A=6/5$, $G_A=\clGA$ and $q_A=\clqA$.
+
+\begin{lemma}\label{lem:gq}
+For $0<\beta\le\beta_A$: (i) $g(\beta)<G_A$; (ii)
+$q(\beta):=|\lambda_0(\beta)|/(\beta P_*)\le q(\beta_A)<q_A$.
+\end{lemma}
+
+\begin{proof}
+(ii) The first inequality is Lemma~\ref{lem:concave}. For the second we enclose $M(\beta_A)$ by
+bisection in ball arithmetic. This gives $\clqBetaALo\le q(\beta_A)\le\clqBetaAHi$.
+
+(i) We cover $[0,M(\beta_A)]$ by $\clthmAstepOne$ intervals $[m_1,m_2]$. On the first interval we use
+$g\le\tanh^2(m_2)/4$. On the others we use $g\le\frac14-K(m_1)/(2\sinh(2m_2)K_M(m_1))$, which is valid by
+the monotonicity in Lemma~\ref{lem:HF}. Every bound is below $G_A$. The largest value of $g$ on this
+range is $g(\beta_A)=\clgBetaA\ldots$.
+\end{proof}
+
+\begin{lemma}\label{lem:geomA}
+Let $T$ be a non-equilateral triangle of area $1$ with $p(T)\le q_A$. Then
+$\Phi(T):=(p-1)-G_A(\tau-2)>0$.
+\end{lemma}
+
+\begin{proof}
+We use the apex coordinates $(x,y)$ of the proof of Lemma~\ref{lem:shape}; in them $p$ and $\tau$ are
+explicit algebraic functions. If $y<19/100$, then $p\ge2\sqrt{2/y}/P_*>q_A$. The equilateral apex
+$z_0=(\frac12,\frac{\sqrt3}2)$ minimises both $p$ and $\tau$ over all apex positions. Hence
+$\Phi(z_0)=0$ and $\nabla\Phi(z_0)=0$. On the box $|x-\frac12|,|y-\frac{\sqrt3}2|\le\frac1{40}$ we evaluate
+the Hessian of $\Phi$ in interval arithmetic, by second-order automatic differentiation in ball
+arithmetic on $\clthmAsub$ sub-boxes. It is positive definite on every sub-box. Hence
+$\Phi(z)=\int_0^1(1-s)(z-z_0)^\top\nabla^2\Phi(z_0+s(z-z_0))(z-z_0)\dd s>0$ for $z\ne z_0$ in the box.
+An adaptive subdivision of $[0,\frac12]\times[\frac{19}{100},\frac{87}{100}]$ ends in $\clthmAboxes$ boxes.
+For each box, one of the following holds:
+\begin{itemize}
+\item it lies inside the local box;
+\item interval arithmetic or a mean-value form shows that it lies outside the fundamental domain;
+\item it shows that $p>q_A$ on the box;
+\item it shows that $\Phi>0$ on the box.
+\end{itemize}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Let $0<\beta\le6/5$ and let $T$, of area $1$, be non-equilateral. First suppose $p(T)\ge q(\beta)$. The
+constant trial function gives $\lambda_1(T,-\beta)<R[1]=-\beta P_*p\le\lambda_0(\beta)$. The first
+inequality is strict because constants are not eigenfunctions when $\alpha\neq0$.
+
+Otherwise $p<q(\beta)<q_A$ by Lemma~\ref{lem:gq}(ii), so $\Phi(T)>0$ by Lemma~\ref{lem:geomA}. Since
+$\tau>2$, Lemma~\ref{lem:gq}(i) gives $p-1>G_A(\tau-2)>g(\tau-2)$. Lemma~\ref{lem:transplant} then gives
+$\lambda_1(T,-\beta)-\lambda_0\le\beta\frac BN\bigl(g(\tau-2)-(p-1)\bigr)<0$.
+\end{proof}
+
+\begin{remark}\label{rem:A}
+The transplanted ground state alone works near $\E$ exactly when $g(\beta)$ is below
+$\lim_{T\to\E}(p-1)/(\tau-2)$. Write the side ratios as $\rho_i=1+\delta_i+\bar\delta$ with
+$\sum\delta_i=0$. The area constraint (Lemma~\ref{lem:rho}(c) below) gives
+$p-1\sim\frac12\sum\delta_i^2$ and $\tau-2\sim\frac83\sum\delta_i^2$, so the limit is $3/16=0.1875$ in
+every direction. In floating point, $g(\beta)=3/16$ at $\beta\approx\clgLocalBeta$, and $g(\beta)<3/16$
+below that value, so the local limit of this argument is $\beta\approx\clgLocalBeta$. This matches the numerical threshold of~\cite{KLV}.
+Replacing the constant by the disc bound $\lambda_1(T,\alpha)\le\lambda_1(D_{r_T},\alpha)$, which holds
+for tangential polygons by the method of parallel coordinates ($r_T$ the inradius), would raise $6/5$ to
+about $1.29$. This is a floating-point estimate that we have not certified, and it is not needed.
+\end{remark}
+
+\section{Large coupling: proof of Theorem~\ref{thm:C}}\label{sec:C}
+
+\subsection{The corner bound}
+
+\begin{lemma}\label{lem:corner}
+Let $T$ be a triangle of any area, let $\theta$ be one of its angles, and let $\beta>0$. Then
+\[
+  \lambda_1(T,-\beta)<-\frac{\beta^2}{\sin^2(\theta/2)} .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $V$ be the vertex with angle $\theta$, and let $e$ be the unit vector along the bisector at $V$,
+pointing into $T$. For $\kappa>0$ put $w=-\kappa e$ and $u(x)=e^{w\cdot(x-V)}$. Then
+$|\nabla u|^2=\kappa^2u^2$ and $\operatorname{div}(w\,u^2)=2\kappa^2u^2$. By the divergence theorem,
+\[
+  2\kappa^2\int_Tu^2=\sum_{s}(w\cdot\nu_s)\int_{\text{side }s}u^2 ,
+\]
+where $\nu_s$ is the outer unit normal of side $s$. On the two sides through $V$ we have
+$e\cdot\nu_s=-\sin(\theta/2)$, so $w\cdot\nu_s=\kappa\sin(\theta/2)$. On the opposite side
+$e\cdot\nu_s>0$, because the bisector leaves $T$ through that side. Hence $w\cdot\nu_s<0<\kappa\sin(\theta/2)$
+there. Since $u>0$,
+\[
+  2\kappa^2\int_Tu^2<\kappa\sin(\theta/2)\int_{\partial T}u^2 .
+\]
+So the Rayleigh quotient of $u$ is
+$\kappa^2-\beta\int_{\partial T}u^2/\int_Tu^2<\kappa^2-2\beta\kappa/\sin(\theta/2)$. Now take
+$\kappa=\beta/\sin(\theta/2)$.
+\end{proof}
+
+The trial function is the ground state $e^{-\kappa e\cdot(x-V)}$ of the infinite
+sector~\cite[Example~2.5, Lemma~2.6]{LP}, see also~\cite{KP}. It was used for triangles
+in~\cite[Theorem~5.3]{KLV}, where the bound $\lambda_1(T,\alpha)\le-\frac{\alpha^2}{\sin^2(\theta/2)}
+\bigl(1-2e^{2\alpha L'\cot(\theta/2)}\bigr)$ is obtained ($L'$ the shorter adjacent side), with an
+exponentially small loss; the divergence identity removes that loss. Lemma~\ref{lem:corner} also appears,
+with the same proof, as (7)--(8) in Ma's preprint~\cite{Ma}. It is the corner analogue of the bound
+$\lambda_1(\Omega,-\beta)\le-\beta^2$ for smooth domains, which~\cite{BP} attribute
+to~\cite[Theorem~2.1]{GS}. The asymptotics $\lambda_1(T,-\beta)\sim-\beta^2/\sin^2(\theta_{\min}/2)$ as
+$\beta\to\infty$ go back to Lacey, Ockendon and Sabina~\cite{LOS} and Levitin and Parnovski~\cite{LP};
+exponentially precise asymptotics are in~\cite{Khalile,HP}. We could not consult~\cite{LOS} or the
+survey~\cite{BFK}.
+
+\begin{corollary}\label{cor:far}
+Let $|T|=1$, $\beta=\beta(M)$ and $t=\tanh M$, and let $\theta_{\min}$ be the smallest angle of $T$. If
+$\sin(\theta_{\min}/2)\le t/2$, then $\lambda_1(T,-\beta)<\lambda_0(M)$.
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:corner} and Proposition~\ref{prop:equi},
+$\lambda_1(T,-\beta)<-\beta^2/\sin^2(\theta_{\min}/2)\le-4\beta^2/t^2=\lambda_0(M)$.
+\end{proof}
+
+It remains to treat the \emph{near region} $\theta_{\min}>\theta(t)$, where
+\begin{equation}\label{eq:near}
+  \theta(t):=2\arcsin(t/2)\in(0,\pi/3),\qquad \pi/3-\theta(t)\sim\tfrac{2}{\sqrt3}(1-t)\quad(t\to1).
+\end{equation}
+
+\subsection{Three trial functions}
+
+Let $T$ be a triangle of area $1$ with sides $a_0,a_1,a_2$, numbered counterclockwise like those of $\E$,
+and let $\theta_i$ be the angle opposite side~$i$. Put
+\[
+  \rho_i=\frac{a_i}{\ell},\qquad S=\rho_0^2+\rho_1^2+\rho_2^2,\qquad
+  W=\sum_i(\rho_i-\bar\rho)^2,\qquad \bar\rho=\tfrac13\sum_i\rho_i ,
+\]
+where $\ell=2/H$ is the side length of $\E$. Let $x\mapsto Dx+x_0$ be the affine map of $\E$ onto $T$ that
+takes side~$i$ to side~$i$. Then $\det D=1$ and $\rho_i=|De_i|$, and~\eqref{eq:transplant} holds with
+$\mathcal A=D^{-1}D^{-\top}$. Let $\mu\ge1$ be the larger eigenvalue of $\mathcal A$. Our trial functions
+are the transplants $\tilde\varphi_i$ of the three summands $\varphi_i=\cosh(L+kd_i)$ of $\psi_0$. On $T$
+they are the functions $\cosh(L+2K\,b_i)$, where $b_0,b_1,b_2$ are the barycentric coordinates of $T$
+and $b_i$ vanishes on side~$i$. Each $\varphi_i$ is the sum of the plane wave that decays away from the
+vertex opposite side~$i$ and its reflection in side~$i$. In this section $\{i,j,m\}=\{0,1,2\}$ always
+denotes the three distinct indices.
+
+\begin{lemma}\label{lem:rho}
+Let $n_i$ be the inward unit normal of side~$i$ of $\E$.
+\begin{enumerate}
+\item[(a)] $n_i^\top\mathcal An_i=\rho_i^2$ and $n_i^\top\mathcal An_j=\frac12(\rho_m^2-\rho_i^2-\rho_j^2)$.
+\item[(b)] $\tr\mathcal A=\frac23S$, so $\mu=\frac12\bigl(\tau+\sqrt{\tau^2-4}\bigr)$ with $\tau=\frac23S$.
+\item[(c)] $S^2-2\sum_i\rho_i^4=3$. Consequently $S\ge3$ and
+$S-3=\dfrac{6\mathcal V}{S+3}\le\mathcal V\le4\rho_{\max}^2W$, where $\mathcal V=\sum_i(\rho_i^2-S/3)^2$.
+\item[(d)] $\rho_i^2=\frac{\sqrt3}{2}\,\dfrac{\sin\theta_i}{\sin\theta_j\sin\theta_m}
+=\frac{\sqrt3}{2}(\cot\theta_j+\cot\theta_m)$, and $S=\sqrt3\sum_i\cot\theta_i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For a $2\times2$ matrix of determinant one, $D^{-\top}=JDJ^{-1}$, where $J$ is the rotation by
+$90^\circ$. Since $J^{-1}n_i=\pm e_i$, we get $|D^{-\top}n_i|=|De_i|=\rho_i$. The second formula follows
+from $n_0+n_1+n_2=0$.
+
+(b) Sum (a) over $i$ and use $\sum_in_in_i^\top=\frac32I$. The eigenvalues of $\mathcal A$ have product
+$1$ and sum $\tau$.
+
+(c) Heron's formula $16|T|^2=(\sum a_i^2)^2-2\sum a_i^4$ and $\ell^4=16/3$ give the identity. Since
+$\sum\rho_i^4=\mathcal V+S^2/3$, it reads $S^2=9+6\mathcal V$. Finally
+$\mathcal V=\frac13\sum_{i<j}(\rho_i^2-\rho_j^2)^2\le\frac{4\rho_{\max}^2}3\sum_{i<j}(\rho_i-\rho_j)^2
+=4\rho_{\max}^2W$.
+
+(d) By the law of sines, $a_i=2R\sin\theta_i$ with $R$ the circumradius, and $1=|T|=2R^2\prod_j\sin\theta_j$.
+So $a_i^2=2\sin\theta_i/(\sin\theta_j\sin\theta_m)$. Divide by $\ell^2=4/\sqrt3$ and use
+$\sin\theta_i=\sin(\theta_j+\theta_m)$.
+\end{proof}
+
+By the symmetry of $\E$, all integrals of products of the $\varphi_i$, and of their gradients, over $\E$
+and over its sides reduce to eight numbers:
+\begin{align*}
+ N_d&=\int_\E\varphi_0^2, & N_o&=\int_\E\varphi_0\varphi_1, \\
+ \Gamma_d&=k^2\!\int_\E\sinh^2(L+kd_0), & \Gamma_o&=k^2\!\int_\E\sinh(L+kd_0)\sinh(L+kd_1),\\
+ \Sigma_1&=\int_{\text{side }0}\varphi_0^2, & \Sigma_2&=\int_{\text{side }1}\varphi_0^2,\\
+ \Sigma_3&=\int_{\text{side }0}\varphi_0\varphi_1, & \Sigma_4&=\int_{\text{side }2}\varphi_0\varphi_1 .
+\end{align*}
+Thus $\int_\E|\nabla\varphi_i|^2=\Gamma_d$ and $\int_\E\nabla\varphi_i\,\nabla\varphi_j^\top=\Gamma_o\,n_in_j^\top$
+for $i\ne j$. We also set
+\begin{gather*}
+ G_0=\Gamma_d-\Gamma_o,\qquad \Gp=\Gamma_d+\tfrac12\Gamma_o,\qquad
+ \Bp=\Sigma_1+2\Sigma_2-2\Sigma_3-\Sigma_4,\qquad \Np=N_d-N_o,\\
+ b_{\rm own}=\Sigma_1+2\Sigma_3,\qquad b_{\rm adj}=\Sigma_2+\Sigma_3+\Sigma_4,\qquad
+ \chi=b_{\rm adj}-b_{\rm own} .
+\end{gather*}
+Here $b_{\rm own}=\int_{\text{side }i}\varphi_i\psi_0$ and $b_{\rm adj}=\int_{\text{side }j}\varphi_i\psi_0$ for
+$j\ne i$. Hence $B=3(b_{\rm own}+2b_{\rm adj})$. Also $\mathcal G=\sum_{i,j}n_i\cdot n_j\,\Gamma_{ij}=3G_0$,
+where $\Gamma_{ii}=\Gamma_d$ and $\Gamma_{ij}=\Gamma_o$; in particular $G_0>0$. The subscript $\perp$ refers to
+the complement of $\psi_0$ in the span of the $\varphi_i$:
+
+\begin{lemma}\label{lem:vperp}
+Let $v\in\R^3$ with $v_0+v_1+v_2=0$, and let $u_v=\sum_iv_i\varphi_i$. Then
+\[
+  \int_\E|\nabla u_v|^2=\Gp|v|^2,\qquad \int_{\partial\E}u_v^2=\Bp|v|^2,\qquad
+  \int_\E u_v^2=\Np|v|^2 .
+\]
+In particular $\Gp,\Bp\ge0$ and $\Np>0$. Moreover $\gamma:=\Gp-\beta \Bp-\lambda_0\Np>0$.
+\end{lemma}
+
+\begin{proof}
+Since $n_i\cdot n_j=-\frac12$ for $i\ne j$ and $\sum_{i\ne j}v_iv_j=-|v|^2$, the first integral is
+$\Gamma_d|v|^2-\frac12\Gamma_o\sum_{i\neq j}v_iv_j=\Gp|v|^2$. The other two are computed in the same way;
+for the boundary, $\sum_s\int_{\text{side }s}\varphi_i^2=\Sigma_1+2\Sigma_2$ and
+$\sum_s\int_{\text{side }s}\varphi_i\varphi_j=2\Sigma_3+\Sigma_4$. The $\varphi_i$ are linearly independent.
+Indeed, on side~$0$ they restrict to $\cosh L$, $\cosh(L+y)$ and $\cosh(U-y)$ for a coordinate $y$, where
+$U=L+2K$ and $L+U=2M\ne0$. Hence $\Np>0$. Finally, $\gamma|v|^2$ is the value at $u_v$ of the quadratic form
+of $-\Delta-\lambda_0$ on $\E$. This form is nonnegative and vanishes only on multiples of the ground state
+$\psi_0=u_{\one}$, $\one=(1,1,1)$; and $u_v$ is not such a multiple when $v\ne0$.
+\end{proof}
+
+For $c\in\R^3$ let $\tilde u_c=\sum_ic_i\tilde\varphi_i$, and let
+\[
+  \mathcal P_{ij}=\int_T\nabla\tilde\varphi_i\cdot\nabla\tilde\varphi_j
+   -\beta\int_{\partial T}\tilde\varphi_i\tilde\varphi_j-\lambda_0\int_T\tilde\varphi_i\tilde\varphi_j .
+\]
+Then $\lambda_1(T,-\beta)<\lambda_0$ as soon as $c^\top\mathcal Pc<0$ for some $c$.
+
+\begin{lemma}\label{lem:P}
+\begin{enumerate}
+\item[(a)] $(\mathcal P\one)_i=G_0(\rho_i^2-1)+\beta\chi(\rho_i-1)-\beta b_{\rm adj}\bigl(\sum_j\rho_j-3\bigr)$.
+\item[(b)] $\one^\top\mathcal P\one=G_0(S-3)-\beta\frac B3\bigl(\sum_j\rho_j-3\bigr)\le G_0(S-3)$.
+\item[(c)] If $v_0+v_1+v_2=0$, then $v^\top\mathcal Pv\le\Lambda_T|v|^2$, where
+$\Lambda_T:=\mu \Gp-\beta\rho_{\min}\Bp-\lambda_0\Np$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By~\eqref{eq:transplant} and Lemma~\ref{lem:rho}(a),
+\[
+ \int_T\nabla\tilde\varphi_i\cdot\nabla\tilde\psi_0
+ =\rho_i^2\Gamma_d+\Gamma_o\,n_i^\top\mathcal A(n_j+n_m)=\rho_i^2(\Gamma_d-\Gamma_o)=\rho_i^2G_0,
+\]
+and $\int_{\partial T}\tilde\varphi_i\tilde\psi_0=\rho_ib_{\rm own}+(\rho_j+\rho_m)b_{\rm adj}$. Hence
+$(\mathcal P\one)_i=\rho_i^2G_0-\beta\rho_ib_{\rm own}-\beta(\rho_j+\rho_m)b_{\rm adj}-\lambda_0(N_d+2N_o)$.
+For $T=\E$ all $\rho_i=1$, and the left side vanishes because $\psi_0$ is an eigenfunction with
+eigenvalue $\lambda_0$. Subtracting the two identities gives (a).
+
+(b) Sum (a) over $i$. The inequality holds because $B>0$ and $\sum_j\rho_j\ge3$, which is the
+isoperimetric inequality for triangles.
+
+(c) By~\eqref{eq:transplant},
+$\int_T|\nabla\tilde u_v|^2=\int_\E\nabla u_v^\top\mathcal A\nabla u_v\le\mu\int_\E|\nabla u_v|^2$ and
+$\int_{\partial T}\tilde u_v^2=\sum_s\rho_s\int_{\text{side }s}u_v^2\ge\rho_{\min}\int_{\partial\E}u_v^2$.
+Now use Lemma~\ref{lem:vperp}.
+\end{proof}
+
+\begin{proposition}[criterion]\label{prop:crit}
+Let $T$ be a non-equilateral triangle of area $1$. Suppose that $\chi\ge0$, and that $\Lambda>0$ satisfies
+$v^\top\mathcal Pv\le\Lambda|v|^2$ for all $v\perp\one$. If
+\begin{equation}\label{eq:crit}
+  \Lambda<\frac{(2G_0\rho_{\min}+\beta\chi)^2}{4G_0\,\rho_{\max}^2},
+\end{equation}
+then $\lambda_1(T,-\beta)<\lambda_0$.
+\end{proposition}
+
+\begin{proof}
+It suffices to find $c$ with $c^\top\mathcal Pc<0$. Let $q=\mathcal P\one$ and let $q^\perp=q-\bar q\,\one$
+be its component orthogonal to $\one$. For $c=\one-q^\perp/\Lambda$,
+\[
+ c^\top\mathcal Pc=\one^\top\mathcal P\one-\frac{2|q^\perp|^2}{\Lambda}
+ +\frac{(q^{\perp})^\top\mathcal Pq^\perp}{\Lambda^2}
+ \le\one^\top\mathcal P\one-\frac{|q^\perp|^2}{\Lambda}.
+\]
+By Lemma~\ref{lem:P}(a), $q_i-q_j=(\rho_i-\rho_j)\bigl(G_0(\rho_i+\rho_j)+\beta\chi\bigr)$, and the second
+factor is at least $2G_0\rho_{\min}+\beta\chi>0$. Hence
+\[
+ |q^\perp|^2=\tfrac13\sum_{i<j}(q_i-q_j)^2\ge(2G_0\rho_{\min}+\beta\chi)^2\,W .
+\]
+By Lemma~\ref{lem:P}(b) and Lemma~\ref{lem:rho}(c),
+$\one^\top\mathcal P\one\le G_0(S-3)\le4G_0\rho_{\max}^2W$. Therefore
+\[
+ c^\top\mathcal Pc\le W\Bigl(4G_0\rho_{\max}^2-\frac{(2G_0\rho_{\min}+\beta\chi)^2}{\Lambda}\Bigr)<0,
+\]
+because $W>0$ for a non-equilateral triangle.
+\end{proof}
+
+The mechanism is as follows. For large $\beta$, the Rayleigh quotient of the transplanted ground state
+$\tilde\psi_0$ alone exceeds $\lambda_0$ by a positive multiple of $W$. The deformation, however, couples
+$\tilde\psi_0$ to the two-dimensional space $\{\tilde u_v:v\perp\one\}$ with strength
+$|q^\perp|\approx3G_0\sqrt W$. That space lies only $\gamma\approx3(1-t)G_0$ above $\lambda_0$; this is the
+tunnelling splitting. Second-order perturbation theory then gains $|q^\perp|^2/\Lambda$, which exceeds the
+loss by a factor of order $(1-t)^{-1}$.
+
+\subsection{The near region}
+
+\begin{lemma}\label{lem:geomC}
+Let $\pi/4\le\theta_*\le\pi/3$, and let $T$ be a triangle of area $1$ all of whose angles are at least
+$\theta_*$. Then
+\[
+  \rho_{\rm lo}^2:=\sqrt3\tan\frac{\theta_*}2\le\rho_i^2\le\sqrt3\,\cot\theta_*=:\rho_{\rm hi}^2,
+  \qquad
+  \mu\le\mu_{\rm hi}:=\frac{\tau_{\rm hi}+\sqrt{\tau_{\rm hi}^2-4}}2,\quad
+  \tau_{\rm hi}:=\frac{3\cot^2\theta_*+1}{\sqrt3\,\cot\theta_*}.
+\]
+Moreover $\rho_{\rm lo}\le1\le\mu_{\rm hi}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:rho}(d), $\rho_i^2=\frac{\sqrt3}2(\cot\theta_j+\cot\theta_m)\le\sqrt3\cot\theta_*$.
+Also $\sin\theta_j\sin\theta_m=\frac12(\cos(\theta_j-\theta_m)+\cos\theta_i)\le\cos^2(\theta_i/2)$, so
+$\rho_i^2\ge\sqrt3\tan(\theta_i/2)\ge\sqrt3\tan(\theta_*/2)$. For $\mu$, Lemma~\ref{lem:rho}(b),(d) give
+$\tau=\frac2{\sqrt3}\sum_i\cot\theta_i$. The angles lie in $[\theta_*,\pi-2\theta_*]\subset(0,\pi/2]$, where
+$\cot$ is convex. So $\sum_i\cot\theta_i$ is a convex function on the triangle
+$\{\theta_i\ge\theta_*,\ \sum\theta_i=\pi\}$, and its maximum is at a vertex
+$(\theta_*,\theta_*,\pi-2\theta_*)$, where it equals $2\cot\theta_*-\cot2\theta_*=(3\cot^2\theta_*+1)/(2\cot\theta_*)$.
+Finally, $\mu$ is increasing in $\tau$. Since $\theta_*\le\pi/3$, we have
+$\rho_{\rm lo}^2\le\sqrt3\tan(\pi/6)=1$, and $\mu_{\rm hi}\ge1$ because $\tau_{\rm hi}\ge2$.
+\end{proof}
+
+For $t\in(0,1)$ let $\rho_{\rm lo}(t)$, $\rho_{\rm hi}(t)$ and $\mu_{\rm hi}(t)$ be the quantities of
+Lemma~\ref{lem:geomC} for $\theta_*=\theta(t)$. Since $\sin(\theta(t)/2)=t/2$,
+\begin{equation}\label{eq:geomt}
+  \tan\frac{\theta(t)}2=\frac{t}{\sqrt{4-t^2}},\qquad \cot\theta(t)=\frac{2-t^2}{t\sqrt{4-t^2}} ,
+\end{equation}
+and $\theta(t)\ge\pi/4$ is equivalent to $\cot\theta(t)\le1$. For $M>0$ and $t'\in(0,1)$ put
+\begin{equation}\label{eq:Lhi}
+  \Lambda_{\rm hi}(M;t')=\mu_{\rm hi}(t')\Gp-\beta\rho_{\rm lo}(t')\Bp-\lambda_0\Np,\qquad
+  \mathcal R(M;t')=\frac{G_0}{\rho_{\rm hi}(t')^2}\Bigl(\rho_{\rm lo}(t')+\frac{\beta\chi}{2G_0}\Bigr)^2 ,
+\end{equation}
+where $\beta,\lambda_0,G_0,\Gp,\Bp,\Np,\chi$ are evaluated at $M$. The geometric quantities depend on a
+lower bound $t'$ for $t=\tanh M$. This is the form in which the inequality is certified.
+
+\begin{lemma}[certified]\label{lem:certC}
+Let $J_a=[M_a,M_a+10^{-3}]$ with $M_a=\frac{13}{10}+\frac a{1000}$, for $a=0,\dots,\clthmCcells-1$, so that
+the $J_a$ cover $[13/10,8]$; let $t_a=\tanh M_a$, and let $J_{\rm tail}=[8,\infty)$ with
+$t_{\rm tail}=\tanh 8$. For each of these intervals $J$, with its value $t_J$:
+\begin{enumerate}
+\item[(i)] $\cot\theta(t_J)\le1$;
+\item[(ii)] for every $M\in J$: $G_0>0$, $\chi\ge0$ and $\Lambda_{\rm hi}(M;t_J)<\mathcal R(M;t_J)$.
+\end{enumerate}
+Moreover $\clbetaClo\le\beta(13/10)\le\clbetaChi$.
+\end{lemma}
+
+The geometric bounds are monotone in $t'$. As $t'$ increases, $\theta(t')$ increases, so $\rho_{\rm lo}$
+increases while $\rho_{\rm hi}$ and $\mu_{\rm hi}$ decrease. Moreover $\Lambda_{\rm hi}$ is increasing in
+$\mu_{\rm hi}$ and decreasing in $\rho_{\rm lo}$, because $\Gp,\beta \Bp\ge0$. And $\mathcal R$ is decreasing
+in $\rho_{\rm hi}$ and increasing in $\rho_{\rm lo}$, because $\chi\ge0$. Hence (ii) implies the pointwise
+inequality $\Lambda_{\rm hi}(M;\tanh M)<\mathcal R(M;\tanh M)$ for all $M\ge13/10$. The proof of
+Theorem~\ref{thm:C} below, however, uses (i) and (ii) directly.
+
+\begin{proof}
+All quantities have closed forms. Put $U=2M-L=L+2K$. With $y=kd_i\in[0,2K]$, the area element of $\E$ is
+$dy_0\,dy_1/(2K^2)$ on $\{y_0,y_1\ge0,\ y_0+y_1\le2K\}$, and the arclength on a side is $dy/(HK)$.
+Elementary integration gives
+\begin{align*}
+ I_1&:=\int_0^{2K}(2K-y)\cosh^2(L+y)\dd y=K^2-\tfrac K2\sinh2L+\tfrac18(\cosh2U-\cosh2L),\\
+ I_1^s&:=\int_0^{2K}(2K-y)\sinh^2(L+y)\dd y=-K^2-\tfrac K2\sinh2L+\tfrac18(\cosh2U-\cosh2L),\\
+ I_2&:=\iint\cosh(L+y_0)\cosh(L+y_1)=K\sinh2M-\sinh L\,(\sinh U-\sinh L),\\
+ I_2^s&:=\iint\sinh(L+y_0)\sinh(L+y_1)=K\sinh2M-\cosh L\,(\cosh U-\cosh L),\\
+ J_2&:=\int_0^{2K}\cosh^2(L+y)\dd y=K+\tfrac14(\sinh2U-\sinh2L),\\
+ J_3&:=\int_0^{2K}\cosh(L+y)\dd y=\sinh U-\sinh L,\\
+ J_4&:=\int_0^{2K}\cosh(L+y)\cosh(U-y)\dd y=K\cosh2M+\tfrac12\sinh2K ,
+\end{align*}
+and then
+\begin{gather*}
+ N_d=\frac{I_1}{2K^2},\qquad N_o=\frac{I_2}{2K^2},\qquad \Gamma_d=\frac{2I_1^s}{H^2},\qquad
+ \Gamma_o=\frac{2I_2^s}{H^2},\\
+ \Sigma_1=\frac{2\cosh^2L}{H},\qquad \Sigma_2=\frac{J_2}{HK},\qquad
+ \Sigma_3=\frac{\cosh L\,J_3}{HK},\qquad \Sigma_4=\frac{J_4}{HK}.
+\end{gather*}
+With $\beta=tK/H$ and $\lambda_0=-4K^2/H^2$, this gives
+\begin{gather*}
+ G_0=\tfrac2{H^2}(I_1^s-I_2^s),\qquad \Gp=\tfrac2{H^2}\bigl(I_1^s+\tfrac12I_2^s\bigr),\qquad
+ -\lambda_0\Np=\tfrac2{H^2}(I_1-I_2),\\
+ \beta \Bp=\tfrac2{H^2}\cdot\tfrac t2\bigl(2K\cosh^2L+2J_2-2\cosh L\,J_3-J_4\bigr),\\
+ \beta\chi=\tfrac2{H^2}\cdot\tfrac t2\bigl(J_2+J_4-\cosh L\,J_3-2K\cosh^2L\bigr).
+\end{gather*}
+The inequality $\Lambda_{\rm hi}<\mathcal R$ and the sign conditions are homogeneous of degree one in
+the five numbers $G_0$, $\Gp$, $-\lambda_0\Np$, $\beta \Bp$ and $\beta\chi$. We may therefore divide them
+by $\frac2{H^2}X$, where $X=e^{2U}/16$. Let $s=e^{-2M}$, $\omega=e^{2L}=(2-t)/(2+t)$ and $u=Ks$. Then
+$t=(1-s)/(1+s)$, $e^{2U}=1/(s^2\omega)$ and $e^{2K}=1/(s\omega)$. The hyperbolic functions of $L$ are
+rational in $t$; for example $\cosh^2L=4/(4-t^2)$ and $\sinh2L=-4t/(4-t^2)$. After division by $X$, each of
+$I_1,\dots,J_4$ and $K\cosh^2L$ becomes a polynomial in $s$, $u$, $\omega$ and these rational functions.
+For example,
+$I_2^s/X=8\omega u(1-s^2)-4s\bigl(\omega(1+s^2)+1+\omega^2s^2\bigr)+64\omega s^2/(4-t^2)$. These expressions
+remain bounded as $s\to0$.
+
+We evaluate them in Arb ball arithmetic. On each $J_a$ we enclose $s,t,K,u$ over the whole interval and
+evaluate the geometric bounds~\eqref{eq:geomt} at $t'=t_a$. On the tail we use the single box
+$s\in[0,e^{-16}]$, $t\in[\tanh8,1]$, $u\in[0,K(8)e^{-16}]$, with the geometric bounds at $t'=\tanh8$. This
+box contains $(s,t,u)$ for every $M\ge8$, because $u=Ke^{-2M}$ is decreasing for $M\ge3/4$ (as
+$dK/dM\le\frac32\le2K$). On every interval the script certifies (i), $G_0>0$, $\chi\ge0$ and
+$\Lambda_{\rm hi}<\mathcal R$. The ratio $\Lambda_{\rm hi}/\mathcal R$ is at most $\clthmCworst$ on
+$[13/10,8]$ and at most $\clthmCtail$ on the tail. The value $\beta(13/10)$ is enclosed directly.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+Let $\beta\ge\beta_C$, so that $\beta=\beta(M)$ with $M\ge13/10$, and put $t=\tanh M$. Let $T$ be a
+non-equilateral triangle of area $1$. If $\sin(\theta_{\min}/2)\le t/2$, Corollary~\ref{cor:far} applies.
+
+Otherwise every angle of $T$ exceeds $\theta(t)$. Let $J$ be an interval of Lemma~\ref{lem:certC}
+containing $M$. Then $t_J\le t$, so every angle exceeds $\theta(t_J)$, and $\theta(t_J)\ge\pi/4$ by
+Lemma~\ref{lem:certC}(i). Lemma~\ref{lem:geomC} with $\theta_*=\theta(t_J)$ gives
+$\rho_{\rm lo}(t_J)\le\rho_{\min}$, $\rho_{\max}\le\rho_{\rm hi}(t_J)$ and $\mu\le\mu_{\rm hi}(t_J)$. Since
+$\Gp,\Bp\ge0$, Lemma~\ref{lem:P}(c) gives
+$v^\top\mathcal Pv\le\Lambda_T|v|^2\le\Lambda_{\rm hi}(M;t_J)|v|^2$ for $v\perp\one$. Moreover
+\[
+\Lambda_{\rm hi}(M;t_J)-\gamma=(\mu_{\rm hi}(t_J)-1)\Gp+(1-\rho_{\rm lo}(t_J))\beta \Bp\ge0
+\]
+by Lemma~\ref{lem:geomC}, so $\Lambda_{\rm hi}(M;t_J)\ge\gamma>0$ by Lemma~\ref{lem:vperp}. By
+Lemma~\ref{lem:certC}(ii) we have $\chi\ge0$ and
+\[
+ \Lambda_{\rm hi}(M;t_J)<\mathcal R(M;t_J)=\frac{(2G_0\rho_{\rm lo}(t_J)+\beta\chi)^2}{4G_0\rho_{\rm hi}(t_J)^2}
+ \le\frac{(2G_0\rho_{\min}+\beta\chi)^2}{4G_0\rho_{\max}^2}.
+\]
+So Proposition~\ref{prop:crit} applies with $\Lambda=\Lambda_{\rm hi}(M;t_J)$.
+\end{proof}
+
+\begin{remark}[size of the margin]\label{rem:asymp}
+As $M\to\infty$:
+\begin{itemize}
+\item $\Gp/G_0\to1$, $\beta \Bp/G_0\to2$ and $\beta\chi/G_0\to1$;
+\item $\gamma/G_0\sim3(1-t)$, $\mu_{\rm hi}(t)-1\sim\frac83(1-t)$ and $1-\rho_{\rm lo}(t)\sim\frac23(1-t)$;
+\item $1-t\sim6e^{-2\cdot3^{1/4}\beta}$.
+\end{itemize}
+Since $\Lambda_{\rm hi}=\gamma+(\mu_{\rm hi}-1)\Gp+(1-\rho_{\rm lo})\beta \Bp$, it follows that
+$\Lambda_{\rm hi}\sim7(1-t)\,G_0\approx42\,e^{-2\cdot3^{1/4}\beta}G_0$, while $\mathcal R$ tends to
+$\frac94G_0$. So the margin of the inequality grows exponentially with $\beta$; see Table~\ref{tab:C}. In
+floating point, $\Lambda_{\rm hi}(M;\tanh M)<\mathcal R(M;\tanh M)$ holds for $M>\clthrM$ (that is, for
+$\beta>\clthrBeta$) and fails below. So the method alone reaches below $6/5$, but not down to small
+$\beta$.
+\end{remark}
+
+\begin{table}[ht]\centering
+\begin{tabular}{rrrrrr}\toprule
+$\beta$ & $M$ & $\theta(\tanh M)$ (deg) & $\gamma/G_0$ & $\Lambda_{\rm hi}/G_0$ & $\mathcal R/G_0$\\\midrule
+\clTCrowa
+\clTCrowb
+\clTCrowc
+\clTCrowd
+\clTCrowe
+\clTCrowf
+\bottomrule
+\end{tabular}
+\caption{Lemma~\ref{lem:certC} in floating point, with $t'=\tanh M$; an illustration only (the
+certified statement is the lemma). The near region is $\theta_{\min}>\theta(\tanh M)$.}\label{tab:C}
+\end{table}
+
+\section{Proof of Theorem~\ref{thm:main}(2) and of Corollary~\ref{cor:perimeter} for
+\texorpdfstring{$\alpha<0$}{alpha < 0}}\label{sec:main}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}\textup{(2)}]
+By scaling we may take $|T|=1$, so that $\E_T=\E$ and $\beta=-\alpha$. If $\beta\le6/5$, use
+Theorem~\ref{thm:A}. If $\beta\ge6/5$, then $\beta\ge\beta_C$ since $\beta_C\le\clbetaChi<6/5$, and we use
+Theorem~\ref{thm:C}. The two ranges overlap on $[\beta_C,6/5]$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:perimeter} for $\alpha<0$]
+By the isoperimetric inequality for triangles, $|T|\le|\E^T|$, with equality only for equilateral $T$.
+Theorem~\ref{thm:main}(2) gives $\lambda_1(T,\alpha)\le\lambda_1(\E_T,\alpha)$, with strict inequality unless
+$T$ is equilateral. Moreover $\lambda_1(\E_T,\alpha)\le\lambda_1(\E^T,\alpha)$, because for $\alpha<0$ the
+lowest eigenvalue of an equilateral triangle is increasing in its area~\cite[Prop.~2.3]{KLV}. This also
+follows from Proposition~\ref{prop:equi} and scaling: for the equilateral triangle of area $A$,
+$\lambda_1=-4\alpha^2/\tanh^2M$, where $M$ increases with $\beta=-\alpha\sqrt A$.
+\end{proof}
+
+\section{Independent cross-checks for Part I}\label{sec:cross}
+
+None of the checks in this section is used in the proof.
+
+\subsection{A second certificate of Lemma~\ref{lem:certC}}
+An independent AI referee wrote a second certificate of Lemma~\ref{lem:certC}, sharing no code with the
+first. It uses the interval arithmetic of mpmath at $\clindepDps$ digits instead of Arb. On
+$[13/10,\clindepMbig]$ it evaluates the un-normalised closed forms directly from $M$ and from the
+definitions of the $\Sigma_k$, $\Gamma$ and $N$, on $\clindepCells$ adaptively chosen cells. On the tail
+$M\ge\clindepMbig$ it uses a normalisation derived separately with a computer algebra system; the
+resulting expressions have integer coefficients. It computes the geometric bounds from half- and
+double-angle formulas rather than from~\eqref{eq:geomt}. It confirms (i) and (ii) on every cell, with
+worst ratio $\Lambda_{\rm hi}/\mathcal R\le\clindepWorst$ on the body and $\le\clindepTail$ on the tail,
+and it confirms $\beta(13/10)<6/5$. At $M=2,5,10,30$ its two forms agree to more than $100$ digits. The same referee found no fatal or serious issue in the arguments of
+Sections~\ref{sec:prelim}--\ref{sec:main}.
+
+\subsection{A six-wave certificate for \texorpdfstring{$6/5\le\beta\le3$}{6/5 <= beta <= 3}}\label{sec:six}
+Before Theorem~\ref{thm:C} was found, the range $6/5\le\beta\le3$ was proved by a much larger computation,
+which now gives an independent check of Theorem~\ref{thm:C} there. Let $w_{2s}=kn_s$ and $w_{2s+1}=-kn_s$
+($s=0,1,2$) be the six wave vectors of Proposition~\ref{prop:equi}. Transplanting
+$u_c=\sum_jc_je^{w_j\cdot x}$ to $T_{a,b}$ gives the Rayleigh quotient $c^\top A(a,b;\alpha)c/c^\top Nc$,
+where
+\[
+  A_{jk}=(w_j^\top\mathcal A\,w_k)N_{jk}+\alpha\sum_s\rho_sS^s_{jk},\qquad
+  N_{jk}=\int_\E e^{(w_j+w_k)\cdot x},\quad S^s_{jk}=\int_{\text{side }s}e^{(w_j+w_k)\cdot x}.
+\]
+These are divided differences of $\exp$, which we evaluate in ball arithmetic: by difference quotients
+when the nodes are separated, and by power series with explicit tail bounds when they are close. The shape
+domain $\mathcal D\setminus\{(1,0)\}$ of Lemma~\ref{lem:shape} is covered by four regions; write
+$\delta=(a-1,b)$.
+\begin{enumerate}
+\item[(a)] \emph{Local boxes $|\delta|_\infty\le r$.} Use the trial vector $c_0(M)+(a-1)c_1+bc_2$, where
+$c_0$ is the coefficient vector of $\psi_0$ (an exact eigenvector at $\delta=0$). Then
+$F=c^\top(A-\lambda_0N)c$ has a critical point with value $0$ at $\delta=0$, and an interval Hessian in
+$\delta$, with a mean-value form in $M$ obtained from dual numbers, is negative definite.
+\item[(b)] \emph{A near annulus $r<|\delta|_\infty\le R$.} The same trial vector, with $F<0$ checked on
+cells.
+\item[(c)] \emph{Far cells in $(a,b,\beta)$.} Fixed trial data on each cell, with a coefficient vector
+affine in $(a,b)$. The Rayleigh quotient is affine in $\alpha$ and $\lambda_1(\E,\cdot)$ is concave
+(Lemma~\ref{lem:concave}), so it suffices to check the two ends of each $\beta$-interval.
+\item[(d)] \emph{Thin triangles $a>6$.} The constant trial function and $P/P_*\ge2a/3$.
+\end{enumerate}
+The certificate consists of $\clcellsLocal$ local $M$-intervals (with $r$ from $\clrLocMin$ to
+$\clrLocMax$), $\clcellsNear$ near $M$-intervals (with $R$ from $\clRMin$ to $\clRMax$), and
+$\clcellsFar$ far cells in $\clcellsFarFiles$ $\beta$-ranges that tile $[6/5,3]$. The local and near
+intervals cover $[M(6/5),M(3)]$. The cell count grows quickly with $\beta$, because the near-equilateral
+regime shrinks like $e^{-2\cdot3^{1/4}\beta}$. Removing that obstruction is what Theorem~\ref{thm:C}
+achieves.
+
+\subsection{Floating-point checks}
+\begin{itemize}
+\item \emph{Closed forms.} The closed forms of the eight integrals agree with Gauss quadrature of
+$\cosh(L+2Kb_i)$ on actual scalene triangles to $\clquadErr$. The normalised polynomial expressions
+agree with the closed forms to rounding error. The referee's independent quadrature of the pencil on $\E$
+reproduces the closed forms to $\cldirectErr$.
+\item \emph{The chain of inequalities.} Every inequality used in Lemma~\ref{lem:P},
+Proposition~\ref{prop:crit} and Lemma~\ref{lem:geomC} holds, and $c^\top\mathcal Pc<0$, on
+$\clchainSamples$ random triangles of the near region with $M\in[1.3,5]$. In this test all matrices are
+computed by quadrature on the triangle itself. On $\clrunChainTested$ further near-region triangles
+(referee's code, $M\in[1.3,6.5]$), the only failures occur at $W<\clrunChainW$, where $c^\top\mathcal Pc$ is
+below the rounding level.
+\item \emph{The corner bound.} The divergence identity of Lemma~\ref{lem:corner} holds to $\cldivErr$ on
+random triangles, and the corner bound holds on $\clcornerSamples$ (triangle, vertex, $\beta$) samples.
+\item \emph{Finite elements.} On $\clnearFemSamples$ triangles of the near region with
+$\beta\in\{1.16,1.5,2,3\}$, a $P_2$ finite element value of $\lambda_1(T,-\beta)$ (an upper bound up to
+rounding) lies below the three-function Ritz value, to within the finite element error on $\E$, and the
+Ritz value lies below $\lambda_0$. At $\beta=2$, a $P_1$ finite element computation with Richardson
+extrapolation gives $\lambda_1(\E,-2)\approx\cllamFEMtwo$, compared with $\lambda_0=\cllamZeroTwo$.
+\item \emph{Consistency of the two parts.} The eight integrals reproduce $g$, $B/N$ and $\lambda_0$ of
+Lemma~\ref{lem:HF}. Sampling $\clgeomAsamples$ random triangles with $p\le q_A$ gives
+$\min(p-1)/(\tau-2)=\clgeomAmin\ldots>G_A$, in line with Lemma~\ref{lem:geomA}.
+\item \emph{Negative tests.} The certificate of Lemma~\ref{lem:certC} fails, as it should, when started at
+$M=21/20$, where the inequality is false, or at $M=1$, where $\cot\theta(t)>1$. The certificate of
+Lemma~\ref{lem:geomA} fails with $G_A=0.146$, which exceeds the minimum of $(p-1)/(\tau-2)$.
+\end{itemize}
+\part{The case \texorpdfstring{$\alpha>0$}{alpha > 0}}
+
+\section{Overview of Part II}\label{p-sec:overview}
+
+In this part $\alpha>0$, and the notation is independent of Part~I.
+
+\paragraph{Notation.} $T$ is a triangle with area $A$, perimeter $P$, side lengths
+$a_1,a_2,a_3$, inradius $r=2A/P$, incentre $I$, altitudes $h_j=2A/a_j$ and
+$R_I=\max_k|v_k-I|$ over the vertices $v_k$. $E$ is the equilateral triangle of area $A$; its
+perimeter, inradius and altitude are $P_E=\sqrt{12\sqrt3\,A}$, $r_E=2A/P_E$ and $H=3r_E$.
+We write $\lambda_0(\alpha)=\lambda_1(E,\alpha)$ and denote by
+$\Lambda_1(T)<\Lambda_2(T)$ the first two Dirichlet eigenvalues of $T$. Norms and inner products
+without subscript are those of $L^2$ of the domain in question.
+
+\paragraph{Three explicit results.} The following statements are proved without computation, apart
+from an interval check of an elementary inequality in two variables in Theorem~\ref{p-thm:uniform}.
+They are used in the proof of Theorem~\ref{thm:main}(1).
+
+\begin{theorem}[thin triangles]\label{p-thm:thin}
+If the longest side of $T$ satisfies $a_{\max}\ge P_E$, that is $a_{\max}^2\ge12\sqrt3\,A$, then
+$\lambda_1(T,\alpha)>\lambda_0(\alpha)$ for every $\alpha>0$.
+\end{theorem}
+
+\begin{theorem}[weak coupling]\label{p-thm:small}
+For every triangle $T$ and every $\alpha>0$,
+\begin{equation}\label{p-eq:small}
+  \lambda_1(T,\alpha)\ \ge\ \alpha\frac PA-\alpha^2\frac{R_I^2}{r^2}.
+\end{equation}
+Consequently $\lambda_1(T,\alpha)>\lambda_0(\alpha)$ whenever $T$ is not equilateral and
+$0<\alpha\le (P-P_E)\,r^2/(A\,R_I^2)$.
+\end{theorem}
+
+\begin{theorem}[uniform weak coupling]\label{p-thm:uniform}
+If $0<\alpha\sqrt A\le1/100$, then $\lambda_1(T,\alpha)>\lambda_0(\alpha)$ for every
+non-equilateral triangle $T$ of area $A$.
+\end{theorem}
+
+\paragraph{Structure of the proof of Theorem~\ref{thm:main}(1).} By scaling we may take $A=1$.
+The shapes of triangles of area $1$ are parametrised by the hyperbolic plane; we use its Klein
+model, a point $w$ of the unit disc, with $w=0$ for $E$ and $|w|=\tanh2t$, where $e^{t}$ is the
+stretch factor of the symmetric linear map taking $E$ to $T$ (Section~\ref{p-sec:shapes}).
+The parameter set $\{(w,\alpha)\}$ is covered by four regions.
+\begin{itemize}
+\item[(A)] \emph{Thin triangles} ($a_{\max}\ge P_E$, all $\alpha$): Theorem~\ref{p-thm:thin},
+by slicing perpendicular to the longest side.
+\item[(S)] \emph{Weak coupling} ($\alpha\le1/100$, all shapes): Theorem~\ref{p-thm:uniform}.
+\item[(C)] \emph{Near $E$} ($|w|\le0.1194$, which is slightly less than $\tanh(2\cdot\frac3{50})$;
+$\alpha\ge1/100$): Proposition~\ref{p-prop:local}. A
+Schur-complement criterion (Lemma~\ref{p-lem:schur}) reduces the inequality to
+$D[\psi_0]>\cR/(1-\eta')$, where $D[\psi_0]>0$ is the explicit second-order gain of the frozen
+ground state $\psi_0$ of $E$ and $\cR$ is a second-order perturbation sum. The difficulty is an
+\emph{upper} bound for $\cR$, uniform in $\alpha\in[1/100,\infty)$; in floating point the gain exceeds
+it only by a factor $\clpSpare$ in the worst case (Remark~\ref{p-rem:local}). We obtain it from certified
+\emph{lower} bounds for the lowest eigenvalue of two perturbed problems at distance $s=1/10$
+from $E$ in opposite directions (Lemma~\ref{p-lem:ring}); by symmetry one number $R_1(\alpha)$
+suffices, and the resulting bound is within a few per cent of the true value.
+\item[(B)] \emph{Middle region} ($|w|\ge0.1194$, not thin, $\alpha\ge1/100$):
+Proposition~\ref{p-prop:middle}. The lowest eigenvalue is a concave function of the coefficients
+$(G,m)$ of the quadratic form pulled back to $E$. Positive combinations of the matrices $G$ are
+exactly the points of Euclidean triangles in the Klein model, and for such a cell
+(Lemma~\ref{p-lem:cell}) $\lambda_1(T_w,\alpha)\ge c\sum_i\theta_i\lambda_1(T_{w_i},\alpha)$ with
+the explicit constant $c=(\theta^{\mathsf T}\Gamma\theta)^{-1/2}$,
+$\Gamma_{ik}=\cosh2d(w_i,w_k)$. Together with concavity in $\alpha$ this turns certified lower
+bounds at the vertices of a prism into a lower bound on the whole prism, with an error of
+second order in its size.
+\end{itemize}
+The certified lower bounds in (B) and (C) are Crouzeix--Raviart bounds
+(Lemma~\ref{p-lem:CR}); the discrete eigenvalue is bounded from below by a Collatz--Wielandt
+quotient evaluated in exact integer arithmetic (Lemma~\ref{p-lem:CW}), and the interpolation
+constant is proved by hand (Lemma~\ref{p-lem:interp}). No verified matrix factorisation is needed,
+apart from a small congruence test for the second eigenvalue of $E$ (Lemma~\ref{p-lem:inertia}).
+\section{The equilateral triangle}\label{p-sec:equi}
+
+Let $d_1,d_2,d_3$ be the distances to the sides of $E$; then $d_1+d_2+d_3=H$ in $E$.
+
+\begin{proposition}\label{p-prop:equi}
+For $\alpha>0$ let $\kappa=\kappa(\alpha)$ be the unique root in $(0,2\pi/H)$ of
+\begin{equation}\label{p-eq:kappa}
+  \frac{\kappa H}{2}=\arctan\frac{\alpha}{\kappa}+\arctan\frac{2\alpha}{\kappa},
+\end{equation}
+and let $\delta=\arctan(\alpha/\kappa)$. Then $\lambda_0(\alpha)=\kappa^2$, with eigenfunction
+$\psi_0=\sum_{i=1}^3\cos(\kappa d_i-\delta)$. Moreover $\lambda_0(\alpha)<\alpha P_E/A$ and
+$\lambda_0(\alpha)<\Lambda_1(E)=4\pi^2/H^2$.
+\end{proposition}
+
+\begin{proof}
+The left side of \eqref{p-eq:kappa} increases from $0$ to $\pi$ on $(0,2\pi/H]$ and the right side
+decreases from $\pi$ to a value below $\pi$, so the root exists and is unique; it depends
+continuously on $\alpha$. Since $|\nabla d_i|=1$, $-\Delta\psi_0=\kappa^2\psi_0$. The inward unit
+normals satisfy $\nabla d_i\cdot\nabla d_j=-\tfrac12$ for $i\ne j$. On the side $d_1=0$, with
+outer normal $\nu=-\nabla d_1$, write $d_2=H/2+\tau$, $d_3=H/2-\tau$. Then
+\[
+  \partial_\nu\psi_0+\alpha\psi_0
+  =\bigl(\alpha\cos\delta-\kappa\sin\delta\bigr)
+  +\cos(\kappa\tau)\Bigl(2\alpha\cos\bigl(\tfrac{\kappa H}{2}-\delta\bigr)
+     -\kappa\sin\bigl(\tfrac{\kappa H}{2}-\delta\bigr)\Bigr),
+\]
+and both brackets vanish because $\tan\delta=\alpha/\kappa$ and
+$\tan(\kappa H/2-\delta)=2\alpha/\kappa$ by \eqref{p-eq:kappa}. By symmetry the boundary condition
+holds on all sides, so $\kappa^2$ is a Robin eigenvalue of $E$ with eigenfunction $\psi_0$;
+here $\psi_0\not\equiv0$ because, in the coordinates $(d_1,d_2)$,
+$\partial^2\psi_0/\partial d_1\partial d_2=-\kappa^2\cos(\kappa d_3-\delta)\not\equiv0$. As
+$\alpha\to0$ we have $\kappa\to0$ (the right side of \eqref{p-eq:kappa} is at most $3\alpha/\kappa$)
+and $\alpha/\kappa\to0$ (otherwise the right side of \eqref{p-eq:kappa} would stay bounded away
+from $0$ along a sequence while the left side tends to $0$), hence $\delta\to0$ and
+$\psi_0\to3$ uniformly; so $\psi_0>0$ and $\kappa(\alpha)^2=\lambda_0(\alpha)$ for small $\alpha$.
+The set of $\alpha>0$ with $\kappa(\alpha)^2=\lambda_0(\alpha)$ is closed by continuity. It is
+open: the first two eigenvalues $\lambda_0(\alpha)<\lambda_2(\alpha)$ are continuous in $\alpha$
+by the min--max principle, so for $\alpha$ near a point $\alpha^*$ of the set the only eigenvalue
+below $\frac12(\lambda_0(\alpha^*)+\lambda_2(\alpha^*))$ is $\lambda_0(\alpha)$, and the
+eigenvalue $\kappa(\alpha)^2$, being continuous, lies below that number. Hence the set is all of
+$(0,\infty)$.
+(The formula is a special case of McCartin's \cite{McCartin}.) The bound
+$\lambda_0<\alpha P_E/A$ follows from the constant trial function, which is not an
+eigenfunction, and $\lambda_0<\Lambda_1(E)$ from $\kappa<2\pi/H$.
+\end{proof}
+
+\begin{lemma}\label{p-lem:lam0}
+The function $\lambda_0$ is positive, strictly increasing, concave and continuously
+differentiable on $(0,\infty)$, with
+\begin{equation}\label{p-eq:lam0prime}
+  \lambda_0'(\alpha)=\frac{\int_{\partial E}\psi_0^2}{\int_E\psi_0^2}
+  =2\kappa\,\frac{\dfrac{\kappa}{\kappa^2+\alpha^2}+\dfrac{2\kappa}{\kappa^2+4\alpha^2}}
+  {\dfrac H2+\dfrac{\alpha}{\kappa^2+\alpha^2}+\dfrac{2\alpha}{\kappa^2+4\alpha^2}},
+  \qquad \kappa=\kappa(\alpha),
+\end{equation}
+and $\int_E|\nabla\psi_0|^2=(\lambda_0-\alpha\lambda_0')\int_E\psi_0^2$. Moreover
+$\alpha\lambda_0'(\alpha)\le2\bigl(\lambda_0(\alpha)-\lambda_0(\alpha/2)\bigr)$, and for every
+$\alpha^*>0$ the tangent $\alpha\mapsto\lambda_0(\alpha^*)+\lambda_0'(\alpha^*)(\alpha-\alpha^*)$
+lies above $\lambda_0$ on $(0,\infty)$. If $\beta_1<\dots<\beta_M$ are positive numbers and $U$
+is the minimum of the tangents $t_1,\dots,t_M$ at these points, then $U\ge\lambda_0$, and on
+each interval $[\beta_m,\beta_{m+1}]$ we have $U=\min(t_m,t_{m+1})$, a piecewise linear function
+whose only possible kink is the point of $[\beta_m,\beta_{m+1}]$ where $t_m=t_{m+1}$.
+\end{lemma}
+
+\begin{proof}
+$\lambda_0$ is an infimum of affine functions of $\alpha$ by \eqref{eq:var}, hence concave. The
+implicit function theorem applied to \eqref{p-eq:kappa} (whose left side minus right side has a
+positive derivative in $\kappa$) gives $\kappa\in C^1$ and the second expression in
+\eqref{p-eq:lam0prime} for $(\kappa^2)'$; it is positive, so $\lambda_0$ is strictly increasing. For the first expression let $\alpha,\beta>0$ and insert
+the normalised ground state for $\alpha$ into the quotient for $\beta$, and conversely:
+$(\beta-\alpha)\int_{\partial E}\psi_{0,\beta}^2\le\lambda_0(\beta)-\lambda_0(\alpha)\le
+(\beta-\alpha)\int_{\partial E}\psi_{0,\alpha}^2$ for $\|\psi_{0,\cdot}\|=1$; since
+$\psi_{0,\beta}\to\psi_{0,\alpha}$ uniformly as $\beta\to\alpha$ by the explicit formula, the
+derivative is $\int_{\partial E}\psi_{0,\alpha}^2$. The formula for $\int|\nabla\psi_0|^2$ is
+$\lambda_0=\int|\nabla\psi_0|^2+\alpha\int_{\partial E}\psi_0^2$. By concavity the slope of the
+chord over $[\alpha/2,\alpha]$ is at least $\lambda_0'(\alpha)$, which is the next claim, and the
+claim on tangents is concavity again. For the last claim let $j<m$: then
+$t_j(\beta_m)\ge\lambda_0(\beta_m)=t_m(\beta_m)$ and the slope of $t_j$ is at least that of
+$t_m$, so $t_j\ge t_m$ on $[\beta_m,\infty)$; similarly $t_j\ge t_{m+1}$ on $(0,\beta_{m+1}]$
+for $j>m+1$. Finally $t_m\le t_{m+1}$ at $\beta_m$ and $t_m\ge t_{m+1}$ at $\beta_{m+1}$.
+\end{proof}
+
+
+\section{Thin triangles: proof of Theorem~\ref{p-thm:thin}}\label{p-sec:thin}
+
+For $\ell>0$ let $\mu(\ell,\alpha)=k^2$, where $k\in(0,\pi/\ell)$ is the root of
+$k\tan(k\ell/2)=\alpha$; this is the lowest eigenvalue of $-w''=\mu w$ on $(0,\ell)$ with Robin
+parameter $\alpha$ at both ends, and it is decreasing in $\ell$.
+
+\begin{lemma}\label{p-lem:slice}
+For every triangle $T$ and $\alpha>0$, $\lambda_1(T,\alpha)\ge\mu(h_{\min},\alpha)$, where
+$h_{\min}=2A/a_{\max}$ is the altitude on the longest side.
+\end{lemma}
+
+\begin{proof}
+Place the longest side on $\{y=0\}$, so that $T=\{0<x<b,\ 0<y<\ell(x)\}$ with $\ell$ piecewise
+linear and $0<\ell\le h_{\min}$ (the angles adjacent to the longest side are acute, so the
+foot of the altitude lies on it). On the two other sides $\dd s\ge\dd x$. Hence for
+$u\in C^1(\overline T)$, and then for $u\in H^1(T)$ by density,
+\begin{align*}
+  \int_T|\nabla u|^2+\alpha\int_{\partial T}u^2
+  &\ge\int_0^b\Bigl(\int_0^{\ell(x)}|\partial_yu|^2\dd y
+      +\alpha\,u(x,0)^2+\alpha\,u(x,\ell(x))^2\Bigr)\dd x\\
+  &\ge\int_0^b\mu(\ell(x),\alpha)\int_0^{\ell(x)}u^2\dd y\dd x ,
+\end{align*}
+and $\mu(\ell(x),\alpha)\ge\mu(h_{\min},\alpha)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{p-thm:thin}]
+The hypothesis is $h_{\min}\le r_E$, so by Lemma~\ref{p-lem:slice} it suffices to show
+$\mu(r_E,\alpha)>\lambda_0(\alpha)$. Let $k$ be the root of $k\tan(kr_E/2)=\alpha$, that is
+$kr_E/2=\arctan(\alpha/k)$. The function
+$g(\kappa)=\kappa H/2-\arctan(\alpha/\kappa)-\arctan(2\alpha/\kappa)$ is increasing and vanishes
+at $\kappa(\alpha)$. Since $H=3r_E$,
+\[
+  g(k)=3\arctan\frac{\alpha}{k}-\arctan\frac{\alpha}{k}-\arctan\frac{2\alpha}{k}
+  =2\arctan\frac{\alpha}{k}-\arctan\frac{2\alpha}{k}>0,
+\]
+because $\arctan$ is strictly concave on $[0,\infty)$ and vanishes at $0$. Hence
+$k>\kappa(\alpha)$, that is $\mu(r_E,\alpha)>\lambda_0(\alpha)$ by
+Proposition~\ref{p-prop:equi}.
+\end{proof}
+
+\section{Weak coupling: proof of Theorem~\ref{p-thm:small}}\label{p-sec:small}
+
+\begin{lemma}[dual principle]\label{p-lem:dual}
+Let $\Omega$ be a bounded Lipschitz domain and $V\in C^1(\overline\Omega;\R^2)$ with
+$V\cdot\nu\le\alpha$ on $\partial\Omega$. Then
+$\lambda_1(\Omega,\alpha)\ge\inf_\Omega(\operatorname{div}V-|V|^2)$.
+\end{lemma}
+
+\begin{proof}
+For $u\in H^1(\Omega)$, $0\le|\nabla u+uV|^2$ gives
+$|\nabla u|^2\ge-V\cdot\nabla(u^2)-|V|^2u^2$. Integrating by parts,
+$\int_\Omega|\nabla u|^2\ge\int_\Omega(\operatorname{div}V-|V|^2)u^2
+-\int_{\partial\Omega}(V\cdot\nu)u^2$, and the last term is at least
+$-\alpha\int_{\partial\Omega}u^2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{p-thm:small}]
+Every side of $T$ is tangent to the incircle, so $(x-I)\cdot\nu=r$ on $\partial T$. Take
+$V(x)=\alpha(x-I)/r$. Then $V\cdot\nu=\alpha$ on $\partial T$,
+$\operatorname{div}V=2\alpha/r=\alpha P/A$ and $|V|^2\le\alpha^2R_I^2/r^2$ on $T$, since $|x-I|$
+is maximal at a vertex. Lemma~\ref{p-lem:dual} gives \eqref{p-eq:small}. If
+$\alpha R_I^2/r^2\le(P-P_E)/A$ then \eqref{p-eq:small} gives
+$\lambda_1(T,\alpha)\ge\alpha P_E/A>\lambda_0(\alpha)$ by Proposition~\ref{p-prop:equi}; here
+$P>P_E$ by the isoperimetric inequality for triangles.
+\end{proof}
+
+\section{Shapes, concavity and cells}\label{p-sec:shapes}
+
+From now on $A=1$ (this is no restriction, since $\lambda_1(sT,\alpha)=s^{-2}\lambda_1(T,s\alpha)$).
+Fix the equilateral triangle $E$ of area $1$ with centroid $0$, unit side directions
+$\tau_j=(\cos\vartheta_j,\sin\vartheta_j)$, $\vartheta_j\in\{0,2\pi/3,4\pi/3\}$, and sides
+$\Gamma_1,\Gamma_2,\Gamma_3$ of length $s_E=2/H$, $H=3^{1/4}$. For a symmetric positive definite
+$G\in\R^{2\times2}$ and $m\in[0,\infty)^3$, $m\neq0$, put
+\[
+  q_{G,m}[v]=\int_E\nabla v\cdot G\nabla v+\sum_{j=1}^3m_j\int_{\Gamma_j}v^2,\qquad
+  \Lambda(G,m)=\inf_{0\ne v\in H^1(E)}\frac{q_{G,m}[v]}{\int_Ev^2}.
+\]
+The infimum is attained. If $B$ is an invertible matrix and $u=v\circ B^{-1}$ on $B(E)$, then
+\begin{equation}\label{p-eq:pullback}
+  q_{G,m}[v]=\frac1{|\det B|}\Bigl(\int_{B(E)}\nabla u\cdot BGB^{\mathsf T}\nabla u
+  +\sum_j\frac{m_j|\det B|}{|B\tau_j|}\int_{B\Gamma_j}u^2\Bigr),\qquad
+  \int_Ev^2=\frac1{|\det B|}\int_{B(E)}u^2 .
+\end{equation}
+With $B=G^{-1/2}$ this shows that $\Lambda(G,m)$ is the lowest eigenvalue of the Laplacian on
+the triangle $G^{-1/2}(E)$ with the Robin coefficient $\beta_j=m_j(\det G)^{-1/2}/|G^{-1/2}\tau_j|$
+on its $j$-th side. In particular, let $\cP$ be the set of symmetric positive definite matrices
+of determinant one and, for $G\in\cP$,
+\[
+  T_G=G^{-1/2}(E),\qquad \ell_j(G)=|G^{-1/2}\tau_j|=(\tau_j^{\mathsf T}G^{-1}\tau_j)^{1/2};
+  \qquad\text{then}\quad \lambda_1(T_G,\alpha)=\Lambda\bigl(G,\alpha\,\ell(G)\bigr),
+\]
+$|T_G|=1$, and the sides of $T_G$ have lengths $s_E\ell_j(G)$.
+
+\begin{lemma}[concavity]\label{p-lem:concave}
+$\Lambda$ is concave, positively homogeneous of degree one, and nondecreasing with respect to the
+Loewner order in $G$ and the componentwise order in $m$. Consequently, if
+$\theta_i\ge0$, $\sum_i\theta_i=1$, $c>0$ and
+$G\succeq c\sum_i\theta_iG_i$, $m\ge c\sum_i\theta_im_i$, then
+$\Lambda(G,m)\ge c\sum_i\theta_i\Lambda(G_i,m_i)$.
+\end{lemma}
+
+\begin{proof}
+For fixed $v$ the quotient is linear in $(G,m)$ and nondecreasing; an infimum of such
+functions is concave, homogeneous and nondecreasing.
+\end{proof}
+
+In particular $\alpha\mapsto\lambda_1(T,\alpha)$ is concave and nondecreasing for every triangle
+$T$.
+
+\paragraph{Shape coordinates.} For $w=(w_1,w_2)$ in the open unit disc $\mathbb D$ let
+\[
+  S(w)=\begin{pmatrix}w_1&w_2\\ w_2&-w_1\end{pmatrix},\qquad
+  G(w)=\frac{I-S(w)}{\sqrt{1-|w|^2}},\qquad T_w=T_{G(w)},\qquad
+  e_j=(\cos2\vartheta_j,\sin2\vartheta_j).
+\]
+
+\begin{lemma}\label{p-lem:shape}
+\begin{enumerate}
+\item[\textup{(a)}] $w\mapsto G(w)$ is a bijection from $\mathbb D$ onto $\cP$, and
+$G(w)^{-1}=(I+S(w))/\sqrt{1-|w|^2}$. Hence
+$\ell_j(G(w))^2=(1+w\cdot e_j)/\sqrt{1-|w|^2}$, and the angle $\omega_j$ of $T_w$ opposite to its
+$j$-th side satisfies $\cot\omega_j=(1-2\,w\cdot e_j)/\sqrt{3(1-|w|^2)}$.
+\item[\textup{(b)}] Every triangle of area $1$ is congruent to $T_w$ for some $w$ in the closed
+sector $\Sigma=\{w\in\mathbb D:\ 0\le\arg w\le\pi/3\}\cup\{0\}$; $T_w$ is equilateral only for $w=0$.
+\item[\textup{(c)}] If $(1+w_1)^2\ge81(1-|w|^2)$, then the longest side of $T_w$ is at least $P_E$.
+\item[\textup{(d)}] If $L=\exp(tS_\phi)$ with $t\ge0$ and
+$S_\phi=S((\cos2\phi,\sin2\phi))$, then $L(E)=T_w$ with $w=\tanh(2t)(\cos2\phi,\sin2\phi)$;
+moreover $G(w)=\cosh(2t)I-\sinh(2t)S_\phi$ and
+$\ell_j(G(w))^2=\cosh2t+\sinh2t\,\cos(2\phi-2\vartheta_j)$.
+\item[\textup{(e)}] For $w,w'\in\mathbb D$,
+$\Gamma(w,w'):=\tfrac12\tr\bigl(G(w)G(w')^{-1}\bigr)=(1-w\cdot w')/\sqrt{(1-|w|^2)(1-|w'|^2)}\ge1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $S(w)^2=|w|^2I$, so $(I-S(w))(I+S(w))=(1-|w|^2)I$ and $\det(I-S(w))=1-|w|^2$; thus
+$G(w)\in\cP$ with the stated inverse. Conversely a matrix in $\cP$ is $aI+bS((1,0))+cS((0,1))$
+with $a>0$, $a^2-b^2-c^2=1$, which is $G(w)$ exactly for $w=-(b,c)/a$. Next
+$\tau_j^{\mathsf T}S(w)\tau_j=w_1\cos2\vartheta_j+w_2\sin2\vartheta_j=w\cdot e_j$. For the angle
+use $\cot\omega_j=(\sum_ka_k^2-2a_j^2)/(4|T_w|)$ with $a_k^2=s_E^2\ell_k^2$, $s_E^2=4/\sqrt3$ and
+$\sum_ke_k=0$.
+(b) Write the triangle as $M(E)+b$; composing with a reflection of $E$ we may assume
+$\det M=1$. Then $M=Q(M^{\mathsf T}M)^{1/2}$ with $Q$ a rotation, so the triangle is congruent
+to $T_G$ with $G=(M^{\mathsf T}M)^{-1}\in\cP$. If $g$ is one of the six orthogonal symmetries of
+$E$, then $T_{g^{\mathsf T}Gg}=g^{\mathsf T}G^{-1/2}g(E)=g^{\mathsf T}(T_G)$ is congruent to
+$T_G$, and $g^{\mathsf T}S(w)g=S(w')$ where $w'$ is obtained from $w$ by a rotation through a
+multiple of $2\pi/3$, possibly composed with $w_2\mapsto-w_2$ (rotating $E$ by $\vartheta$
+rotates $w$ by $-2\vartheta$). These maps form the dihedral group of order six acting on
+$\mathbb D$, for which $\Sigma$ is a fundamental domain. If $T_w$ is equilateral then
+$\ell_1=\ell_2=\ell_3$, so $w\cdot e_j$ does not depend on $j$, hence $w=0$.
+(c) The hypothesis is $\ell_1^2\ge9$, and the sides of $T_w$ are $s_E\ell_j$, $P_E=3s_E$.
+(d) $\exp(tS_\phi)=\cosh t\,I+\sinh t\,S_\phi$ is symmetric with determinant one, so
+$L(E)=T_G$ with $G=L^{-2}=\exp(-2tS_\phi)=\cosh2t\,I-\sinh2t\,S_\phi=G(w)$ for the stated $w$,
+because $\cosh2t=(1-\tanh^22t)^{-1/2}$. The formula for $\ell_j$ follows from (a).
+(e) $\tr(S(w)S(w'))=2w\cdot w'$ and $\tr S(w)=0$ give the formula. The matrix
+$G(w)G(w')^{-1}$ is similar to a positive definite matrix of determinant one, so its
+eigenvalues are $\mu,1/\mu$ with $\mu>0$, and $\frac12(\mu+1/\mu)\ge1$.
+\end{proof}
+
+By (a), $\cP$ with the distance $d(G,G')=\frac12\operatorname{arcosh}\Gamma$ is the hyperbolic
+plane and $w$ is its Klein (projective) model; we do not use this, but it explains the next
+lemma: Euclidean segments in $\mathbb D$ are the hyperbolic geodesics, and the constant $c$ below
+is $1-O(\diam^2)$ for a cell of hyperbolic diameter $\diam$.
+
+\begin{lemma}[cells]\label{p-lem:cell}
+Let $w_1,\dots,w_N\in\mathbb D$, $G_i=G(w_i)$ and $\Gamma_{ik}=\Gamma(w_i,w_k)$. Let $w$ be a
+point of the convex hull of $w_1,\dots,w_N$. Then there are $\theta_i\ge0$ with
+$\sum_i\theta_i=1$ such that, with
+$c=(\theta^{\mathsf T}\Gamma\theta)^{-1/2}=\bigl(\sum_{i,k}\theta_i\theta_k\Gamma_{ik}\bigr)^{-1/2}\in(0,1]$,
+\begin{equation}\label{p-eq:cell}
+  G(w)=c\sum_i\theta_iG_i\qquad\text{and}\qquad
+  \lambda_1(T_w,\alpha)\ \ge\ c\sum_i\theta_i\,\lambda_1(T_{w_i},\alpha)\quad\text{for every }\alpha>0 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write $w=\sum_is_iw_i$ with $s_i\ge0$, $\sum s_i=1$, put $a_i=(1-|w_i|^2)^{-1/2}$ and
+$\theta_i=(s_i/a_i)/\sum_k(s_k/a_k)$. Then
+$\bar G:=\sum_i\theta_iG_i=\sum_i\theta_ia_i(I-S(w_i))=\bigl(\sum_i\theta_ia_i\bigr)(I-S(w))$,
+because $S$ is linear and $\theta_ia_i$ is proportional to $s_i$. Thus $\bar G$ is a positive
+multiple of $G(w)$, and since $\det G(w)=1$, $G(w)=c\,\bar G$ with $c=(\det\bar G)^{-1/2}$. For
+$2\times2$ matrices $\det X=\frac12\tr(X\adj X)$ and $\adj$ is linear, so
+$\det\bar G=\frac12\sum_{i,k}\theta_i\theta_k\tr(G_i\adj G_k)=\theta^{\mathsf T}\Gamma\theta$,
+as $\adj G_k=G_k^{-1}$. Since $\Gamma_{ik}\ge1$ (Lemma~\ref{p-lem:shape}(e)),
+$\theta^{\mathsf T}\Gamma\theta\ge(\sum\theta_i)^2=1$ and $c\le1$.
+
+Next, for $G\in\cP$ we have $G^{-1}=\adj G=J^{\mathsf T}GJ$ with $J$ the rotation through
+$\pi/2$; hence $\ell_j(G)^2=(J\tau_j)^{\mathsf T}G(J\tau_j)$ is the restriction to $\cP$ of a
+\emph{linear} function of $G$. Therefore
+$\sum_i\theta_i\ell_j(G_i)^2=(J\tau_j)^{\mathsf T}\bar G(J\tau_j)=\ell_j(G(w))^2/c$, and by
+the Cauchy--Schwarz inequality
+$\sum_i\theta_i\ell_j(G_i)\le\bigl(\sum_i\theta_i\ell_j(G_i)^2\bigr)^{1/2}=c^{-1/2}\ell_j(G(w))$.
+So $\ell_j(G(w))\ge c^{1/2}\sum_i\theta_i\ell_j(G_i)\ge c\sum_i\theta_i\ell_j(G_i)$. Now
+Lemma~\ref{p-lem:concave}, applied to the points $(G_i,\alpha\ell(G_i))$, gives \eqref{p-eq:cell}.
+\end{proof}
+
+\begin{corollary}[prisms]\label{p-cor:prism}
+Let $w_1,w_2,w_3\in\mathbb D$, $\Gamma_{ik}=\Gamma(w_i,w_k)$, $0<\alpha_0<\alpha_1$, and let
+$b_i^0,b_i^1>0$ satisfy $b_i^0\le\lambda_1(T_{w_i},\alpha_0)$,
+$b_i^1\le\lambda_1(T_{w_i},\alpha_1)$ $(i=1,2,3)$. Let $U:[\alpha_0,\alpha_1]\to\R$ satisfy
+$U\ge\lambda_0$.
+\begin{enumerate}
+\item[\textup{(a)}] If for all $1\le i\le k\le3$ and all $\alpha=(1-u)\alpha_0+u\alpha_1$,
+$u\in[0,1]$,
+\begin{equation}\label{p-eq:prism}
+  (1-u)\sqrt{b_i^0b_k^0}+u\sqrt{b_i^1b_k^1}\ >\ \sqrt{\Gamma_{ik}}\;U(\alpha),
+\end{equation}
+then $\lambda_1(T_w,\alpha)>\lambda_0(\alpha)$ for every $w$ in the closed triangle with
+vertices $w_1,w_2,w_3$ and every $\alpha\in[\alpha_0,\alpha_1]$.
+\item[\textup{(b)}] If $\sqrt{b_i^0b_k^0}>\sqrt{\Gamma_{ik}}\,\Lambda_1(E)$ for all
+$1\le i\le k\le3$, then $\lambda_1(T_w,\alpha)>\lambda_0(\alpha)$ for every $w$ in that triangle
+and every $\alpha\ge\alpha_0$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) Fix $\alpha$ and $u$. By concavity in $\alpha$,
+$\lambda_1(T_{w_i},\alpha)\ge b_i:=(1-u)b_i^0+ub_i^1$. The geometric mean of two positive
+affine functions of $u$ is concave, so $\sqrt{b_ib_k}$ is at least the left side of
+\eqref{p-eq:prism}; hence $b_ib_k>\Gamma_{ik}\lambda_0(\alpha)^2$ for all $i,k$ (for $i>k$ by
+symmetry). For $w$ in the triangle take $\theta$ and $c$ from Lemma~\ref{p-lem:cell}. Then
+$(\sum_i\theta_ib_i)^2=\sum_{i,k}\theta_i\theta_kb_ib_k>\lambda_0(\alpha)^2\,
+\theta^{\mathsf T}\Gamma\theta$, that is $c\sum_i\theta_ib_i>\lambda_0(\alpha)$, and
+\eqref{p-eq:cell} gives the claim. (b) For $\alpha\ge\alpha_0$,
+$\lambda_1(T_{w_i},\alpha)\ge\lambda_1(T_{w_i},\alpha_0)\ge b_i^0$, and the same computation
+gives $\lambda_1(T_w,\alpha)>\Lambda_1(E)>\lambda_0(\alpha)$ by Proposition~\ref{p-prop:equi}.
+\end{proof}
+
+
+\section{Certified lower bounds}\label{p-sec:cert}
+
+\begin{lemma}[interpolation constant]\label{p-lem:interp}
+Let $K$ be a triangle with longest side $h$ and let $f\in H^1(K)$ have mean value zero on each
+of the three sides of $K$. Then
+\[
+  \|f\|_{L^2(K)}\le\kappa_0\,h\,\|\nabla f\|_{L^2(K)},\qquad
+  \kappa_0=\Bigl(\frac1{48}+\frac1{j_{1,1}^2}\Bigr)^{1/2}<0.2983,
+\]
+where $j_{1,1}=3.8317\ldots$ is the first positive zero of the Bessel function $J_1$. The same
+holds with $j_{1,1}$ replaced by $\pi$, that is with the constant
+$(1/48+1/\pi^2)^{1/2}<0.3496$.
+\end{lemma}
+
+\begin{proof}
+(This is the argument of \cite{CGal}; see also \cite{CG}.) Let $\bar f$ be the mean of $f$ over
+$K$. Then $\|f\|^2=\|f-\bar f\|^2+|K|\bar f^2$, and $\|f-\bar f\|\le(h/j_{1,1})\|\nabla f\|$
+by the optimal Poincar\'e inequality for triangles of Laugesen and Siudeja \cite{LaSiPoincare}
+(with $\pi$ in place of $j_{1,1}$ this is the Payne--Weinberger inequality for convex domains
+\cite{PW,Bebendorf}). Let $P_i$ be the vertex opposite to the side $e_i$. The field $x-P_i$ is
+tangent to the two sides through $P_i$, and $(x-P_i)\cdot\nu=2|K|/|e_i|$ on $e_i$. The
+divergence theorem for $f\,(x-P_i)$ gives
+$2\int_Kf+\int_K(x-P_i)\cdot\nabla f=(2|K|/|e_i|)\int_{e_i}f=0$. Averaging over $i=1,2,3$,
+$2\int_Kf=-\int_K(x-c)\cdot\nabla f$ with $c$ the centroid, so
+$|K|\,|\bar f|\le\frac12\|x-c\|_{L^2(K)}\|\nabla f\|$. The polar moment of inertia of a
+triangle with sides $a,b,c'$ about its centroid is $\|x-c\|^2_{L^2(K)}=|K|(a^2+b^2+c'^2)/36\le
+|K|h^2/12$. Hence $|K|\bar f^2\le(h^2/48)\|\nabla f\|^2$.
+\end{proof}
+
+Let $\mathcal T_h$ be a triangulation of a triangle $\Omega$ (conforming: two elements meet in a
+common side, a common vertex, or not at all), $V_h$ the Crouzeix--Raviart space \cite{CR} on
+$\mathcal T_h$, i.e.\ the piecewise affine functions that are continuous at the midpoints of the
+interior edges, with no boundary condition, and $\Pi_h:H^1(\Omega)\to V_h$ the interpolation
+operator defined by $\int_e\Pi_hu=\int_eu$ for every edge $e$. Let
+$\beta:\partial\Omega\to[0,\infty)$ be constant on each side of $\Omega$ and not identically
+zero, and
+\[
+  a_h(u,v)=\sum_{K\in\mathcal T_h}\int_K\nabla u\cdot\nabla v
+  +\sum_{e\subset\partial\Omega}\beta_e\,|e|\,\bar u_e\,\bar v_e ,
+\]
+where $e$ runs over the boundary edges and $\bar u_e$ is the mean of $u$ on $e$. Let
+$\lambda_{1,h}\le\lambda_{2,h}\le\dots$ be the eigenvalues of $a_h$ on $V_h$ with respect to the
+$L^2(\Omega)$ inner product, and $\lambda_1\le\lambda_2\le\dots$ the eigenvalues of the form
+$q_\beta[u]=\int_\Omega|\nabla u|^2+\int_{\partial\Omega}\beta u^2$ on $H^1(\Omega)$.
+
+\begin{lemma}[Crouzeix--Raviart lower bound]\label{p-lem:CR}
+Let $C_h=\kappa_0h$, where $h$ is the largest diameter of an element of $\mathcal T_h$ and
+$\kappa_0$ is a constant for which Lemma~\ref{p-lem:interp} holds. Then for $k=1$ and $k=2$,
+and every $\sigma$ with $0<\sigma\le\lambda_{k,h}$,
+\[
+  \lambda_k\ \ge\ \frac{\lambda_{k,h}}{1+C_h^2\lambda_{k,h}}\ \ge\ \frac{\sigma}{1+C_h^2\sigma}.
+\]
+\end{lemma}
+
+\begin{proof}
+(For $\beta=0$ on a part of the boundary and Dirichlet conditions on the rest this is due to
+\cite{CG,Liu}; the Robin term requires only the observation that it is diagonal in the edge
+means.) First, $a_h$ is positive definite on $V_h$: if $a_h(w,w)=0$ then $w$ is constant on each
+element, continuous at the midpoints, hence constant, and a boundary edge with $\beta_e>0$
+forces $w=0$. Extend $a_h$ to $H^1(\Omega)+V_h$ by the same formula. For $v_h\in V_h$,
+$\partial_\nu v_h$ is constant on each edge of each element, so
+$\sum_K\int_K\nabla(u-\Pi_hu)\cdot\nabla v_h=0$; the boundary term of $a_h(u-\Pi_hu,v_h)$
+vanishes because the edge means of $u-\Pi_hu$ vanish. Thus
+\begin{equation}\label{p-eq:pyth}
+  a_h(u,u)=a_h(\Pi_hu,\Pi_hu)+a_h(u-\Pi_hu,u-\Pi_hu)\qquad(u\in H^1(\Omega)).
+\end{equation}
+By Lemma~\ref{p-lem:interp} on each element,
+$\|u-\Pi_hu\|\le C_h\,a_h(u-\Pi_hu,u-\Pi_hu)^{1/2}$. Moreover $|e|\,\bar u_e^2\le\int_eu^2$, so
+$a_h(u,u)\le q_\beta[u]$.
+
+Let $U\subset H^1(\Omega)$ be spanned by eigenfunctions for $\lambda_1,\dots,\lambda_k$, so that
+$q_\beta[u]\le\lambda_k\|u\|^2$ on $U$. If $\Pi_h$ is not injective on $U$, take $u\in U$ with
+$\|u\|=1$ and $\Pi_hu=0$; then $1=\|u-\Pi_hu\|\le C_ha_h(u,u)^{1/2}\le C_h\lambda_k^{1/2}$, so
+$\lambda_k\ge C_h^{-2}$, which is larger than the asserted bound. Otherwise $\Pi_hU$ has
+dimension $k$ and by the min--max principle in $V_h$ there is $u\in U\setminus\{0\}$ with
+$a_h(\Pi_hu,\Pi_hu)\ge\lambda_{k,h}\|\Pi_hu\|^2$. For this $u$, by \eqref{p-eq:pyth} and the
+Cauchy--Schwarz inequality,
+\begin{align*}
+  \|u\|\le\|\Pi_hu\|+\|u-\Pi_hu\|
+  &\le\lambda_{k,h}^{-1/2}a_h(\Pi_hu,\Pi_hu)^{1/2}+C_h\,a_h(u-\Pi_hu,u-\Pi_hu)^{1/2}\\
+  &\le\bigl(\lambda_{k,h}^{-1}+C_h^2\bigr)^{1/2}a_h(u,u)^{1/2}
+  \le\bigl(\lambda_{k,h}^{-1}+C_h^2\bigr)^{1/2}\lambda_k^{1/2}\|u\| .
+\end{align*}
+The second inequality of the lemma holds because $x\mapsto x/(1+C_h^2x)$ is increasing.
+\end{proof}
+
+\paragraph{The matrices.} In the Crouzeix--Raviart basis (one function per edge, equal to $1$
+at its midpoint; on an element it is $1-2\mu$, with $\mu$ the barycentric coordinate of the
+opposite vertex) the mass matrix $M_h$ is diagonal, with entries $\frac13$ of the total area of
+the (one or two) elements containing the edge; the boundary term of $a_h$ is diagonal with
+entries $\beta_e|e|$; and the element stiffness matrix has off-diagonal entries
+$-2\cot\omega$, where $\omega$ is the angle of the element opposite to its third edge, and zero
+row sums. Hence, on a triangulation without obtuse angles, the matrix $K_h$ of $a_h$ has
+nonpositive off-diagonal entries. We use two triangulations of a triangle $\Omega$, depending on
+an integer $n$:
+\begin{itemize}
+\item[(U)] if $\Omega$ is acute: the subdivision into $n^2$ congruent triangles similar to
+$\Omega$;
+\item[(A)] in general: $\Omega$ is cut along the altitude on its longest side into two right
+triangles, and each of them is subdivided into $n^2$ congruent right triangles similar to it
+(the two subdivisions induce the same $n$ equal segments on the altitude, so the union is
+conforming).
+\end{itemize}
+In both cases all data of $K_h$ and $M_h$ are determined by $n$ and by the squared side
+lengths, the area and the Robin coefficients of $\Omega$: the cotangent of the angle of
+$\Omega$ opposite to the side $a_j$ is $(\sum_ka_k^2-2a_j^2)/(4|\Omega|)$; in (A) the two right
+triangles have the acute angles $\omega_B,\pi/2-\omega_B$ and $\omega_C,\pi/2-\omega_C$, where
+$\omega_B,\omega_C$ are the angles of $\Omega$ adjacent to its longest side, their legs on that
+side have lengths $h_\Omega\cot\omega_B$ and $h_\Omega\cot\omega_C$ with $h_\Omega$ the altitude,
+and the coupling across a right angle is exactly zero. The largest element diameter is the
+longest side of $\Omega$ divided by $n$ in (U), and the longer of the two other sides divided by
+$n$ in (A).
+
+\begin{lemma}[Collatz--Wielandt certificate]\label{p-lem:CW}
+Let $K$ be a real symmetric matrix with nonpositive off-diagonal entries and $M$ a diagonal
+matrix with positive diagonal. If $x$ has positive entries and $Kx\ge\sigma Mx$ entrywise, then
+every eigenvalue of the pencil $(K,M)$ is at least $\sigma$.
+\end{lemma}
+
+\begin{proof}
+Let $B=K-\sigma M$ and $X=\operatorname{diag}(x)$. The symmetric matrix $XBX$ has nonpositive
+off-diagonal entries and row sums $x_i(Bx)_i\ge0$, so it is diagonally dominant with nonnegative
+diagonal, hence positive semidefinite by Gershgorin's theorem. So $B$ is positive semidefinite.
+\end{proof}
+
+\begin{lemma}[second eigenvalue]\label{p-lem:inertia}
+Let $K$ be real symmetric, $M$ symmetric positive definite, $x$ a vector, $g\ge0$ and
+$\sigma\in\R$. If $K-\sigma M+g\,(Mx)(Mx)^{\mathsf T}$ is positive definite, then the second
+eigenvalue of the pencil $(K,M)$ is at least $\sigma$. A symmetric matrix $B$ is positive
+definite if there is a matrix $S$ such that $S^{\mathsf T}BS$ is strictly diagonally dominant
+with positive diagonal.
+\end{lemma}
+
+\begin{proof}
+On the hyperplane $\{y:(Mx)^{\mathsf T}y=0\}$ we have
+$y^{\mathsf T}Ky-\sigma y^{\mathsf T}My=y^{\mathsf T}By>0$ for $y\ne0$, and the second eigenvalue
+is the maximum over hyperplanes of the minimum of the Rayleigh quotient. If
+$C=S^{\mathsf T}BS$ is strictly diagonally dominant with positive diagonal, it is positive
+definite by Gershgorin's theorem; then $S$ is injective, hence invertible, and
+$B=S^{-\mathsf T}CS^{-1}$ is positive definite.
+\end{proof}
+
+\paragraph{How the bounds are certified.} For given $(a_1^2,a_2^2,a_3^2,|\Omega|,\beta,n)$, a
+floating-point approximation $x>0$ of the discrete ground state is computed (sparse
+shift-and-invert Lanczos, followed by damped Jacobi sweeps, which make the small components
+near the corners accurate); it is not trusted. The vector $x$ is converted \emph{exactly} into a
+vector of positive integers (a common power of two times $x$). The real coefficients
+($2\cot\omega$ for the angle classes, $\beta_e|e|$, and $\frac13$ of the element areas; at
+most a dozen numbers) are enclosed in Arb balls \cite{Arb} and replaced by rational lower or
+upper bounds with denominator $2^{60}$, the direction of rounding being chosen for each term
+according to the sign of its exact integer cofactor. The inequality $Kx\ge\sigma Mx$ of
+Lemma~\ref{p-lem:CW} then becomes a sign test on exact integers, and the nonnegativity of the
+cotangents is checked on their lower bounds. This gives $\lambda_{1,h}\ge\sigma$ for a dyadic
+rational $\sigma$, and Lemma~\ref{p-lem:CR} gives a lower bound for $\lambda_1(\Omega,\beta)$,
+evaluated in ball arithmetic with an upper bound for $h$. For the second eigenvalue of $E$ the
+matrices of Lemma~\ref{p-lem:inertia} are formed in ball arithmetic, with $x$ and $S$
+floating-point matrices that are entered exactly ($S$ approximates an inverse Cholesky factor).
+
+
+\section{The Schur-complement criterion and uniform weak coupling}\label{p-sec:uniform}
+
+The following criterion is the tool for all shapes close to $E$: for $\alpha\le1/100$ in this
+section and for $\alpha\ge1/100$ in Section~\ref{p-sec:local}.
+
+\begin{lemma}[Schur-complement criterion near $E$]\label{p-lem:schur}
+Fix $\alpha>0$, let $q_0=q_{I,\alpha(1,1,1)}$, let $\psi_0$ be its $L^2$-normalised ground state
+and $\lambda_0<\lambda_2$ its first two eigenvalues (so $\lambda_0=\lambda_1(E,\alpha)$ and
+$\lambda_2$ is the second eigenvalue). Let $(G,m)$ satisfy
+$q_{G,m}[w]\ge(1-\eta)q_0[w]$ for all $w\in H^1(E)$, with $0\le\eta<1-\lambda_0/\lambda_2$, and put
+$D=q_{G,m}-q_0$ (a symmetric bilinear form), $\eta'=\eta\lambda_2/(\lambda_2-\lambda_0)<1$ and
+\[
+  \mathcal R=\sup\Bigl\{\frac{D(\psi_0,w)^2}{q_0[w]-\lambda_0\|w\|^2}:\ 0\ne w\in H^1(E),\
+  \langle w,\psi_0\rangle=0\Bigr\}.
+\]
+If $D[\psi_0]\ge\mathcal R/(1-\eta')$, then $\Lambda(G,m)\ge\lambda_0$; if the inequality is
+strict, then $\Lambda(G,m)>\lambda_0$.
+\end{lemma}
+
+\begin{proof}
+Let $v=c\psi_0+w$ with $w\perp\psi_0$ in $L^2(E)$; then $q_0(\psi_0,w)=0$ and
+$q_0[w]\ge\lambda_2\|w\|^2$. Hence
+\[
+  q_{G,m}[v]-\lambda_0\|v\|^2=c^2D[\psi_0]+2c\,D(\psi_0,w)+q_{G,m}[w]-\lambda_0\|w\|^2 ,
+\]
+and $q_{G,m}[w]-\lambda_0\|w\|^2\ge(1-\eta)q_0[w]-\lambda_0\|w\|^2\ge
+(1-\eta')(q_0[w]-\lambda_0\|w\|^2)$, the last step being equivalent to
+$(\eta'-\eta)q_0[w]\ge\eta'\lambda_0\|w\|^2$, which holds since
+$(\eta'-\eta)\lambda_2=\eta'\lambda_0$. Writing $N=q_0[w]-\lambda_0\|w\|^2$ and using
+$|D(\psi_0,w)|\le(\mathcal RN)^{1/2}$,
+\[
+  q_{G,m}[v]-\lambda_0\|v\|^2\ge c^2D[\psi_0]-2|c|(\mathcal RN)^{1/2}+(1-\eta')N\ge
+  c^2\Bigl(D[\psi_0]-\frac{\mathcal R}{1-\eta'}\Bigr)\ge0 .
+\]
+If $D[\psi_0]>\mathcal R/(1-\eta')$, the right side is positive for $c\ne0$, and for $c=0$,
+$w\ne0$ the left side is at least $(1-\eta')N>0$; since the infimum defining $\Lambda(G,m)$ is
+attained, $\Lambda(G,m)>\lambda_0$.
+\end{proof}
+\begin{remark}\label{p-rem:lam2}
+Lemma~\ref{p-lem:schur} and its proof remain valid if $\lambda_2$ is replaced throughout (in the
+condition on $\eta$ and in the definition of $\eta'$) by a number $\underline\lambda_2$ with
+$\lambda_0<\underline\lambda_2\le\lambda_2$, because only the inequality
+$q_0[w]\ge\underline\lambda_2\|w\|^2$ for $w\perp\psi_0$ is used.
+\end{remark}
+
+\subsection*{Proof of Theorem~\ref{p-thm:uniform}}
+By the scaling $\lambda_1(sT,\alpha)=s^{-2}\lambda_1(T,s\alpha)$ we may take $A=1$; then
+$H=3^{1/4}$, $P_E=6/H$, $r_E=H/3$ and the side of $E$ is $2/H$. Put $\alpha_1=1/100$. Every
+triangle of area $1$ is congruent to $L(E)$ with $L=\exp(tS_\phi)$, $t\ge0$,
+$S_\phi=\bigl(\begin{smallmatrix}\cos2\phi&\sin2\phi\\ \sin2\phi&-\cos2\phi\end{smallmatrix}\bigr)$
+(write the triangle as $M(E)+b$ with $\det M=1$, after composing with a reflection of $E$ if
+necessary, and take the polar decomposition of $M$). If $\tau_j=(\cos\vartheta_j,\sin\vartheta_j)$
+are the side directions of $E$, $\vartheta_j\in\{0,2\pi/3,4\pi/3\}$, then
+\begin{equation}\label{p-eq:ell}
+  G=\exp(-2tS_\phi),\qquad \ell_j^2=|L\tau_j|^2=\cosh2t+\sinh2t\,\cos(2\phi-2\vartheta_j),
+\end{equation}
+the sides of $T$ are $a_j=2\ell_j/H$, and $t=0$ exactly when $T$ is equilateral. We write
+$\bar\ell=\frac13\sum_j\ell_j=P/P_E$, $\hat p=\bar\ell-1\ge0$,
+$|z_0|=\bigl(\tfrac23\sum_j(\ell_j-\bar\ell)^2\bigr)^{1/2}$ and $\zeta=2\hat p+|z_0|$.
+
+\begin{lemma}[the equilateral triangle at weak coupling]\label{p-lem:Eweak}
+Let $A=1$, $0<\alpha\le\alpha_1$, and let $\psi_0$ be the $L^2(E)$-normalised ground state. Then
+\begin{enumerate}
+\item[\textup{(a)}] $\alpha P_E-\alpha^2/(1-4\alpha/P_E)\le\lambda_0(\alpha)\le
+\alpha P_E-\alpha^2+\tfrac{11}{5}\alpha^3/P_E$;
+\item[\textup{(b)}] $\int_{\partial E}\psi_0^2\ge P_E-g_2\alpha$ and
+$\|\nabla\psi_0\|_{L^2(E)}\le g_1\alpha$, where, with $c=1.18$,
+\[
+  g_2=\frac1{c-1}\Bigl(\frac{c^2}{1-4c\alpha_1/P_E}-1+\frac{11\alpha_1}{5P_E}\Bigr)<\clpGtwo,
+  \qquad g_1=\Bigl(g_2-1+\frac{11\alpha_1}{5P_E}\Bigr)^{1/2}<\clpGone;
+\]
+\item[\textup{(c)}] the second Robin eigenvalue satisfies
+$\lambda_2(E,\alpha)\ge\mu_2:=4\pi^2/(3\sqrt3)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) With $y=\alpha/\kappa$, \eqref{p-eq:kappa} reads
+$\lambda_0=\kappa^2=\frac{2\alpha}{H}\,(\arctan y+\arctan2y)/y$. For $y\ge0$,
+$y-y^3/3\le\arctan y\le y-y^3/3+y^5/5$ (the differences are $\int_0^ys^4/(1+s^2)\dd s$ and
+$\int_0^ys^6/(1+s^2)\dd s$). Since $6/H=P_E$,
+\[
+  \alpha P_E(1-y^2)\le\lambda_0\le\alpha P_E\bigl(1-y^2+\tfrac{11}{5}y^4\bigr),\qquad
+  y^2=\alpha^2/\lambda_0 .
+\]
+Theorem~\ref{p-thm:small} for $E$ (where $R_I=2r$) gives $\lambda_0\ge\alpha P_E-4\alpha^2$, and
+$\lambda_0\le\alpha P_E$; hence $\alpha/P_E\le y^2\le\alpha/(P_E-4\alpha)$. The lower bound
+follows. For the upper bound note that $u\mapsto1-u+\frac{11}{5}u^2$ is decreasing on
+$[0,5/22]$, which contains the range of $y^2$, and evaluate at $u=\alpha/P_E$.
+
+(b) $\lambda_0$ is concave and, being a simple eigenvalue of an analytic family of forms,
+differentiable with $\lambda_0'(\alpha)=\int_{\partial E}\psi_0^2$. By concavity and (a) (the
+lower bound in (a) holds for every $\alpha$ with $4\alpha<P_E$),
+\[
+  \lambda_0'(\alpha)\ge\frac{\lambda_0(c\alpha)-\lambda_0(\alpha)}{(c-1)\alpha}
+  \ge P_E-\frac{\alpha}{c-1}\Bigl(\frac{c^2}{1-4c\alpha/P_E}-1+\frac{11\alpha}{5P_E}\Bigr)
+  \ge P_E-g_2\alpha .
+\]
+Then $\|\nabla\psi_0\|^2=\lambda_0-\alpha\lambda_0'(\alpha)\le
+\alpha^2\bigl(g_2-1+\tfrac{11}{5}\alpha/P_E\bigr)\le g_1^2\alpha^2$.
+
+(c) By the min--max principle $\lambda_2(E,\alpha)\ge\lambda_2(E,0)$, the first nonzero Neumann
+eigenvalue of $E$, which equals $16\pi^2/(9s^2)$ for side $s$ \cite{McCartin2}; here $s^2=4/\sqrt3$.
+\end{proof}
+
+\begin{lemma}\label{p-lem:Z}
+Let $\nu_j$ be the outer normal on $\Gamma_j$, $\beta=\hat p/r_E$,
+$z_0=\frac23\sum_k(\ell_k-\bar\ell)\nu_k$ and $Z(x)=\beta x+z_0$. Then $Z\cdot\nu_j=\ell_j-1$ on
+$\Gamma_j$, $\sup_E|Z|\le\zeta$, and for $f\in W^{1,1}(E)$,
+$\sum_j(\ell_j-1)\int_{\Gamma_j}f=\int_E(2\beta f+Z\cdot\nabla f)$.
+\end{lemma}
+
+\begin{proof}
+On $\Gamma_j$, $x\cdot\nu_j=r_E$ and, since $\nu_k\cdot\nu_j=-\frac12$ for $k\ne j$ and
+$\sum_k(\ell_k-\bar\ell)=0$, $z_0\cdot\nu_j=\ell_j-\bar\ell$; so
+$Z\cdot\nu_j=\hat p+\ell_j-\bar\ell=\ell_j-1$. The identity is the divergence theorem for $fZ$.
+The convex function $|Z|$ attains its maximum over $E$ at a vertex, where $|x|=2r_E$; and
+$|z_0|^2=\frac49\cdot\frac32\sum_k(\ell_k-\bar\ell)^2$ because
+$|\sum_kx_k\nu_k|^2=\frac32\sum_kx_k^2$ when $\sum_kx_k=0$.
+\end{proof}
+
+\begin{proposition}\label{p-prop:L}
+Let $A=1$, $0<\alpha\le\alpha_1$, $T=\exp(tS_\phi)(E)$ with $t>0$, and
+$\varepsilon_1=\alpha_1P_E/\mu_2$, $\varepsilon_2=\alpha_1P_E/(\mu_2-\alpha_1P_E)$. If
+\begin{equation}\label{p-eq:L}\tag{L}
+  \hat p\,(P_E-g_2\alpha_1)\bigl(e^{-2t}(1+\varepsilon_2)-\varepsilon_2\bigr)
+  >\alpha_1\Bigl(\frac{g_1(e^{2t}-1)+\zeta}{(1-\varepsilon_1)^{1/2}}
+  +\frac{g_1\alpha_1\zeta}{(\mu_2-\alpha_1P_E)^{1/2}}\Bigr)^2,
+\end{equation}
+then $\lambda_1(T,\alpha)>\lambda_0(\alpha)$.
+\end{proposition}
+
+\begin{proof}
+We verify the hypotheses of Lemma~\ref{p-lem:schur} for $(G,m)=(G,\alpha\ell)$. The eigenvalues of
+$G$ are $e^{\pm2t}$ and $\ell_j\ge e^{-t}$ by \eqref{p-eq:ell}, so
+$q_{G,\alpha\ell}\ge e^{-2t}q_0$ and we take $\eta=1-e^{-2t}$. By Proposition~\ref{p-prop:equi} and
+Lemma~\ref{p-lem:Eweak}(c), $\lambda_0/\lambda_2\le\varepsilon_1$ and
+$\lambda_0/(\lambda_2-\lambda_0)\le\varepsilon_2$, hence
+\[
+  1-\eta'=e^{-2t}-(1-e^{-2t})\frac{\lambda_0}{\lambda_2-\lambda_0}
+  \ge e^{-2t}(1+\varepsilon_2)-\varepsilon_2 ,
+\]
+which is positive by \eqref{p-eq:L}; in particular $\eta<1-\lambda_0/\lambda_2$. Next, by the
+$D_3$-invariance of $\psi_0$ (so that $\int_{\Gamma_j}\psi_0^2$ does not depend on $j$ and
+$\int_E\partial_a\psi_0\partial_b\psi_0=\frac12\delta_{ab}\|\nabla\psi_0\|^2$), $\tr G=2\cosh2t$
+and Lemma~\ref{p-lem:Eweak}(b),
+\[
+  D[\psi_0]=(\cosh2t-1)\|\nabla\psi_0\|^2+\alpha\hat p\int_{\partial E}\psi_0^2
+  \ge\alpha\hat p\,(P_E-g_2\alpha).
+\]
+For $w\perp\psi_0$, Lemma~\ref{p-lem:Z} with $f=\psi_0w$ and $\int_E\psi_0w=0$ gives
+\[
+  D(\psi_0,w)=\int_E\bigl((G-I)\nabla\psi_0+\alpha\psi_0Z\bigr)\cdot\nabla w
+  +\alpha\int_E(Z\cdot\nabla\psi_0)\,w ,
+\]
+so $|D(\psi_0,w)|\le X\|\nabla w\|+\alpha Y\|w\|$ with
+$X\le(e^{2t}-1)\|\nabla\psi_0\|+\alpha\zeta\le\alpha\bigl(g_1(e^{2t}-1)+\zeta\bigr)$ and
+$Y\le\zeta\|\nabla\psi_0\|\le g_1\alpha\zeta$. With $N=q_0[w]-\lambda_0\|w\|^2$ we have
+$N\ge(1-\lambda_0/\lambda_2)\|\nabla w\|^2$ and $N\ge(\lambda_2-\lambda_0)\|w\|^2$, therefore
+\[
+  \mathcal R\le\alpha^2\Bigl(\frac{g_1(e^{2t}-1)+\zeta}{(1-\varepsilon_1)^{1/2}}
+  +\frac{g_1\alpha\zeta}{(\mu_2-\alpha_1P_E)^{1/2}}\Bigr)^2\le\alpha\,\alpha_1B^2 ,
+\]
+where $B$ denotes the bracket on the right of \eqref{p-eq:L} (we used $\alpha\le\alpha_1$ twice).
+Since also $D[\psi_0]\ge\alpha\hat p\,(P_E-g_2\alpha_1)$, inequality \eqref{p-eq:L} multiplied by
+$\alpha$ gives $D[\psi_0](1-\eta')>\mathcal R$. Now apply Lemma~\ref{p-lem:schur}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{p-thm:uniform}]
+Let $A=1$, $0<\alpha\le\alpha_1$ and $T=\exp(tS_\phi)(E)$, $t>0$. It suffices that one of the
+following holds:
+\begin{itemize}
+\item[(W)] $\max_j\ell_j\ge3$; then $a_{\max}\ge P_E$ and Theorem~\ref{p-thm:thin} applies;
+\item[(S)] $\alpha_1R_I^2\le(P-P_E)r^2$, where $r=2/P$ and
+$R_I^2=\max_k\bigl(r^2+(P/2-a_k)^2\bigr)$; then Theorem~\ref{p-thm:small} applies;
+\item[(L)] inequality \eqref{p-eq:L}; then Proposition~\ref{p-prop:L} applies.
+\end{itemize}
+All three conditions are explicit in $(t,\phi)$ through \eqref{p-eq:ell}. Since the largest of the
+three numbers $\cos(2\phi-2\vartheta_j)$ is at least $\frac12$ and
+$\cosh(2t)+\frac12\sinh(2t)\ge9$ for $t\ge1.2413$, (W) holds for $t\ge1.2413$. For $0<t\le t_0=1/100$
+we use the elementary bounds $\cosh2t-1\le2C_ct^2$, $\sinh2t\le2C_st$, $e^{2t}-1\le2C_et$,
+$e^t-1\le C_1t$, where $C_c,C_s,C_e,C_1$ are the values of the corresponding quotients at $t_0$;
+with $u_j=\ell_j^2-1$, Taylor's formula $\sqrt{1+u}\ge1+u/2-u^2/8-K|u|^3$,
+$K=\frac1{16}(1-u_0)^{-5/2}$, $u_0=e^{2t_0}-1$, and $\frac13\sum u_j=\cosh2t-1\ge2t^2$,
+$\frac13\sum u_j^2=(\cosh2t-1)^2+\frac12\sinh^22t$, $|u_j|\le e^{2t}-1$,
+$\hat p\le\frac16\sum u_j=\frac12(\cosh2t-1)$ (from $\sqrt{1+u}\le1+u/2$) and
+$|z_0|^2\le\frac23\sum(\ell_j-1)^2\le2(e^t-1)^2$ (the mean minimises the sum of squares, and
+$e^{-t}\le\ell_j\le e^t$), they give
+\[
+  \hat p\ge c_pt^2,\qquad \zeta\le c_\zeta t,\qquad
+  c_p=1-\tfrac18\bigl(4t_0^2C_c^2+2C_s^2\bigr)-8Kt_0C_e^3,\quad
+  c_\zeta=2C_ct_0+\sqrt2\,C_1 ,
+\]
+so that \eqref{p-eq:L} follows, after division by $t^2$, from
+$c_p(P_E-g_2\alpha_1)(e^{-2t_0}(1+\varepsilon_2)-\varepsilon_2)>
+\alpha_1\bigl((2g_1C_e+c_\zeta)(1-\varepsilon_1)^{-1/2}
++g_1\alpha_1c_\zeta(\mu_2-\alpha_1P_E)^{-1/2}\bigr)^2$. In ball arithmetic the left side exceeds $\clpWeakLhs$ and the right side is below $\clpWeakRhs$.
+On the remaining rectangle $[t_0,1.2413]\times[0,\pi]$ the script \texttt{weak\_cert.py} verifies
+in ball arithmetic (Arb, through python-flint, $80$ bits), by adaptive bisection starting from a
+$64\times96$ grid, that each box of the final subdivision satisfies (W), (S) or (L) in its
+entirety. The run uses $\clpWeakBoxes$ boxes, of which $\clpWeakLeaves$ are leaves ($\clpWeakW$ of type
+(W), $\clpWeakS$ of type (S), $\clpWeakL$ of type (L)), with bisection depth at most $\clpWeakDepth$ and
+no failure. The same script evaluates the inequality $\cosh(2t)+\frac12\sinh(2t)\ge9$ at $t=1.2413$ and
+the two displayed numbers.
+\end{proof}
+
+\begin{remark}
+The value $1/100$ is limited by condition (S) for tall isosceles triangles close to the thin regime
+($t\approx1.24$), where the threshold of Theorem~\ref{p-thm:small} is about $\clpSmallThr$; near $E$
+inequality \eqref{p-eq:L} holds with a factor $\clpWeakFactor$ to spare (the quotient of the two
+displayed numbers).
+\end{remark}
+
+\section{A neighbourhood of the equilateral triangle}\label{p-sec:local}
+
+Throughout this section $A=1$, $\alpha>0$ is fixed, $q_0=q_{I,\alpha(1,1,1)}$, $\psi_0$ is its
+$L^2$-normalised ground state, $\lambda_0=\lambda_0(\alpha)$, $\lambda_2=\lambda_2(E,\alpha)$
+is the second eigenvalue, $\underline\lambda_2$ is a number with
+$\lambda_0<\underline\lambda_2\le\lambda_2$, and
+\[
+  N[w]=q_0[w]-\lambda_0\|w\|^2,\qquad
+  \gamma=\frac{\underline\lambda_2}{\underline\lambda_2-\lambda_0}.
+\]
+For $w\perp\psi_0$ we have $q_0[w]\ge\lambda_2\|w\|^2$, hence
+\begin{equation}\label{p-eq:Ngap}
+  N[w]\ \ge\ \gamma^{-1}q_0[w]\qquad\text{and}\qquad N[w]\ \ge\ (\underline\lambda_2-\lambda_0)\|w\|^2
+  \qquad(w\perp\psi_0).
+\end{equation}
+A \emph{direction} is a pair $\theta=(\Theta,\mu)$ of a symmetric $2\times2$ matrix and a
+vector $\mu\in\R^3$. For a direction let
+\[
+  D_\theta(u,v)=\int_E\nabla u\cdot\Theta\nabla v+\alpha\sum_j\mu_j\int_{\Gamma_j}uv,\qquad
+  R(\theta)=\sup\Bigl\{\frac{D_\theta(\psi_0,w)^2}{N[w]}:\ 0\ne w\in H^1(E),\ w\perp\psi_0\Bigr\}.
+\]
+Thus $q_{G,m}-q_0=D_\theta$ with $\theta=(G-I,(m_j/\alpha-1)_j)$, and the quantity $\cR$ of
+Lemma~\ref{p-lem:schur} is $R(\theta)$. By \eqref{p-eq:Ngap}, $N^{1/2}$ is a Hilbert norm on
+$\{w\perp\psi_0\}$ equivalent to the $H^1$ norm, and $R(\theta)^{1/2}$ is the norm of the
+functional $D_\theta(\psi_0,\cdot)$ in the dual space. Since $D_\theta$ is linear in $\theta$,
+\begin{equation}\label{p-eq:seminorm}
+  \theta\mapsto R(\theta)\ \text{is a nonnegative quadratic form, and}\ R^{1/2}\ \text{is a seminorm.}
+\end{equation}
+
+\subsection{Symmetry}
+
+Let $\mathcal G$ be the group of the six orthogonal maps $g$ with $g(E)=E$. For $v\in H^1(E)$
+put $v^g=v\circ g$, and for a direction let $g\cdot\theta=(g\Theta g^{\mathsf T},\mu')$, where
+$\mu'_k=\mu_j$ if $g\Gamma_j=\Gamma_k$. The substitution $x\mapsto gx$ gives
+\begin{equation}\label{p-eq:equivar}
+  D_\theta(u^g,v^g)=D_{g\cdot\theta}(u,v),\qquad q_0[v^g]=q_0[v],\qquad \|v^g\|=\|v\| .
+\end{equation}
+Since $\lambda_0$ is simple and $\psi_0>0$, $\psi_0^g=\psi_0$. Hence $N[w^g]=N[w]$,
+$w\mapsto w^g$ preserves $\{w\perp\psi_0\}$, and
+\begin{equation}\label{p-eq:Rinv}
+  R(g\cdot\theta)=R(\theta)\qquad(g\in\mathcal G).
+\end{equation}
+Let $\mathsf Pw=\frac16\sum_{g\in\mathcal G}w^g$.
+
+\begin{lemma}\label{p-lem:sym}
+\begin{enumerate}
+\item[\textup{(a)}] If $\sum_{g\in\mathcal G}g\cdot\theta=0$, then $D_\theta[\psi_0]=0$ and
+$D_\theta(\psi_0,\mathsf Pw)=0$ for all $w\in H^1(E)$.
+\item[\textup{(b)}] If $g\cdot\theta=\theta$ for all $g\in\mathcal G$, then
+$D_\theta(\psi_0,w)=D_\theta(\psi_0,\mathsf Pw)$ for all $w\in H^1(E)$.
+\item[\textup{(c)}] If $\theta_A$ is as in \textup{(b)} and $\theta_E$ as in \textup{(a)}, then
+$R(\theta_A+\theta_E)\le R(\theta_A)+R(\theta_E)$.
+\item[\textup{(d)}] For $\phi\in\R$ let $c_j(\phi)=\cos(2\phi-2\vartheta_j)$ and
+$\Theta_\phi=\bigl(-2S_\phi,(c_j(\phi))_{j}\bigr)$. Then $\sum_gg\cdot\Theta_\phi=0$, and
+$R(\Theta_\phi)$ does not depend on $\phi$. We denote its value by $R_1=R_1(\alpha)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By \eqref{p-eq:equivar} and $\psi_0^g=\psi_0$,
+$D_\theta(\psi_0,w^g)=D_\theta(\psi_0^g,w^g)=D_{g\cdot\theta}(\psi_0,w)$; averaging over $g$
+gives $D_\theta(\psi_0,\mathsf Pw)=\frac16D_{\sum_gg\cdot\theta}(\psi_0,w)$, which is $0$ in case
+(a) and $D_\theta(\psi_0,w)$ in case (b). With $w=\psi_0=\mathsf P\psi_0$, (a) follows.
+
+(c) Let $w\perp\psi_0$. Since $(w^g)^h=w^{gh}$ and $N$ is invariant, the bilinear form of $N$
+satisfies $N(w^g,w^h)=N(w^{gh^{-1}},w)$, so $N(\mathsf Pw,\mathsf Pw)=N(\mathsf Pw,w)$, that is
+$N[w]=N[\mathsf Pw]+N[w-\mathsf Pw]$; also $\mathsf Pw\perp\psi_0$. By (a) and (b),
+\begin{align*}
+  |D_{\theta_A+\theta_E}(\psi_0,w)|&=|D_{\theta_A}(\psi_0,\mathsf Pw)+D_{\theta_E}(\psi_0,w-\mathsf Pw)|\\
+  &\le R(\theta_A)^{1/2}N[\mathsf Pw]^{1/2}+R(\theta_E)^{1/2}N[w-\mathsf Pw]^{1/2}
+  \le\bigl(R(\theta_A)+R(\theta_E)\bigr)^{1/2}N[w]^{1/2}.
+\end{align*}
+
+(d) Let $g$ be the rotation through $2\pi/3$. Then $gS_\phi g^{\mathsf T}=S_{\phi+2\pi/3}$
+(the matrix $S_\phi$ has the eigenvector $(\cos\phi,\sin\phi)$ for the eigenvalue $1$), and
+$g\Gamma_j$ is the side with direction angle $\vartheta_j+2\pi/3$, on which the new coefficient
+is $c_j(\phi)=\cos(2(\phi+2\pi/3)-2(\vartheta_j+2\pi/3))$. Hence
+$g\cdot\Theta_\phi=\Theta_{\phi+2\pi/3}$. Similarly the reflection $x_1\mapsto-x_1$ maps
+$\Theta_\phi$ to $\Theta_{-\phi}$. So the orbit of $\Theta_\phi$ consists of
+$\Theta_{\pm\phi+2\pi k/3}$, $k=0,1,2$, and since $\Theta_\phi$ is a linear combination of
+$\cos2\phi$ and $\sin2\phi$ with fixed coefficients $\Theta_0,\Theta_{\pi/4}$, the sum over the
+orbit vanishes. By \eqref{p-eq:seminorm},
+$R(\Theta_\phi)=R(\cos2\phi\,\Theta_0+\sin2\phi\,\Theta_{\pi/4})=a_0+a_1\cos4\phi+a_2\sin4\phi$
+with constants $a_i$, and by \eqref{p-eq:Rinv} this function has period $2\pi/3$. A function
+$a_1\cos4\phi+a_2\sin4\phi$ that is not identically zero has the periods $k\pi/2$,
+$k\in\mathbb Z$, only; hence $a_1=a_2=0$.
+\end{proof}
+
+\subsection{An upper bound for \texorpdfstring{$R_1$}{R1} from lower bounds on a ring}
+
+\begin{lemma}[ring]\label{p-lem:ring}
+Let $0<s<\frac12$ and, for the two signs,
+\[
+  \Lambda_\pm=\Lambda\bigl(I\mp2sS_0,\ \alpha(1\pm s\cos2\vartheta_j)_{j=1,2,3}\bigr),
+\]
+the lowest eigenvalues of the forms $q_0\pm sD_{\Theta_0}$. Then $\Lambda_\pm\le\lambda_0$, and
+if $\delta_\pm>0$ satisfy $\delta_\pm\ge\lambda_0-\Lambda_\pm$, then
+\begin{equation}\label{p-eq:ring}
+  R_1\ \le\ \frac{2+(\delta_++\delta_-)/(\underline\lambda_2-\lambda_0)}
+  {s^2\,(1/\delta_++1/\delta_-)} .
+\end{equation}
+As a function of the four independent variables $\delta_+,\delta_-,\lambda_0,\underline\lambda_2$
+(with $\underline\lambda_2>\lambda_0$), the right side is increasing in $\delta_+$, $\delta_-$ and
+$\lambda_0$, and decreasing in $\underline\lambda_2$.
+\end{lemma}
+
+\begin{proof}
+$D_{\Theta_0}[\psi_0]=0$ by Lemma~\ref{p-lem:sym}(a),(d), so the Rayleigh quotient of $\psi_0$ for
+$q_0\pm sD_{\Theta_0}$ is $\lambda_0$. Let $w\perp\psi_0$, $F=D_{\Theta_0}(\psi_0,w)$ and
+$c\in\R$. Since $q_0(\psi_0,w)=\lambda_0\langle\psi_0,w\rangle=0$,
+\begin{align*}
+  0&\le(q_0\pm sD_{\Theta_0})[c\psi_0+w]-\Lambda_\pm\|c\psi_0+w\|^2\\
+  &=c^2(\lambda_0-\Lambda_\pm)\pm2csF+N[w]\pm sD_{\Theta_0}[w]+(\lambda_0-\Lambda_\pm)\|w\|^2\\
+  &\le c^2\delta_\pm\pm2csF+N[w]\pm sD_{\Theta_0}[w]+\delta_\pm\|w\|^2 .
+\end{align*}
+Choosing $c=\mp sF/\delta_\pm$ gives
+$s^2F^2/\delta_\pm\le N[w]\pm sD_{\Theta_0}[w]+\delta_\pm\|w\|^2$. Adding the two
+inequalities, the terms $\pm sD_{\Theta_0}[w]$ cancel, and with \eqref{p-eq:Ngap},
+\[
+  s^2F^2\Bigl(\frac1{\delta_+}+\frac1{\delta_-}\Bigr)\le2N[w]+(\delta_++\delta_-)\|w\|^2
+  \le N[w]\Bigl(2+\frac{\delta_++\delta_-}{\underline\lambda_2-\lambda_0}\Bigr).
+\]
+The monotonicity statements are evident.
+\end{proof}
+
+The point of using both signs is that the first-order error terms $\pm sD_{\Theta_0}[w]$
+cancel exactly; the bound \eqref{p-eq:ring} exceeds $R_1$ only by terms of relative order $s^2$
+and by the defect of the bounds $\delta_\pm$ divided by $s^2$. In a floating-point comparison
+with $R_1$ computed by $P_2$ finite elements, with $s=1/10$ and the certified values of $\delta_\pm$
+and $\underline\lambda_2$ used below, the bound exceeds $R_1$ by $\clpNodeLo$ to $\clpNodeHi$ per cent
+at the grid points $\alpha_k$; the interpolation between grid points in Lemma~\ref{p-lem:Ccheck} raises
+this to $\clpIvNear$ per cent near $\alpha=2$ (and to at most $\clpIvMax$ per cent, for small $\alpha$,
+where the margin is large).
+
+\subsection{Elementary shape bounds}
+
+For $T_w$ with $|w|=\tanh2t$ and $w=|w|(\cos2\phi,\sin2\phi)$ write $\ell_j=\ell_j(G(w))$,
+$\bar\ell=\frac13\sum_j\ell_j$, $c_j=c_j(\phi)$ and
+\[
+  \rho_j=\ell_j-\bar\ell-\tfrac12\sinh(2t)\,c_j .
+\]
+By Lemma~\ref{p-lem:shape}(d), $u_j:=\ell_j^2-1=(\cosh2t-1)+\sinh2t\,c_j$. From
+$\ell-1=(\ell^2-1)/(\ell+1)$ one gets the identity
+$\ell_j-1=\tfrac12u_j-u_j^2/(2(1+\ell_j)^2)$, and since $\sum_jc_j=0$,
+\begin{equation}\label{p-eq:lbar}
+  \bar\ell-1=\tfrac12(\cosh2t-1)-t^2\,\bar v,\qquad \rho_j=-t^2\,(v_j-\bar v),\qquad
+  v_j=\frac{(u_j/t)^2}{2(1+\ell_j)^2},\quad\bar v=\tfrac13\sum_jv_j .
+\end{equation}
+
+\begin{lemma}\label{p-lem:shapeconst}
+Let $t_*=3/50$. For $0<t\le t_*$ and all $\phi$,
+\[
+  \bar\ell-1\ \ge\ c_\ell\,t^2,\qquad \max_j|\rho_j|\ \le\ \hat\rho\,t^2,\qquad
+  c_\ell=\clpCell,\quad\hat\rho=\clpRho .
+\]
+\end{lemma}
+
+\begin{proof}
+Replacing $\phi$ by $\phi+\pi/3$ permutes the numbers $c_j$, so it suffices to consider
+$\phi\in[0,\pi/3]$. The functions $(\cosh2t-1)/t^2$ and $\sinh(2t)/t$ are power series in $t^2$
+with positive coefficients, hence increasing in $t>0$ with limit $2$ at $0$, and
+$u_j/t=t\,(\cosh2t-1)/t^2+c_j\sinh(2t)/t$. The script \texttt{local\_check.py} evaluates
+\eqref{p-eq:lbar} in ball arithmetic on a subdivision of $(0,t_*]\times[0,\pi/3]$ into
+$40\times60$ boxes, using these monotonicity properties on each $t$-interval, and obtains the
+bounds $c_\ell\ge\clpCellComp$ and $\hat\rho\le\clpRhoComp$, which imply the stated ones. (The
+independent verifier of Section~\ref{sec:verif}, with a finer subdivision, obtains $\clpCellIndep$ and
+$\clpRhoIndep$.)
+\end{proof}
+
+\subsection{The local proposition}
+
+\begin{proposition}\label{p-prop:local}
+Let $A=1$, $\alpha\ge1/100$ and $0<|w|\le\tanh(2t_*)$, $t_*=3/50$. Then
+$\lambda_1(T_w,\alpha)>\lambda_0(\alpha)$.
+\end{proposition}
+
+\begin{proof}
+In this proof $w$ is the shape parameter and test functions in $H^1(E)$ are called $v$.
+Let $|w|=\tanh2t$, $0<t\le t_*$, and $w=|w|(\cos2\phi,\sin2\phi)$. We apply
+Lemma~\ref{p-lem:schur} (with $\underline\lambda_2$ in place of $\lambda_2$, see
+Remark~\ref{p-rem:lam2}) to $(G,m)=(G(w),\alpha\ell)$, $\ell=(\ell_j(G(w)))_j$, for which
+$\Lambda(G,m)=\lambda_1(T_w,\alpha)$. The eigenvalues of $G(w)$ are $e^{\pm2t}$ and
+$\ell_j\ge e^{-t}$, so $q_{G,m}\ge(1-\eta)q_0$ with $\eta=1-e^{-2t}$, and $\eta'=\eta\gamma$.
+By Lemma~\ref{p-lem:shape}(d), $D=q_{G,m}-q_0=D_\theta$ with $\theta=\theta_A+\theta_E$,
+\[
+  \theta_A=\bigl((\cosh2t-1)I,\ (\bar\ell-1)(1,1,1)\bigr),\qquad
+  \theta_E=\bigl(-\sinh2t\,S_\phi,\ (\ell_j-\bar\ell)_j\bigr)
+  =\tfrac12\sinh(2t)\,\Theta_\phi+(0,\rho).
+\]
+$\theta_A$ is invariant under $\mathcal G$; $\Theta_\phi$ has vanishing orbit sum by
+Lemma~\ref{p-lem:sym}(d), and so has $(0,\rho)$ because $\sum_j\rho_j=0$.
+
+\emph{The gain.} By Lemma~\ref{p-lem:sym}(a), $D[\psi_0]=D_{\theta_A}[\psi_0]$. Hence, by
+Lemma~\ref{p-lem:lam0} (recall $\|\psi_0\|=1$), $\cosh2t-1\ge2t^2$ and Lemma~\ref{p-lem:shapeconst},
+\begin{equation}\label{p-eq:gain}
+  D[\psi_0]=(\cosh2t-1)(\lambda_0-\alpha\lambda_0')+\alpha(\bar\ell-1)\lambda_0'
+  \ \ge\ t^2\bigl(2\lambda_0-(2-c_\ell)\,\alpha\lambda_0'\bigr).
+\end{equation}
+
+\emph{The invariant part.} $D_{\theta_A}$ is a nonnegative form, and
+$D_{\theta_A}[v]\le(\cosh2t-1)\,q_0[v]$ because
+$0\le\bar\ell-1\le(\frac13\sum_j\ell_j^2)^{1/2}-1=(\cosh2t)^{1/2}-1\le\cosh2t-1$. By the
+Cauchy--Schwarz inequality for $D_{\theta_A}$ and \eqref{p-eq:Ngap},
+$D_{\theta_A}(\psi_0,v)^2\le D_{\theta_A}[\psi_0]\,(\cosh2t-1)\gamma N[v]$ for $v\perp\psi_0$, that is
+$R(\theta_A)\le(\cosh2t-1)\,\gamma\,D[\psi_0]$.
+
+\emph{The remainder $(0,\rho)$.} For $v\perp\psi_0$, by \eqref{p-eq:Ngap} and
+$\int_{\partial E}\psi_0^2=\lambda_0'$,
+\[
+  |D_{(0,\rho)}(\psi_0,v)|\le\max_j|\rho_j|\,\Bigl(\alpha\int_{\partial E}\psi_0^2\Bigr)^{1/2}
+  \Bigl(\alpha\int_{\partial E}v^2\Bigr)^{1/2}\le\max_j|\rho_j|\,(\alpha\lambda_0'\,\gamma N[v])^{1/2}.
+\]
+Hence, by \eqref{p-eq:seminorm}, Lemma~\ref{p-lem:sym}(d) and Lemma~\ref{p-lem:shapeconst},
+\[
+  R(\theta_E)^{1/2}\le\tfrac12\sinh(2t)R_1^{1/2}+\hat\rho\,t^2(\alpha\lambda_0'\gamma)^{1/2}
+  \le t\,\bigl(s_*R_1^{1/2}+\hat\rho\,t_*(\alpha\lambda_0'\gamma)^{1/2}\bigr),
+  \qquad s_*=\frac{\sinh2t_*}{2t_*}.
+\]
+
+\emph{Conclusion.} By Lemma~\ref{p-lem:sym}(c), $\cR=R(\theta)\le R(\theta_A)+R(\theta_E)$. With
+$\eta_*=1-e^{-2t_*}$ and $\varepsilon_*=\cosh2t_*-1$, the hypothesis
+$D[\psi_0](1-\eta')>\cR$ of Lemma~\ref{p-lem:schur} therefore follows from
+$D[\psi_0](1-(\eta_*+\varepsilon_*)\gamma)>R(\theta_E)$, and by \eqref{p-eq:gain} this follows
+from the inequality
+\begin{equation}\label{p-eq:C}\tag{C}
+  \bigl(2\lambda_0-(2-c_\ell)\,\alpha\lambda_0'\bigr)\bigl(1-(\eta_*+\varepsilon_*)\gamma\bigr)
+  \ >\ \Bigl(s_*\overline R_1^{1/2}+\hat\rho\,t_*(\alpha\lambda_0'\gamma)^{1/2}\Bigr)^2
+\end{equation}
+for some $\overline R_1\ge R_1(\alpha)$ and some admissible $\underline\lambda_2$. (The first
+factor on the left of \eqref{p-eq:C} is at least $c_\ell\lambda_0>0$, because
+$\alpha\lambda_0'\le\lambda_0$; so \eqref{p-eq:C} forces $(\eta_*+\varepsilon_*)\gamma<1$, in
+particular $\eta\gamma<1$, which is the condition $\eta<1-\lambda_0/\underline\lambda_2$ of
+Lemma~\ref{p-lem:schur}.) Inequality \eqref{p-eq:C}
+involves $\alpha$ only. It is verified for all $\alpha\ge1/100$ in Lemma~\ref{p-lem:Ccheck}.
+\end{proof}
+
+\begin{lemma}\label{p-lem:Ccheck}
+For every $\alpha\ge1/100$ there are $\underline\lambda_2\in(\lambda_0(\alpha),\lambda_2(E,\alpha)]$
+and $\overline R_1\ge R_1(\alpha)$ such that \eqref{p-eq:C} holds.
+\end{lemma}
+
+\begin{proof}
+Let $\alpha_k$, $k=0,1,\dots$, be the grid of rational numbers
+$\alpha_k=\frac1{100}2^{\lfloor k/16\rfloor}r_{k\bmod16}$, where $r_0=1$ and $r_i$ is $2^{i/16}$
+rounded to six decimals; so $\alpha_0=1/100$ and $\alpha_{k+1}/\alpha_k\approx1.0443$. Let
+$K=336$, so that $\alpha_K=0.01\cdot2^{21}$, and $s=1/10$.
+
+\emph{Certified data.} (i) For $k=0,\dots,K$ and both signs the script \texttt{local\_ring.py}
+computes numbers $\mu_\pm^k\le\Lambda_\pm(\alpha_k)$ (notation of Lemma~\ref{p-lem:ring}) by the
+method of Section~\ref{p-sec:cert}: by \eqref{p-eq:pullback}, $\Lambda_\pm$ is the lowest
+eigenvalue of an acute isosceles triangle with side-dependent Robin coefficients, to which
+Lemmas~\ref{p-lem:CR} and~\ref{p-lem:CW} are applied on the mesh (U) with $n=N_{\rm ring}$
+($N_{\rm ring}=\clpRingN$ and $N_2=\clpLamN$ below for $\kappa_0=0.2983$; see Table~\ref{p-tab:runs}).
+(ii) For $k\in\{0,4,8,\dots,K\}$ it computes numbers $\underline\lambda_2^k\le\lambda_2(E,\alpha_k)$
+by Lemmas~\ref{p-lem:CR} ($k=2$) and~\ref{p-lem:inertia} on the mesh (U) of $E$ with $n=N_2$.
+(iii) $\lambda_0(\alpha_k)$ and $\lambda_0'(\alpha_k)$ are enclosed using
+Proposition~\ref{p-prop:equi} and \eqref{p-eq:lam0prime}.
+
+\emph{An interval $I_k=[\alpha_k,\alpha_{k+1}]$, $0\le k<K$.} The functions
+$\alpha\mapsto\Lambda_\pm(\alpha)$ are concave (Lemma~\ref{p-lem:concave}), so on $I_k$ they lie
+above the chord through $(\alpha_k,\mu_\pm^k)$, $(\alpha_{k+1},\mu_\pm^{k+1})$. By
+Lemma~\ref{p-lem:lam0}, $\lambda_0$ lies below the two tangents at $\alpha_k$ and $\alpha_{k+1}$.
+The difference between the minimum of the two tangents and the chord is piecewise linear on
+$I_k$ with one kink, so its maximum $\delta_\pm$ is attained at $\alpha_k$, $\alpha_{k+1}$ or at
+the kink, and $\delta_\pm\ge\lambda_0(\alpha)-\Lambda_\pm(\alpha)$ on $I_k$; in particular
+$\delta_\pm\ge\lambda_0(\alpha_k)-\Lambda_\pm(\alpha_k)\ge0$, and the script checks $\delta_\pm>0$. The second
+eigenvalue $\lambda_2(E,\cdot)$ is nondecreasing, so
+$\underline\lambda_2:=\underline\lambda_2^{4\lfloor k/4\rfloor}$ is admissible on $I_k$ provided
+it exceeds $\lambda_0(\alpha_{k+1})$. On $I_k$ we further have
+$\lambda_0(\alpha_k)\le\lambda_0\le\lambda_0(\alpha_{k+1})$ and
+$\alpha\lambda_0'\le\alpha_{k+1}\lambda_0'(\alpha_k)$. By the monotonicity statement of
+Lemma~\ref{p-lem:ring}, \eqref{p-eq:C} holds on $I_k$ if it holds with $\lambda_0$ replaced by
+$\lambda_0(\alpha_k)$ in the first factor, $\alpha\lambda_0'$ by
+$\alpha_{k+1}\lambda_0'(\alpha_k)$, $\gamma$ by
+$\underline\lambda_2/(\underline\lambda_2-\lambda_0(\alpha_{k+1}))$ and $\overline R_1$ by the
+right side of \eqref{p-eq:ring} evaluated with $\delta_\pm$, $\underline\lambda_2$ and
+$\lambda_0(\alpha_{k+1})$.
+
+\emph{The interval $[\alpha_K,\infty)$.} Here $\Lambda_\pm(\alpha)\ge\Lambda_\pm(\alpha_K)\ge\mu_\pm^K$
+by monotonicity and $\lambda_0(\alpha_K)\le\lambda_0<\Lambda_1(E)=4\pi^2/\sqrt3$, so we take
+$\delta_\pm=\Lambda_1(E)-\mu_\pm^K>0$, $\underline\lambda_2=\underline\lambda_2^K$ (which
+exceeds $\Lambda_1(E)$), replace
+$\lambda_0$ by $\Lambda_1(E)$ in $\gamma$ and in \eqref{p-eq:ring}, and use
+$\alpha\lambda_0'\le2(\Lambda_1(E)-\lambda_0(\alpha_K/2))$ (Lemma~\ref{p-lem:lam0}).
+
+The script \texttt{local\_check.py} evaluates these $K+1=\clpIneqC$ inequalities in ball arithmetic.
+All hold; the smallest quotient of the left by the right side of \eqref{p-eq:C} is $\clpQmin$, attained
+for $k=\clpQminK$ ($\alpha\approx\clpQminAlpha$), and the quotient exceeds $\clpQgeThirty$ for
+$\alpha\ge30$ and $\clpQleSix$ for $\alpha\le0.6$.
+\end{proof}
+
+\begin{remark}\label{p-rem:local}
+Floating-point values from $P_2$ finite elements on the grid $\alpha_0,\dots,\alpha_K$ (not used in
+the proof): with $a(\alpha)=2\lambda_0-\frac54\alpha\lambda_0'$, the leading coefficient of
+$D[\psi_0]/t^2$ as $t\to0$, the ratio $R_1/a$ is $\clpRaLow$ at $\alpha=0.1$, has its maximum
+$\clpRaMax$ near $\alpha\approx\clpRaMaxAlpha$, and is $\clpRaLast$ at $\alpha_K\approx2\cdot10^4$; so the
+criterion has a factor of about $\clpSpare$ to spare as $t\to0$, uniformly in $\alpha$, of which the
+factor $1-(\eta_*+\varepsilon_*)\gamma$ and the over-estimation of $R_1$ consume a part at $t=t_*$. The
+Hessian of $T\mapsto\lambda_1(T,\alpha)/\lambda_0(\alpha)$ at $E$ in the variable $t$ is
+$2(a-R_1)/\lambda_0$, between $\clpHessMin$ (near $\alpha\approx\clpHessMinAlpha$) and $\clpHessMax$.
+\end{remark}
+
+
+\section{The middle region}\label{p-sec:middle}
+
+Let $A=1$, $r_*=0.1194<\tanh(2t_*)=0.11942\ldots$, and
+\[
+  F(w)=(1+w_1)^2-81\,(1-|w|^2),\qquad
+  \Omega_B=\bigl\{w\in\mathbb D:\ 0<\arg w<\pi/3,\ |w|>r_*,\ F(w)<0\bigr\}.
+\]
+By Lemma~\ref{p-lem:shape}(b),(c), Theorem~\ref{p-thm:thin} and Proposition~\ref{p-prop:local}, the
+inequality $\lambda_1(T_w,\alpha)>\lambda_0(\alpha)$ for $\alpha\ge1/100$ remains to be proved
+only for $w$ in the closure of $\Omega_B$ in $\mathbb D$.
+
+\begin{lemma}[coverage]\label{p-lem:cover}
+Let $\mathcal T$ be a finite set of closed, positively oriented, nondegenerate triangles in the
+plane such that every side $[p,q]$ of a triangle of $\mathcal T$, traversed from $p$ to $q$ in
+its boundary, either occurs exactly once more, as the side $[q,p]$ of another triangle, or does
+not occur again in either direction (a \emph{boundary side}). Let $\Omega$ be a connected open
+set that is disjoint from all boundary sides and contains a point that belongs to the interior
+of some triangle of $\mathcal T$ and to no side of any triangle of $\mathcal T$. Then $\overline\Omega\subset\bigcup\mathcal T$.
+\end{lemma}
+
+\begin{proof}
+For a point $x$ on no side, the number $n(x)$ of triangles of $\mathcal T$ containing $x$ is
+the sum of the winding numbers of their boundaries around $x$, that is the winding number
+around $x$ of the cycle formed by all oriented sides. The contributions of the sides that occur
+in both directions cancel, so $n(x)$ is the winding number of the cycle of boundary sides, which
+is locally constant on the complement of the boundary sides, in particular on $\Omega$; there
+it equals its value at the given point, which is at least $1$. So every point of $\Omega$ on no
+side lies in $\bigcup\mathcal T$; these points are dense in $\Omega$ and $\bigcup\mathcal T$ is
+closed.
+\end{proof}
+
+\paragraph{The cells.} The file \texttt{coverB\_roots.json} contains a list $\mathcal T$ of
+$\clpRoots$ triangles in $\mathbb D$ whose vertices have rational coordinates with denominator
+$2^{20}$: the points $\tanh(2t_i)(\cos\psi,\sin\psi)$, rounded, for thirteen radii
+$t_i\in[0.057,1.285]$ and angles $\psi\in\{0,\frac14\psi_{\max},\dots,\psi_{\max}\}$,
+$\psi_{\max}=\pi/3+10^{-3}$ (with four additional points on the outermost circle), joined to a
+triangulation. The grid of parameters $\alpha_k$ is the one of Lemma~\ref{p-lem:Ccheck},
+continued to $k\le400$.
+
+\begin{proposition}\label{p-prop:middle}
+\begin{enumerate}
+\item[\textup{(a)}] $\overline{\Omega_B}\cap\mathbb D\subset\bigcup\mathcal T$.
+\item[\textup{(b)}] For every $\Delta\in\mathcal T$, either $F\ge0$ on $\Delta$, or there are
+indices $0=k_0<k_1<\dots<k_p\le400$ and, for each vertex $w_i$ of $\Delta$ and each
+$k\in\{k_0,\dots,k_p\}$, a certified number $b_i^k\le\lambda_1(T_{w_i},\alpha_k)$, such that
+the hypothesis of Corollary~\ref{p-cor:prism}\textup{(a)} holds on each
+$[\alpha_{k_{q-1}},\alpha_{k_q}]$, with $U$ the minimum of the tangents of $\lambda_0$ at the
+grid points in that interval, and the hypothesis of Corollary~\ref{p-cor:prism}\textup{(b)}
+holds at $\alpha_{k_p}$.
+\end{enumerate}
+Consequently $\lambda_1(T_w,\alpha)>\lambda_0(\alpha)$ for all $w\in\overline{\Omega_B}\cap\mathbb D$
+and all $\alpha\ge1/100$.
+\end{proposition}
+
+\begin{proof}
+(a) In exact rational arithmetic one checks that $\mathcal T$ satisfies the hypotheses of
+Lemma~\ref{p-lem:cover} and that each of its $\clpBsides$ boundary sides lies in one of the closed sets
+$\{|w|\le r_*\}$, $\{w_2\le0\}$, $\{w_2\ge\sqrt3\,w_1\}$, $\{F\ge0\}$, all of which are disjoint
+from $\Omega_B$. (For the first three sets, which are convex, it suffices to test the end
+points; $F$ is a convex quadratic polynomial, and its minimum on a segment is computed
+exactly.) The set $\Omega_B$ is connected: for $0<\psi<\pi/3$ the function
+$r\mapsto F(r\cos\psi,r\sin\psi)$ is increasing on $[0,1]$, negative at $r_*$ and positive at
+$1$, so $\Omega_B=\{r_*<r<r_{\max}(\psi)\}$ in polar coordinates with a continuous
+$r_{\max}>r_*$. Finally the point $(\frac12,\frac15)\in\Omega_B$ is interior to a triangle of
+$\mathcal T$ and lies on no line that contains a side of a triangle of $\mathcal T$.
+
+(b) is the result of the computation described in Section~\ref{p-sec:cert} and below, carried
+out by \texttt{cover.py}: one triangle (adjacent to the point $w=(\tanh2.57,0)$) is recorded
+with $F\ge0$; for each of the other $\clpCellsB$ (\clpThinBword\ of which also lie in $\{F\ge0\}$) the
+certificate lists the indices $k_q$ and the bounds $b_i^k$. The vertex bounds are Crouzeix--Raviart bounds on the meshes (U) or (A) (the latter
+whenever the smallest cotangent of $T_{w_i}$ is not certified to exceed $0.02$). The function
+$U$ is piecewise linear, $U\ge\lambda_0$, and by Lemma~\ref{p-lem:lam0} its kinks are the
+intersection points of consecutive tangents, one in each grid interval (the script encloses
+each of them in its grid interval). Both sides of \eqref{p-eq:prism} are then piecewise linear in
+$\alpha$; so \eqref{p-eq:prism} is verified, in ball arithmetic, at the end points and at these
+kinks, for the six pairs $i\le k$. The steps $k_{q-1}\to k_q$ were chosen greedily as large as
+possible, so some of these inequalities hold with a small relative margin (the smallest is
+$\clpMargin$); they are decided by $100$-bit ball arithmetic applied to the stored exact
+bounds.
+
+The consequence follows from Corollary~\ref{p-cor:prism}, from Lemma~\ref{p-lem:shape}(c) and
+Theorem~\ref{p-thm:thin} for the triangle with $F\ge0$, and from (a).
+\end{proof}
+
+In total the certificate for (b) consists of $\clpPrisms$ prisms and uses $\clpNodes$ vertex
+bounds, with mesh parameters $n\le\clpNmax$ (at most $\clpNdof$ unknowns); the largest grid index
+needed is $k_p=\clpKtop$ ($\alpha\approx\clpAtop$) for the cells closest to $E$. No cell had to be
+subdivided.
+
+
+\section{Proof of Theorem~\ref{thm:main}(1); the computations}\label{p-sec:proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}\textup{(1)}]
+By scaling, $A=1$. Let $T$ be a non-equilateral triangle of area $1$ and $\alpha>0$. If
+$\alpha\le1/100$, Theorem~\ref{p-thm:uniform} applies. Let $\alpha\ge1/100$. By
+Lemma~\ref{p-lem:shape}(b), $T$ is congruent to $T_w$ with $w\in\Sigma\setminus\{0\}$. If
+$|w|\le r_*<\tanh(2t_*)$, Proposition~\ref{p-prop:local} applies. If $F(w)\ge0$, then
+$a_{\max}\ge P_E$ by Lemma~\ref{p-lem:shape}(c) and Theorem~\ref{p-thm:thin} applies. Otherwise
+$w\in\overline{\Omega_B}\cap\mathbb D$ and Proposition~\ref{p-prop:middle} applies.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:perimeter} for $\alpha>0$]
+Let $E_s$ be the equilateral triangle of area $s^2|E|$. By the remark after
+Lemma~\ref{p-lem:concave}, $\alpha\mapsto\lambda_1(E,\alpha)$ is concave, and it vanishes at $\alpha=0$; so for
+$s>1$, $\lambda_1(E_s,\alpha)=s^{-2}\lambda_1(E,s\alpha)\le s^{-1}\lambda_1(E,\alpha)<\lambda_1(E,\alpha)$:
+the eigenvalue of the equilateral triangle decreases strictly with its area. By the isoperimetric
+inequality for triangles, $|T|\le|\E^T|$. Hence
+$\lambda_1(T,\alpha)\ge\lambda_1(\E_T,\alpha)\ge\lambda_1(\E^T,\alpha)$, and the first inequality is strict
+unless $T$ is equilateral, by Theorem~\ref{thm:main}(1).
+\end{proof}
+
+\paragraph{What is computed.} The proof uses the following machine computations, in
+\texttt{code/positive/} of the repository; Section~\ref{sec:verif} describes how they are re-run and
+checked.
+\begin{enumerate}
+\item \texttt{weak\_cert.py}: the interval check of the two-variable inequality in the proof of
+Theorem~\ref{p-thm:uniform} ($\clpWeakBoxes$ boxes).
+\item \texttt{local\_ring.py}: the $\clpRingRec=2\cdot\clpIneqC$ ring bounds $\mu_\pm^k$ and the
+$\clpLamRec$ bounds $\underline\lambda_2^k$ of Lemma~\ref{p-lem:Ccheck}; \texttt{local\_check.py}: the
+constants of Lemma~\ref{p-lem:shapeconst} and the $\clpIneqC$ inequalities \eqref{p-eq:C}.
+\item \texttt{cover.py}: the vertex bounds and the prism inequalities of
+Proposition~\ref{p-prop:middle}(b). The exact rational checks of
+Proposition~\ref{p-prop:middle}(a) are done by \texttt{coverage\_check.py}.
+\end{enumerate}
+The certified statements are of three kinds: (1) sign tests on exact integers
+(Lemma~\ref{p-lem:CW}); (2) inequalities between elementary functions of rational arguments,
+evaluated in Arb ball arithmetic \cite{Arb} (through python-flint, $100$ bits), including
+Gershgorin tests on small dense ball matrices (Lemma~\ref{p-lem:inertia}); (3) exact rational
+arithmetic (the coverage). Floating-point arithmetic is used only to \emph{propose} objects whose
+properties are then certified: approximate eigenvectors, an approximate inverse Cholesky
+factor, the trial values of $\sigma$, the positions of the grid points and the choice of the mesh
+parameters and of the side on which the altitude is dropped. Every certified
+lower bound is stored after a further relative reduction of the discrete eigenvalue bound
+$\sigma$ by $10^{-7}$ (by $10^{-6}$ for the second eigenvalue), which leaves room for an
+independent re-verification with a different eigenvector. In all, the default run solves
+$\clpEigCount$ sparse eigenvalue problems, in less than half an hour on one core.
+
+\paragraph{Three interpolation constants.} The only external analytic input of the certified
+lower bounds is the interpolation constant of Lemma~\ref{p-lem:interp}. The whole computation was
+carried out three times, with three constants $\kappa_0$ in Lemma~\ref{p-lem:CR}:
+$0.2983$ (Lemma~\ref{p-lem:interp} with the Laugesen--Siudeja inequality; this is the default run,
+described in the text), $0.3496$ (Lemma~\ref{p-lem:interp} with the Payne--Weinberger inequality)
+and $0.1893$ (the value obtained by Liu~\cite{Liu}, which is close to optimal; it is not proved by
+hand but by a verified computation). Each run by itself proves Theorem~\ref{thm:main}(1); they differ
+only in the mesh parameters. Table~\ref{p-tab:runs} summarises them.
+
+\begin{table}[ht]\centering
+\begin{tabular}{lccc}\toprule
+constant $\kappa_0$ & $0.2983$ & $0.3496$ & $0.1893$\\\midrule
+ring bounds: $n$ (unknowns) & \clpRingN\ (\clpRingNN) & \clpRingNpw\ (\clpRingNNpw) & \clpRingNliu\ (\clpRingNNliu)\\
+$\underline\lambda_2$ bounds: $n$ (unknowns) & \clpLamN\ (\clpLamNN) & \clpLamNpw\ (\clpLamNNpw) & \clpLamNliu\ (\clpLamNNliu)\\
+min.\ quotient in \eqref{p-eq:C} & \clpQmin & \clpQminpw & \clpQminliu\\
+cells by prisms / thin & \clpCellsB\ / \clpCellsW & \clpCellsB\ / \clpCellsW & \clpCellsB\ / \clpCellsW\\
+prisms & \clpPrisms & \clpPrismspw & \clpPrismsliu\\
+vertex bounds used & \clpNodes & \clpNodespw & \clpNodesliu\\
+largest $n$ in the cover (unknowns) & \clpNmax\ (\clpNdof) & \clpNmaxpw\ (\clpNdofpw) & \clpNmaxliu\ (\clpNdofliu)\\
+largest $k_p$ ($\alpha_{k_p}$) & \clpKtop\ (\clpAtop) & \clpKtoppw\ (\clpAtoppw) & \clpKtopliu\ (\clpAtopliu)\\
+time: ring, $\underline\lambda_2$, cover (min) & \clpTimels & \clpTimepw & \clpTimeliu\\\bottomrule
+\end{tabular}
+\caption{The three runs. ``min.\ quotient'' is the smallest quotient of the two sides of
+\eqref{p-eq:C}; times are for one core of a loaded server.}\label{p-tab:runs}
+\end{table}
+
+
+\section{Implementation, verification and caveats}\label{sec:verif}
+
+\paragraph{Implementation.} All certified steps use Arb~\cite{Arb} through python-flint~0.9.0: at
+$128$ bits in Part~I, and at $100$ bits ($80$ bits in \texttt{weak\_cert.py}) in Part~II; Part~II also
+uses exact integer and rational arithmetic. In Part~I, the certificate of Theorem~\ref{thm:A} consists of
+the $\clthmAstepOne$ intervals of Lemma~\ref{lem:gq}, $\clthmAsub$ Hessian sub-boxes and
+$\clthmAboxes$ boxes in Lemma~\ref{lem:geomA}, and that of Theorem~\ref{thm:C} of $\clthmCcells$
+intervals and one tail box; each takes well under a second. Box endpoints are exact binary or rational
+numbers, and every certified inequality is strict. The certificates of Part~II (the default run and the
+two other runs of Table~\ref{p-tab:runs}, about $1.3$\,MB of JSON each) are stored in the repository and
+are re-checked as described below; the data format is documented there.
+
+Every number in this paper that a computation checks is kept in a single claims file. The script
+\texttt{scripts/verify.py} reruns the computations, compares each computed enclosure or count with these
+claims in exact rational arithmetic, and the macros of this paper are generated from the same file.
+By default it reruns the certificates of Part~I, the second certificate of Lemma~\ref{lem:certC}, the
+floating-point checks of \S\ref{sec:cross}, and for Part~II: \texttt{weak\_cert.py},
+\texttt{local\_check.py} and \texttt{coverage\_check.py} from scratch, all prism and closing inequalities
+from the stored bounds, the negative controls, and the independent verifier described below (with a
+from-scratch re-certification of a sample of the stored bounds for the default run, and a replay of the
+other two runs). Optional modes replay the six-wave cells of \S\ref{sec:six} and re-certify every stored
+bound of all three runs of Part~II from scratch with both programs. Notation in the code of Part~I: $G_0$
+is \texttt{D3}, $\Gp$, $\Bp$, $\Np$ are \texttt{G1}, \texttt{B1}, \texttt{N1}, the products $\beta\Bp$,
+$\beta\chi$ and $|\lambda_0|\Np$ are \texttt{bB1}, \texttt{bkq} and \texttt{lN1}, and the $\Sigma_k$ are
+\texttt{s1}, \dots, \texttt{s4}; in the second certificate, $\chi$ is \texttt{kappa} and $\beta\chi$ is
+\texttt{bk}.
+
+\paragraph{Checks of Part~II.} (i) \emph{Re-certification.} The script \texttt{recheck.py}
+re-evaluates all prism inequalities and closing tests from the stored bounds and re-certifies every
+stored bound from scratch: a freshly computed eigenvector must pass the exact test of
+Lemma~\ref{p-lem:CW} for the \emph{stored} $\sigma$. (ii) \emph{Independent verifier.} A second program
+was written by a separate AI instance from the text of Part~II and a description of the certificate
+format only, without access to our code. It builds each triangle from coordinates and each mesh as an
+explicit list of elements, assembles the Crouzeix--Raviart matrices element by element, computes its own
+eigenvectors, and verifies $Kx\ge\sigma Mx$ for the stored $\sigma$ in outward-rounded floating-point
+interval arithmetic; it treats the second eigenvalue by an interval $LDL^{\mathsf T}$ factorisation and
+Sylvester's law of inertia, and re-derives the constants of Lemma~\ref{p-lem:shapeconst}, the
+inequalities~\eqref{p-eq:C}, the prism inequalities and the coverage with a different interval library
+(mpmath~\cite{mpmath}) and exact rationals. For each of the three runs it confirms every record: all
+$\clpRingRec$ ring bounds, all $\clpLamRec$ bounds for $\lambda_2$, all stored vertex bounds, all
+$\clpIneqC$ inequalities~\eqref{p-eq:C} (smallest quotient $\clpQmin$ at $k=\clpQminK$ for the default
+run, as in our computation), all prisms and the coverage. (iii) \emph{Negative controls.} The two programs
+reject perturbed statements; between them: a $\sigma$ larger by a factor $1+10^{-6}$ (resp.\
+$1+10^{-4}$), mesh (U) on an obtuse triangle, $\lambda_0$ replaced by $1.01\lambda_0$ (the independent verifier rejects
+$\clpIndepRej$ cells already for $1.0001\lambda_0$), the false bound
+$\lambda_1(T_w,\alpha)\ge\lambda_0(1+0.6t^2)$ near $E$, $t_*$ replaced by $3/25$, ring bounds lowered by
+$0.2$ per cent near $\alpha=2$, and a cover with a triangle removed. (iv) \emph{Sanity checks in
+floating point}, not used in the proof: the certified vertex bounds lie below conforming $P_2$ finite
+element values, by relative amounts between $\clpSandLo$ and $\clpSandHi$ on random samples, and the
+quantities of Remark~\ref{p-rem:local} are computed with $P_2$ elements. (v) An AI referee re-derived the
+new arguments of Part~II line by line and reported no error; the gaps it found (the position of the kinks
+of $U$, a point on no side in Lemma~\ref{p-lem:cover}, the use of the rounded constants
+in~\eqref{p-eq:C}) are repaired. A second AI referee pass, made when the two parts were merged, again
+checked the cell identity (Lemma~\ref{p-lem:cell}), the ring bound (Lemma~\ref{p-lem:ring}), the
+uniformity in $\alpha$ (Lemma~\ref{p-lem:Ccheck}), the closing test of Corollary~\ref{p-cor:prism}(b),
+Lemmas~\ref{p-lem:CR} and~\ref{p-lem:CW} and the coverage lemma, and the corresponding code, and found no
+error.
+
+\paragraph{Check of prior work.} The repository also contains, clearly separated from our proof, the
+AI referee's re-implementation of the middle-range criterion of Ma~\cite[Proposition~2]{Ma} in Arb, which
+confirms it on $1\le\beta\le10$ with $\clmaBoxes$ boxes; it is run by \texttt{scripts/verify.py}.
+
+\paragraph{Caveats.} The proofs are computer-assisted and, at the time of writing, have been checked
+only by AI systems and by the programs described above; no human expert has reviewed them (see the
+declaration below). In Part~I the main residual risks are the hand derivations, especially the closed
+forms of the eight integrals of Lemma~\ref{lem:certC} and their transcription into code; they are
+cross-checked against quadrature on actual triangles by two independently written scripts. In Part~II,
+the local region has a comfortable margin (the smallest quotient in~\eqref{p-eq:C} is $\clpQmin$). In the
+middle region no cell had to be subdivided, but the true gap $\lambda_1(T_w,\alpha)/\lambda_0(\alpha)-1$
+is small next to the local disc (between $\clpGapLo$ and $\clpGapHi$ per cent at the inner vertices
+$t=0.057$, in floating point), and individual prism inequalities hold with relative margins down to
+$\clpMargin$; that region therefore rests entirely on the exactness of the Collatz--Wielandt test, of
+the constants in Lemma~\ref{p-lem:CR} and of the ball arithmetic. The most delicate analytic point is the
+neighbourhood of $E$: the criterion of Lemma~\ref{p-lem:schur} has only a factor of about $\clpSpare$ to
+spare in the worst case, so the upper bound for $R_1$ has to be accurate to a few per cent;
+Lemma~\ref{p-lem:ring} achieves this with two eigenvalue bounds per value of $\alpha$. We did not find a
+computer-free bound for $R_1(\alpha)$. (By the ground state transformation
+$N[\psi_0\chi]=\int_E\psi_0^2|\nabla\chi|^2$, one has $R_1=\min\int_E\psi_0^2|Y|^2$ over the vector fields
+$Y$ with $\int_E\psi_0^2\,Y\cdot\nabla\chi=D_{\Theta_0}(\psi_0,\psi_0\chi)$ for all $\chi$ with
+$\int_E\psi_0^2\chi=0$, so any explicit admissible field would give such a bound.) The only external
+analytic inputs of Part~II are standard facts about the Robin form and the Poincar\'e inequality of
+Laugesen and Siudeja~\cite{LaSiPoincare} (or of Payne and Weinberger~\cite{PW} in the second run); the
+constant of the third run is Liu's~\cite{Liu}, which comes from a verified computation rather than a
+hand proof, whereas the default run uses the constant $0.2983$ proved in Lemma~\ref{p-lem:interp}. The
+remaining dependence is on the correctness of Arb/python-flint, of mpmath's interval arithmetic and of
+Python's integers.
+
+\paragraph{Availability.} The code, the certificates, the logs and the claims file are in the
+accompanying repository\footnote{\url{https://github.com/jasondavies/robin-triangles}.}. The single
+command \texttt{scripts/verify.py} reruns the checks described above and writes a PASS/FAIL summary.
+
+\appendix
+\section{A strong-coupling bound for \texorpdfstring{$\alpha>0$}{alpha > 0}}\label{p-sec:large}
+
+This appendix uses the notation of Part~II and is independent of the proof of
+Theorem~\ref{thm:main}. It gives an explicit lower bound for $\lambda_1(T,\alpha)$ of an individual
+triangle as $\alpha\to\infty$.
+
+\begin{theorem}[strong coupling]\label{p-thm:large}
+Let $\psi_T$ be the torsion function of $T$ ($-\Delta\psi_T=1$ in $T$, $\psi_T=0$ on $\partial T$)
+and $C_T=\sup|\partial_\nu\psi_T|\le h_{\max}/2$, the supremum being over the open sides. For every $\alpha>0$ the number
+$\lambda=\lambda_1(T,\alpha)$ satisfies
+\begin{equation}\label{p-eq:large}
+  \alpha\ \le\ \frac{2\lambda^2}{r\,\Lambda_1(\Lambda_1-\lambda)}
+  +C_T\,\frac{\lambda\,\Lambda_2}{\Lambda_2-\lambda},
+  \qquad \Lambda_k=\Lambda_k(T).
+\end{equation}
+In particular, with $\alpha_*=C_T\Lambda_1\Lambda_2/(\Lambda_2-\Lambda_1)$,
+\begin{equation}\label{p-eq:large2}
+  \lambda_1(T,\alpha)\ \ge\ \Lambda_1(T)\Bigl(1-\frac{2}{r(\alpha-\alpha_*)}\Bigr)
+  \qquad(\alpha>\alpha_*).
+\end{equation}
+\end{theorem}
+
+\begin{lemma}\label{p-lem:harm}
+If $h\in H^1(T)$ is harmonic in $T$, then $\int_Th^2\le C_T\int_{\partial T}h^2$, and
+$C_T\le h_{\max}/2$.
+\end{lemma}
+
+\begin{proof}
+Since $\psi_T\ge0$ vanishes on $\partial T$ and $\Delta(h^2)=2|\nabla h|^2$,
+\[
+  \int_Th^2=-\int_Th^2\Delta\psi_T
+  =-\int_{\partial T}h^2\,\partial_\nu\psi_T-2\int_T\psi_T|\nabla h|^2
+  \le C_T\int_{\partial T}h^2 .
+\]
+Here $C_T$ is understood as the supremum of $|\partial_\nu\psi_T|$ over the open sides, which
+is finite by the bound proved below, and $\psi_T\in H^2(T)$ because $T$ is convex. The
+computation is justified when $h$ is smooth up to the boundary. For general $h$ apply it on
+the homothetic triangles $T_\varepsilon=I+(1-\varepsilon)(T-I)$, on whose closure $h$ is smooth,
+with their own torsion functions, for which $C_{T_\varepsilon}=(1-\varepsilon)C_T$ by scaling;
+then let $\varepsilon\to0$, using that $x\mapsto h(I+(1-\varepsilon)(x-I))$ converges to $h$ in
+$H^1(T)$ and therefore its trace converges in $L^2(\partial T)$. For the bound on $C_T$ fix a
+side, with altitude $h_j$ on it, and let $S$ be
+the strip of width $h_j$ bounded by the line through that side and the parallel line through
+the opposite vertex. Its torsion function $\psi_S(y)=y(h_j-y)/2$ satisfies
+$\psi_S-\psi_T\ge0$ in $T$ by the maximum principle, and both vanish on the side, so
+$|\partial_\nu\psi_T|\le|\partial_\nu\psi_S|=h_j/2$ there.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{p-thm:large}]
+Let $u$ be the Robin ground state, $\lambda=\lambda_1(T,\alpha)$, $g=u|_{\partial T}$. Restricting
+\eqref{eq:var} to $H^1_0(T)$ gives $\lambda\le\Lambda_1$, and equality would make $\phi_1$ a Robin
+eigenfunction, which it is not ($\partial_\nu\phi_1\not\equiv0=-\alpha\phi_1$ on $\partial T$); so
+$\lambda<\Lambda_1$, and therefore $g\not\equiv0$. Write $u=h+v$ with
+$h$ harmonic, $h=g$ on $\partial T$, and $v\in H^1_0(T)$. Then $-\Delta v-\lambda v=\lambda h$, so
+$v=\lambda(-\Delta_D-\lambda)^{-1}h$, where $-\Delta_D$ is the Dirichlet Laplacian with
+normalised eigenfunctions $\phi_k$ and eigenvalues $\Lambda_k$. By Green's formula and
+$\int_T\nabla h\cdot\nabla v=0$,
+\[
+  -\alpha\int_{\partial T}g^2=\int_T|\nabla u|^2-\lambda\int_Tu^2
+  =\int_T|\nabla h|^2-\lambda\|h\|^2-\lambda\langle h,v\rangle
+  \ \ge\ -\lambda\|h\|^2-\lambda^2\sum_{k\ge1}\frac{\langle h,\phi_k\rangle^2}{\Lambda_k-\lambda},
+\]
+where norms and inner products without subscript are in $L^2(T)$. Bounding
+$\Lambda_k-\lambda\ge\Lambda_2-\lambda$ for $k\ge2$ gives
+\begin{equation}\label{p-eq:pf1}
+  \alpha\int_{\partial T}g^2\ \le\ \lambda\|h\|^2\frac{\Lambda_2}{\Lambda_2-\lambda}
+  +\lambda^2\frac{\langle h,\phi_1\rangle^2}{\Lambda_1-\lambda}.
+\end{equation}
+Since $h$ is harmonic and $\phi_1$ vanishes on $\partial T$,
+$\Lambda_1\langle h,\phi_1\rangle=-\int_Th\,\Delta\phi_1=-\int_{\partial T}g\,\partial_\nu\phi_1$.
+The Rellich identity $\int_{\partial T}(\partial_\nu\phi_1)^2\,(x-I)\cdot\nu\dd s=2\Lambda_1$
+(valid on convex polygons, where $\phi_1\in H^2$) and $(x-I)\cdot\nu=r$ give
+$\int_{\partial T}(\partial_\nu\phi_1)^2=2\Lambda_1/r$, so
+$\langle h,\phi_1\rangle^2\le 2\,\|g\|_{L^2(\partial T)}^2/(r\Lambda_1)$. Inserting this and
+Lemma~\ref{p-lem:harm} into \eqref{p-eq:pf1} and dividing by $\|g\|^2_{L^2(\partial T)}>0$ gives
+\eqref{p-eq:large}.
+
+For \eqref{p-eq:large2} use $\lambda<\Lambda_1$: the second term of \eqref{p-eq:large} is at most
+$\alpha_*$ and the first is at most $2\Lambda_1/(r(\Lambda_1-\lambda))$.
+\end{proof}
+
+\begin{remark}\label{p-rem:sharp}
+The first-order expansion $\lambda_1(\Omega,\alpha)=\Lambda_1-\alpha^{-1}\int_{\partial\Omega}
+(\partial_\nu\phi_1)^2+o(\alpha^{-1})$ as $\alpha\to\infty$ is classical for smooth domains. If it
+holds on $T$ (we have not located a reference for polygons and do not use it), then by the same
+Rellich identity $\lambda_1(T,\alpha)=\Lambda_1(1-2/(r\alpha))+o(\alpha^{-1})$, so that
+\eqref{p-eq:large2} is sharp to first order in $1/\alpha$.
+\end{remark}
+\section*{Declaration of AI-generated research and authorship}
+This manuscript is the product of an AI-driven research process. The human author initiated a broader
+investigation of open problems from the AIM problem lists, and AI systems worked on this problem within
+it. AI systems produced all of the following: the results and proofs, the computations and the code for
+the certificates, and the organisation and writing of the text. The systems were Claude Opus~5.5 and
+Claude Fable~5.2 (Anthropic), used through Claude Code. The human author directed the AI systems but
+wrote no part of the manuscript.
+
+Theorem~\ref{thm:main} is computer-assisted and its proof is reproduced by \texttt{scripts/verify.py}.
+At the time of writing, the mathematics and the code have been checked only by AI systems and by
+computer verification. These checks include the certificates described above; adversarial reviews by
+independent AI referees, of Part~I, of Part~II, and of the merged manuscript; a second certificate of
+Lemma~\ref{lem:certC}, written by the referee of Part~I; and an independent verification program for the
+certificates of Part~II, written by a separate AI instance from the text and the certificate format
+only. The comparison with Ma's preprint~\cite{Ma} was also made by an AI referee. No independent human
+expert has reviewed the manuscript. The human author has not read this manuscript or checked its
+arguments. The author takes responsibility for the accuracy of this disclosure.
+
+\raggedright
+\begin{thebibliography}{99}
+\bibitem{AimPL} American Institute of Mathematics, \emph{AIM Problem Lists: Shape optimization with
+surface interactions}, Section~1, Conjecture~1.3 (V.~Lotoreichik, Z.~Lu),
+\url{http://aimpl.org/shapesurface/1/}.
+\bibitem{AFK} P.~R.~S.~Antunes, P.~Freitas, D.~Krej\v{c}i\v{r}\'{i}k, \emph{Bounds and extremal domains
+for Robin eigenvalues with negative boundary parameter}, Adv.\ Calc.\ Var.\ \textbf{10} (2017), 357--379.
+\href{https://doi.org/10.1515/acv-2015-0045}{doi:10.1515/acv-2015-0045}.
+\bibitem{Bareket} M.~Bareket, \emph{On an isoperimetric inequality for the first eigenvalue of a boundary
+value problem}, SIAM J.\ Math.\ Anal.\ \textbf{8} (1977), 280--287.
+\href{https://doi.org/10.1137/0508020}{doi:10.1137/0508020}.
+\bibitem{Bebendorf} M.~Bebendorf, \emph{A note on the Poincar\'e inequality for convex domains},
+Z.\ Anal.\ Anwend.\ \textbf{22} (2003), 751--756.
+\href{https://doi.org/10.4171/ZAA/1170}{doi:10.4171/ZAA/1170}.
+\bibitem{Bossel} M.-H.~Bossel, \emph{Membranes \'elastiquement li\'ees: extension du th\'eor\`eme
+de Rayleigh--Faber--Krahn et de l'in\'egalit\'e de Cheeger}, C.\ R.\ Acad.\ Sci.\ Paris S\'er.\ I Math.\
+\textbf{302} (1986), 47--50.
+\bibitem{BP} V.~Bruneau, N.~Popoff, \emph{On the negative spectrum of the Robin Laplacian in corner
+domains}, Anal.\ PDE \textbf{9} (2016), 1259--1283.
+\href{https://doi.org/10.2140/apde.2016.9.1259}{doi:10.2140/apde.2016.9.1259}.
+\bibitem{BFK} D.~Bucur, P.~Freitas, J.~Kennedy, \emph{The Robin problem}, in: A.~Henrot (ed.), Shape
+optimization and spectral theory, De Gruyter, 2017, 78--119.
+\href{https://doi.org/10.1515/9783110550887-004}{doi:10.1515/9783110550887-004}.
+\bibitem{CCP} A.~Carbotti, S.~Cito, D.~Pallara, \emph{On the optimization of the Robin eigenvalues in some
+classes of polygons}, preprint (2025), arXiv:2508.03502.
+\href{https://doi.org/10.48550/arXiv.2508.03502}{doi:10.48550/arXiv.2508.03502}.
+\bibitem{CGal} C.~Carstensen, D.~Gallistl, \emph{Guaranteed lower eigenvalue bounds for the biharmonic
+equation}, Numer.\ Math.\ \textbf{126} (2014), 33--51.
+\href{https://doi.org/10.1007/s00211-013-0559-z}{doi:10.1007/s00211-013-0559-z}.
+\bibitem{CG} C.~Carstensen, J.~Gedicke, \emph{Guaranteed lower bounds for eigenvalues}, Math.\ Comp.\
+\textbf{83} (2014), 2605--2629.
+\href{https://doi.org/10.1090/S0025-5718-2014-02833-0}{doi:10.1090/S0025-5718-2014-02833-0}.
+\bibitem{CR} M.~Crouzeix, P.-A.~Raviart, \emph{Conforming and nonconforming finite element methods for
+solving the stationary Stokes equations I}, Rev.\ Fran\c{c}aise Automat.\ Informat.\ Recherche
+Op\'erationnelle S\'er.\ Rouge \textbf{7} (1973), no.~R-3, 33--75.
+\href{https://doi.org/10.1051/m2an/197307R300331}{doi:10.1051/m2an/197307R300331}.
+\bibitem{Daners} D.~Daners, \emph{A Faber--Krahn inequality for Robin problems in any space dimension},
+Math.\ Ann.\ \textbf{335} (2006), 767--785.
+\href{https://doi.org/10.1007/s00208-006-0753-8}{doi:10.1007/s00208-006-0753-8}.
+\bibitem{ELM} R.~Endo, X.~Liu, P.~Mariano, \emph{Sharp Dirichlet eigenvalue inequalities on triangles},
+preprint (2026), arXiv:2605.04331.
+\href{https://doi.org/10.48550/arXiv.2605.04331}{doi:10.48550/arXiv.2605.04331}.
+\bibitem{Ferudun} A.~Ferudun, \emph{Uniform weak Robin comparisons on triangles and a cubic moment
+formula}, preprint, Zenodo (2026).
+\href{https://doi.org/10.5281/zenodo.23404478}{doi:10.5281/zenodo.23404478}.
+\bibitem{GS} T.~Giorgi, R.~Smits, \emph{Eigenvalue estimates and critical temperature in zero fields for
+enhanced surface superconductivity}, Z.\ Angew.\ Math.\ Phys.\ \textbf{58} (2007), 224--245.
+\href{https://doi.org/10.1007/s00033-005-0049-y}{doi:10.1007/s00033-005-0049-y}.
+\bibitem{GHLY} C.~Gui, Y.~Hu, Q.~Li, H.~Yang, \emph{A quantitative Robin P\'olya--Szeg\H{o} theorem for
+tangential polygons}, preprint (2026), arXiv:2610.21417.
+\href{https://doi.org/10.48550/arXiv.2610.21417}{doi:10.48550/arXiv.2610.21417}.
+\bibitem{HP} B.~Helffer, K.~Pankrashkin, \emph{Tunneling between corners for Robin Laplacians},
+J.\ London Math.\ Soc.\ \textbf{91} (2015), 225--248.
+\href{https://doi.org/10.1112/jlms/jdu070}{doi:10.1112/jlms/jdu070}.
+\bibitem{Arb} F.~Johansson, \emph{Arb: efficient arbitrary-precision midpoint-radius interval
+arithmetic}, IEEE Trans.\ Comput.\ \textbf{66} (2017), 1281--1292.
+\href{https://doi.org/10.1109/TC.2017.2690633}{doi:10.1109/TC.2017.2690633}.
+\bibitem{Khalile} M.~Khalile, \emph{Spectral asymptotics for Robin Laplacians on polygonal domains},
+J.\ Math.\ Anal.\ Appl.\ \textbf{461} (2018), 1498--1543.
+\href{https://doi.org/10.1016/j.jmaa.2018.01.062}{doi:10.1016/j.jmaa.2018.01.062}.
+\bibitem{KP} M.~Khalile, K.~Pankrashkin, \emph{Eigenvalues of Robin Laplacians in infinite sectors},
+Math.\ Nachr.\ \textbf{291} (2018), 928--965.
+\href{https://doi.org/10.1002/mana.201600314}{doi:10.1002/mana.201600314}.
+\bibitem{KLV} D.~Krej\v{c}i\v{r}\'{i}k, V.~Lotoreichik, T.~Vu, \emph{Reverse isoperimetric inequality for
+the lowest Robin eigenvalue of a triangle}, Appl.\ Math.\ Optim.\ \textbf{88} (2023), article~63.
+\href{https://doi.org/10.1007/s00245-023-10033-1}{doi:10.1007/s00245-023-10033-1}.
+\bibitem{LOS} A.~A.~Lacey, J.~R.~Ockendon, J.~Sabina, \emph{Multidimensional reaction diffusion equations
+with nonlinear boundary conditions}, SIAM J.\ Appl.\ Math.\ \textbf{58} (1998), 1622--1647.
+\href{https://doi.org/10.1137/S0036139996308121}{doi:10.1137/S0036139996308121}.
+\bibitem{LaSiPoincare} R.~S.~Laugesen, B.~A.~Siudeja, \emph{Minimizing Neumann fundamental tones of
+triangles: an optimal Poincar\'e inequality}, J.\ Differential Equations \textbf{249} (2010), 118--135.
+\href{https://doi.org/10.1016/j.jde.2010.02.020}{doi:10.1016/j.jde.2010.02.020}.
+\bibitem{LaSi} R.~S.~Laugesen, B.~A.~Siudeja, \emph{Triangles and other special domains}, in:
+A.~Henrot (ed.), Shape optimization and spectral theory, De Gruyter, 2017, 149--200.
+\href{https://doi.org/10.1515/9783110550887-006}{doi:10.1515/9783110550887-006}.
+\bibitem{LP} M.~Levitin, L.~Parnovski, \emph{On the principal eigenvalue of a Robin problem with a large
+parameter}, Math.\ Nachr.\ \textbf{281} (2008), 272--281.
+\href{https://doi.org/10.1002/mana.200510600}{doi:10.1002/mana.200510600}.
+\bibitem{Liu} X.~Liu, \emph{A framework of verified eigenvalue bounds for self-adjoint differential
+operators}, Appl.\ Math.\ Comput.\ \textbf{267} (2015), 341--355.
+\href{https://doi.org/10.1016/j.amc.2015.03.048}{doi:10.1016/j.amc.2015.03.048}.
+\bibitem{Ma} Y.~Ma, \emph{A proof of the extremal conjecture for the first Robin eigenvalue of
+triangles}, Zenodo (deposited 6 October 2026; the PDF is titled \emph{A three-function comparison for
+all triangles and all attractive Robin couplings}).
+\href{https://doi.org/10.5281/zenodo.23191831}{doi:10.5281/zenodo.23191831}.
+\bibitem{McCartin2} B.~J.~McCartin, \emph{Eigenstructure of the equilateral triangle, Part II: The
+Neumann problem}, Math.\ Probl.\ Eng.\ \textbf{8} (2002), 517--539.
+\href{https://doi.org/10.1080/1024123021000053664}{doi:10.1080/1024123021000053664}.
+\bibitem{McCartin} B.~J.~McCartin, \emph{Eigenstructure of the equilateral triangle. Part III. The Robin
+problem}, Int.\ J.\ Math.\ Math.\ Sci.\ \textbf{2004} (2004), 807--825.
+\href{https://doi.org/10.1155/S0161171204306125}{doi:10.1155/S0161171204306125}.
+\bibitem{mpmath} The mpmath development team, \emph{mpmath: a Python library for arbitrary-precision
+floating-point arithmetic}, version~1.3.0 (2023), \url{https://mpmath.org}.
+\bibitem{PW} L.~E.~Payne, H.~F.~Weinberger, \emph{An optimal Poincar\'e inequality for convex domains},
+Arch.\ Rational Mech.\ Anal.\ \textbf{5} (1960), 286--292.
+\href{https://doi.org/10.1007/BF00252910}{doi:10.1007/BF00252910}.
+\bibitem{PS} G.~P\'olya, G.~Szeg\H{o}, \emph{Isoperimetric Inequalities in Mathematical Physics}, Annals
+of Mathematics Studies~27, Princeton University Press, 1951.
+\href{https://doi.org/10.1515/9781400882663}{doi:10.1515/9781400882663}.
+\end{thebibliography}
+
+\end{document}

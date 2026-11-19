@@ -1,0 +1,36 @@
+$ python weak_cert.py ./verification/positive/weak_cert.json
+{
+ "alpha1": "1/100",
+ "c": "1.18",
+ "T_W": "1.2413",
+ "t0": "0.01",
+ "prec": 80,
+ "g1": "[1.1369078439149309643550 +/- 5.99e-23]",
+ "g2": "[2.287733840841137889172 +/- 4.14e-22]",
+ "mu2": "[7.5976250103520751621080 +/- 6.62e-23]",
+ "P_E": "[4.5590141139095552839871 +/- 4.05e-23]",
+ "check_T": true,
+ "check_0": true,
+ "c_p": "[0.74449442512518256197232 +/- 8.65e-24]",
+ "c_zeta": "[1.441308926130168623254 +/- 7.60e-22]",
+ "lhs0": "[3.3098532246613175122950 +/- 9.73e-23]",
+ "rhs0": "[0.141018557958013344549 +/- 1.01e-22]",
+ "boxes": 445704,
+ "leaves": {
+  "W": 726,
+  "S": 6606,
+  "L": 328482
+ },
+ "max_depth": 7,
+ "fails": [],
+ "n_fails": 0,
+ "ok": true,
+ "seconds": 5.5
+}
+
+[gate] ok   Theorem uniform weak coupling: every box decided
+[gate] ok   alpha_1 = 1/100, t in [1/100, 1.2413]
+[gate] ok   445704 boxes, 335814 leaves
+[gate] ok   leaves W/S/L = 726/6606/328482, depth <= 7
+[gate] ok   scaled (L) near E: lhs > 3.3098, rhs < 0.1411, factor 23
+[gate] ok   g_2 < 2.2878, g_1 < 1.1370

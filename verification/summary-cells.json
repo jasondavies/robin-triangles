@@ -1,0 +1,532 @@
+{
+ "time_utc": "2026-11-19T18:26:55Z",
+ "only": null,
+ "cells": true,
+ "python": "3.12.3",
+ "python_flint": "0.9.0",
+ "numpy": "2.5.5",
+ "scipy": "1.18.1",
+ "mpmath": "1.3.0",
+ "sympy": "1.14.0",
+ "results": [
+  {
+   "name": "thmA",
+   "ok": true,
+   "seconds": 0.1,
+   "cmd": [
+    "python",
+    "thmA.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "Theorem A certificate complete"
+    },
+    {
+     "ok": true,
+     "check": "beta_A = 6/5, G_A = 0.1425, q_A = 1.384"
+    },
+    {
+     "ok": true,
+     "check": "2000 intervals, every bound on g below G_A"
+    },
+    {
+     "ok": true,
+     "check": "g(beta_A) = 0.14195..."
+    },
+    {
+     "ok": true,
+     "check": "1.3835037091 <= q(beta_A) <= 1.3835037092 < q_A"
+    },
+    {
+     "ok": true,
+     "check": "256 Hessian sub-boxes of the box of half-width 1/40"
+    },
+    {
+     "ok": true,
+     "check": "strip y < 19/100 and region up to y = 87/100"
+    },
+    {
+     "ok": true,
+     "check": "344 boxes"
+    }
+   ]
+  },
+  {
+   "name": "thmC",
+   "ok": true,
+   "seconds": 0.2,
+   "cmd": [
+    "python",
+    "large_beta.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "Lemma certC certificate complete"
+    },
+    {
+     "ok": true,
+     "check": "intervals of width 1/1000 tile [13/10, 8], tail M >= 8"
+    },
+    {
+     "ok": true,
+     "check": "6700 intervals"
+    },
+    {
+     "ok": true,
+     "check": "1.1530164635 <= beta(13/10) <= 1.1530164636 < 1.1531 < 6/5"
+    },
+    {
+     "ok": true,
+     "check": "worst ratio <= 0.6013"
+    },
+    {
+     "ok": true,
+     "check": "tail ratio <= 2.11e-6"
+    }
+   ]
+  },
+  {
+   "name": "thmC_independent",
+   "ok": true,
+   "seconds": 1.8,
+   "cmd": [
+    "python",
+    "indep_cert.py",
+    "40"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "independent certificate complete"
+    },
+    {
+     "ok": true,
+     "check": "body [13/10, 40], tail M >= 40, 150 digits"
+    },
+    {
+     "ok": true,
+     "check": "938 adaptive cells"
+    },
+    {
+     "ok": true,
+     "check": "worst ratio <= 0.6136"
+    },
+    {
+     "ok": true,
+     "check": "tail ratio <= 1.1e-33"
+    },
+    {
+     "ok": true,
+     "check": "same enclosure of beta(13/10)"
+    }
+   ]
+  },
+  {
+   "name": "xcheck_tail",
+   "ok": true,
+   "seconds": 0.3,
+   "cmd": [
+    "python",
+    "xcheck_tail.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "xcheck_tail.json reports ok"
+    }
+   ]
+  },
+  {
+   "name": "thmA_negative",
+   "ok": true,
+   "seconds": 0.1,
+   "cmd": [
+    "python",
+    "thmA.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "G_A = 0.146 fails, as it must"
+    }
+   ]
+  },
+  {
+   "name": "negative_c",
+   "ok": true,
+   "seconds": 0.0,
+   "cmd": [
+    "python",
+    "negative_c.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "certificate fails when started at M = 21/20 or M = 1"
+    }
+   ]
+  },
+  {
+   "name": "table_c",
+   "ok": true,
+   "seconds": 0.1,
+   "cmd": [
+    "python",
+    "table_c.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "(p-1)/(tau-2) -> 3/16 near E in four directions"
+    },
+    {
+     "ok": true,
+     "check": "float threshold M = 1.103, beta = 0.930"
+    },
+    {
+     "ok": true,
+     "check": "g(beta) = 3/16 at beta = 1.63"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 1.2"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 1.5"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 2"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 3"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 4"
+    },
+    {
+     "ok": true,
+     "check": "Table 1 row beta = 6"
+    }
+   ]
+  },
+  {
+   "name": "check_normalised",
+   "ok": true,
+   "seconds": 0.1,
+   "cmd": [
+    "python",
+    "check_normalised.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "check_normalised.json reports ok"
+    }
+   ]
+  },
+  {
+   "name": "check_quad",
+   "ok": true,
+   "seconds": 2.0,
+   "cmd": [
+    "python",
+    "check_quad.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "check_quad.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "closed forms vs quadrature on T <= 1e-13"
+    }
+   ]
+  },
+  {
+   "name": "direct_check",
+   "ok": true,
+   "seconds": 0.2,
+   "cmd": [
+    "python",
+    "direct_check.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "direct_check.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "referee quadrature vs closed forms <= 1e-13"
+    }
+   ]
+  },
+  {
+   "name": "validate_chain",
+   "ok": true,
+   "seconds": 2.0,
+   "cmd": [
+    "python",
+    "validate_chain.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "validate_chain.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "400 near-region samples"
+    },
+    {
+     "ok": true,
+     "check": "corner bound on 573 samples"
+    },
+    {
+     "ok": true,
+     "check": "divergence identity <= 1e-13"
+    }
+   ]
+  },
+  {
+   "name": "run_chain",
+   "ok": true,
+   "seconds": 3.4,
+   "cmd": [
+    "python",
+    "run_chain.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "run_chain.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "3000 referee samples"
+    },
+    {
+     "ok": true,
+     "check": "failures only at W < 1e-15"
+    }
+   ]
+  },
+  {
+   "name": "t_near_fem",
+   "ok": true,
+   "seconds": 29.5,
+   "cmd": [
+    "python",
+    "t_near_fem.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "t_near_fem.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "16 FEM samples"
+    }
+   ]
+  },
+  {
+   "name": "test_independent",
+   "ok": true,
+   "seconds": 3.4,
+   "cmd": [
+    "python",
+    "test_independent.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "test_independent.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "beta = 2: FEM -16.857416, lambda_0 -16.857437"
+    }
+   ]
+  },
+  {
+   "name": "check_misc",
+   "ok": true,
+   "seconds": 3.3,
+   "cmd": [
+    "python",
+    "check_misc.py"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "check_misc.json reports ok"
+    },
+    {
+     "ok": true,
+     "check": "sampled min (p-1)/(tau-2) = 0.1445... on 205912 triangles"
+    }
+   ]
+  },
+  {
+   "name": "cells_summary",
+   "ok": true,
+   "seconds": 0.0,
+   "cmd": [
+    "python",
+    "-c",
+    "pass"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "414 local and 4140 near M-intervals"
+    },
+    {
+     "ok": true,
+     "check": "109717 far cells in 24 beta-ranges"
+    },
+    {
+     "ok": true,
+     "check": "far cell counts add up"
+    },
+    {
+     "ok": true,
+     "check": "radii r and R as printed"
+    },
+    {
+     "ok": true,
+     "check": "beta-ranges tile [6/5, 3]"
+    },
+    {
+     "ok": true,
+     "check": "a SHA-256 is recorded for every certificate file"
+    }
+   ]
+  },
+  {
+   "name": "cells_replay",
+   "ok": true,
+   "seconds": 1274.4,
+   "cmd": [
+    "python",
+    "scripts/cells.py",
+    "replay",
+    "./cells"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "every stored cell re-verified; coverage and counts as recorded"
+    },
+    {
+     "ok": true,
+     "check": "counts 414 / 4140 / 109717"
+    },
+    {
+     "ok": true,
+     "check": "M- and beta-intervals cover 6/5 <= beta <= 3"
+    }
+   ]
+  },
+  {
+   "name": "claims_tex",
+   "ok": true,
+   "seconds": 0.0,
+   "cmd": [
+    "python",
+    "scripts/make_claims_tex.py",
+    "--check"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "paper/claims.tex is in sync with claims.json"
+    }
+   ]
+  },
+  {
+   "name": "paper",
+   "ok": true,
+   "seconds": 1.2,
+   "cmd": [
+    "latexmk",
+    "-pdf",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-gg",
+    "robin-triangles.tex"
+   ],
+   "gates": [
+    {
+     "ok": true,
+     "check": "latexmk succeeded"
+    }
+   ]
+  },
+  {
+   "name": "paper_log_clean",
+   "ok": true,
+   "issues": 0
+  }
+ ],
+ "inputs_sha256": {
+  "CITATION.cff": "bd71b38e693037a717a8fc73c073f43f8974fd8422401af5dd794613e43a19c1",
+  "README.md": "e0546d1e491aa20d1304ab3fad5857f266a35ab49cead70634f3da102bfde390",
+  "claims.json": "e325ada351b50c5b79544d654b244267a8c3fcabe889bab9f7c8057a1791be30",
+  "code/README.md": "7edd0d4a8a8635206e7add5c89f78437194d9aae0cbc61ef62f0a0905af25f35",
+  "code/check_far_consistency.py": "eac50cc5c8c69afc61d4bb7dc1dd9ee22330e5cd4ddd1ca720c22a356fc3d66c",
+  "code/check_misc.py": "46301b6731bafcbcf4b69407ad1e25aa9f317728581c3d8d0a702f82b3c19289",
+  "code/check_normalised.py": "21efa0527a247ca4959c46edb6cca0e6e9cd51553ee64bdabd0425fd8b6b2696",
+  "code/check_quad.py": "f3d8401e6fc7431aa285b21fd978857ad44f8f48cb4d35893578692d31ef3708",
+  "code/cover_local.py": "d5f874793633c23a0b4c10dc8297ec6a1b9c70d9a76a1459a59c9bce13347de7",
+  "code/direct_check.py": "82d331912738ff35df87db308bbf3e1f73ad480c613bac5794150c56f839973f",
+  "code/dual.py": "86b332ac42a981e7990e78e09f85ec3721636eec42e493a251ab438ab0f089fc",
+  "code/equi.py": "ffa9d33ac40854ad871b009571490b69105220090e81d895685df944df72e848",
+  "code/equi_float.py": "683c14f6fa2c349415d42f0033e7ea2ddeebc6dca12f5bef6ec85b1ab41b0997",
+  "code/expint.py": "9f10a7aea6c9fc8abf3e4f54da96284420ac4895fb621c09a4f47511095c6f88",
+  "code/far_cert.py": "1c80c7716f53ffea5f450de4c7d67dd6d0838f478d23d264d4f235687d584994",
+  "code/far_driver.py": "f70a4e3321f6baf7d6c75ad74b4e89211ef992abb01552c84b9e3392119411b2",
+  "code/fem.py": "31b5504f0f533fd4a3df0dfe552bec728d08b412c212dd5eeb8a931703f208cf",
+  "code/fem2.py": "7252c3f9af003aeadc78c9a5c7fc1faff9e4ac94a24654dd0ebd58c1ed7d039d",
+  "code/geom.py": "f966516c5de0f26717e8b1fa442f3916ef230867ce459de6fea93956f1b7b964",
+  "code/indep_cert.py": "bcf20901fc8e02f35d581e9830d3ae733e7518d3e4ab05372d5fdceb6652dd1a",
+  "code/large_beta.py": "97e0852d124ede20da55258166f250c2e5b4607a2f6d353a4b0d878fabf5f2b5",
+  "code/local_cert2.py": "771ea5d350141dcf4da1de97c6f48c89bfc86f67d763af64a7b75105fd37912f",
+  "code/local_float.py": "c223dad37effe57ee73fac35fc6878ac41df2ce00a0c801fd5ef681604aae470",
+  "code/near_cover.py": "b491324993413b9349f637764847cf42509cc3f4852dd873bcd83e77fc5fd000",
+  "code/negative_c.py": "ac1c14dadfa2c200baa207115a73a9a46a55a7be93dcb151a2f12294ecb418e4",
+  "code/nums.py": "d2bbb87a49d8f399038229839d6a23bc1d01432098a937e86eee945e83435173",
+  "code/out.py": "9f2499eabcd789b5e878768f53ba9e4a7228e099c30485368bc5d0d674ca4cae",
+  "code/rig.py": "01135bde01b788006712a541782a1cdb0c5d61e1bc453fb7b38849faaece668a",
+  "code/ritz_mp.py": "77c31aa4dea961a2e00249cad43f0bb966ce29fb119106c2c86bb07566c128ca",
+  "code/run_chain.py": "531815d34e0d11e4a2bbedce67ba44318cf6e0f36125322f3bc6a4df8fb834f9",
+  "code/sixwave.py": "0d7e9d6c49b3f6672f44ab8e5d05c0bc812def1348069fcc1f45e13a43531260",
+  "code/sw_float.py": "fdcf8a8982f5ec9593f6a2b865ecf8b8e61dd19441f4a4ca9a9ffed686b336a6",
+  "code/t_near_fem.py": "3cb8b3c154181c0e08d1aeecdc704bf87302a8fbfb997cc43db8498376d2b392",
+  "code/table_c.py": "b597ad0ed48af5f193e2dfb404191d572d80a36e3400fc637e25d852181690b6",
+  "code/test_independent.py": "83261f79f4288eee4f290ff33d1e5cb6912a8f440e6946ebf2d2f4e9dc7be8bb",
+  "code/thmA.py": "ee65861daa9d4eb8c4a1f4ce8aa2a0d40dd91214bfa9d97717527dabaddaad59",
+  "code/three_float.py": "ebfc35df7b4e7d4434d96ea509ec12b44e62dd2e10c68ccd808f5ac57159c06c",
+  "code/validate_chain.py": "39b69d6c1ec0f10221ad540e04182357b45d59a6c62aa3c83e732285cc9a742f",
+  "code/verify_far.py": "63943202dda177d2b7e9440b11e56b9703eb7acf9501cecc697d350b3fa5edd7",
+  "code/verify_local_near.py": "013512cb37804b5c20c72c8ca69d986ed4913223bfd23116012e8a022933105a",
+  "code/xcheck_tail.py": "bf3572cd2df3dcb753f6d5a24305e828ff2c4635dbfe8081db3f250573fcae25",
+  "data/cells_summary.json": "27273103281e843736e58696b9b144d2783526e4dd00d13972359f32ba8c4179",
+  "paper/claims.tex": "6b06b9d02972a84a2795564d100aeb771ee65cb1f4a76252d8c96f01c93d11b9",
+  "paper/robin-triangles.tex": "f0cbea5523f884ac9f6a09f36860d980d45d16f8e9eeb67aa33d79b47e1856fc",
+  "requirements.txt": "6b0374c61e200355be47653ef032bfcb63eee81a4e95a18f70857856f0e57d8b",
+  "scripts/cells.py": "c3eda999e855d8e98a0fce7b6d41f82bcaf392d8828ce5a6b877e69cbe26e8c8",
+  "scripts/make_claims_tex.py": "90af1f988a5bb4f56b56a2fe98298a9c5caeef979c8c2359e63bf7c19e68e3b3",
+  "scripts/verify.py": "e5600e510c8df103a532cd0a440ff3feaa34c09f9f7a046da26385ab3164d88f"
+ },
+ "pdf_sha256": "9915ec2546a832e50b8d79b3d367de22d0632a7853a86cd64efe6d57177a114a",
+ "overall": "PASS"
+}
