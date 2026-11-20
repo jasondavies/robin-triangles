@@ -13,6 +13,19 @@ def verify_cr(tri, kind, n, sigma, lb, kappa0, N_expected=None, sweeps=300, x_ov
     t0 = time.time()
     out = {"ok": False}
     try:
+        sigma, lb, kappa0 = Fr(sigma), Fr(lb), Fr(kappa0)
+        # hypotheses of Lemma 'CR': 0 < sigma <= lambda_{1,h} (the second inequality is the CW test below) and
+        # kappa0 > 0.  Without sigma > 0 the CW step  sigma*(Mx)_i <= sigma*hi(Mx)_i  and the formula
+        # sigma/(1 + C_h^2 sigma) both fail, so a nonpositive sigma is rejected before anything else.
+        out["sigma_positive"] = bool(sigma > 0)
+        if not sigma > 0:
+            out["reason"] = "sigma not positive (Lemma CR requires 0 < sigma)"
+            out["cw_ok"] = False
+            out["lb_ok"] = False
+            raise ValueError(out["reason"])
+        if not kappa0 > 0:
+            out["reason"] = "kappa0 not positive"
+            raise ValueError(out["reason"])
         out["area_consistent"] = bool(tri.area_consistent())
         m = crmesh.build_mesh(tri, kind, n)
         c, X, bl, _ = crmesh.element_geometry(m)
@@ -46,13 +59,13 @@ def verify_cr(tri, kind, n, sigma, lb, kappa0, N_expected=None, sweeps=300, x_ov
         out["lb_ok"] = bool(0 < lb <= bound)
         out["lb_rel_slack"] = float((bound - lb) / bound)
         out["h"] = float(m.h2_hi) ** 0.5
-        out["ok"] = bool(out.get("cw_ok") and out["lb_ok"] and all(flags.values()) and out["N_matches"]
+        out["ok"] = bool(out["sigma_positive"] and out.get("cw_ok") and out["lb_ok"] and all(flags.values()) and out["N_matches"]
                          and out["area_consistent"] and out.get("area_sum_consistent", False))
         if want_x:
             out["_x"] = x
             out["_mesh"] = (m, c, X, bl)
     except Exception as ex:  # any failure of a certified step = record not verified
-        out["reason"] = "exception: %r" % (ex,)
+        out["reason"] = out.get("reason") or "exception: %r" % (ex,)
         out["ok"] = False
     out["sec"] = round(time.time() - t0, 3)
     return out

@@ -2,7 +2,7 @@
  "certdir": "certs_pw",
  "kappa0": "0.3496",
  "v1_mode": "none",
- "started": "2026-11-19 22:51:20",
+ "started": "2026-11-20 00:12:13",
  "mpmath_interval_prec_bits": 200,
  "selftests": {
   "interval_arithmetic_selftest": true,
@@ -55,7 +55,7 @@
    "used_nodes": 1779,
    "node_records": 1901
   },
-  "seconds": 4.9,
+  "seconds": 5.5,
   "distinct_root_vertices": 69,
   "denominators_divide_2^20": true,
   "B_cells_with_F_ge_0_on_whole_triangle": [
@@ -92,7 +92,7 @@
   "max_lb_rel_slack": 8.673617379990337e-19,
   "arb_prec_bits": 320,
   "ok": true,
-  "seconds": 9.4
+  "seconds": 10.9
  },
  "V3": {
   "shape_constants_own": {
@@ -1831,7 +1831,7 @@
     "ok": true
    }
   ],
-  "seconds": 2.1
+  "seconds": 2.4
  },
  "V1": {
   "mode": "none",
@@ -1876,6 +1876,6 @@
   "V5": null,
   "sanity": null
  },
- "total_seconds": 17.2,
- "finished": "2026-11-19 22:51:37"
+ "total_seconds": 19.6,
+ "finished": "2026-11-20 00:12:32"
 }

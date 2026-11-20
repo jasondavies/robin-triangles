@@ -1,6 +1,6 @@
 $ python indep_cert.py 40
 beta(13/10) in [1.1530164635257591652498887309427565982712985758048741882897418082549098523073316555980528648154358741896215693613307997469710316341382830733676928576371439, 1.1530164635257591652498887309427565982712985758048741882897418082549098523073316555980528648154358741896215693613307997469710316341382830733676928576382131]  (< 6/5: True )
-body [1.3, 40]: cells, worst ratio Lam/rhs, rejected-cell count = (938, 0.6135712297978487, 0) 1.3s
+body [13/10, 40]: cells, worst ratio Lam/rhs, rejected-cell count, first end point = (938, 0.6135712297978496, 0, mpf('1.3')) 1.5s
 tail expressions (normalised):
     s**4*w**2 + 4*s**3*w**2 + 4*s**3*w - 5*s**2*w**2 - 8*s**2*w - 5*s**2 + 4*s*w + 4*s - 16*u**2*w + 4*u*(2*s**2*w - s*w**2 + s - 2*w) + 1
     s**4*w**2 - 2*s**3*w**2 - 2*s**3*w + s**2*w**2 + 4*s**2*w + s**2 - 2*s*w - 2*s - 16*u**2*w + 4*u*(-s**2*w - s*w**2 + s + w) + 1
@@ -13,6 +13,7 @@ tail M >= 40 : ok = True ratio <= 1.033162307870482e-33
 [gate] ok   independent certificate complete
 [gate] ok   body [13/10, 40], tail M >= 40, 150 digits
 [gate] ok   938 adaptive cells
+[gate] ok   the first cell starts at an exact dyadic <= 13/10
 [gate] ok   worst ratio <= 0.6136
 [gate] ok   tail ratio <= 1.1e-33
 [gate] ok   same enclosure of beta(13/10)

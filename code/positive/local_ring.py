@@ -39,7 +39,7 @@ def ring_node(k, sign, n):
     t0 = time.time()
     r = rcr.lower_bound(a2, A, beta, n, kind='U')
     sig = Fr(int(r['sigma'] * 2 ** rcr.BITS * (1 - SHRINK)), 2 ** rcr.BITS)       # shrunk, still a valid bound
-    assert 0 < sig <= r['sigma']                                                  # exact comparison of rationals
+    if not (0 < sig <= r['sigma']): raise ValueError('shrunk sigma not in (0, certified sigma]')   # exact rationals
     lb = rcr.cr_bound(sig, r['h'])
     return dict(key=[k, sign, n], alpha=str(al), s=str(S_RING), kind='U', n=n, N=r['N'], sigma=str(sig), lam_h=r['lam_h'],
                 lb=enc(lb), lb_float=float(lb.lower()), xhash=r['xhash'], sec=round(time.time() - t0, 2))
@@ -70,6 +70,10 @@ def lam2_node(k, n, sig2=None, g=None):
     x = vec[:, 0] / math.sqrt(vec[:, 0] @ (mdf * vec[:, 0]))
     if sig2 is None: sig2 = Fr(lam[1] * (1 - 1e-6)).limit_denominator(2 ** 40)
     if g is None: g = Fr(2 * (lam[1] - lam[0]) + 1).limit_denominator(2 ** 20)
+    sig2, g = Fr(sig2), Fr(g)
+    # hypotheses: Lemma CR (k = 2) needs 0 < sigma2;  Lemma inertia is stated for g >= 0
+    if not sig2 > 0: raise ValueError('sigma2 not positive: Lemma CR requires 0 < sigma2 <= lambda_{2,h}')
+    if not g >= 0: raise ValueError('g negative (Lemma inertia requires g >= 0)')
     mx = mdf * x
     Bf = Kf - float(sig2) * np.diag(mdf) + float(g) * np.outer(mx, mx)
     L = np.linalg.cholesky(Bf); S = np.linalg.inv(L).T

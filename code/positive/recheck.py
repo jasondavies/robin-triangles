@@ -40,9 +40,11 @@ def check_cells():
             i, k = [int(z) for z in key.split(':')]
             rec = nodes.get((c['verts'][i], k, n))
             if rec is None or rec['lb'] != lb or Fr(rec['alpha']) != ALPHA(k): ok = False; print('node mismatch', c['id'], key)
+            if not dec(lb) > 0: ok = False; print('nonpositive vertex bound', c['id'], key)
             b[(i, k)] = A_(dec(lb))
         pr = c['prisms']
-        if (pr and pr[0][0] != 0) or any(pr[q][1] != pr[q + 1][0] for q in range(len(pr) - 1)) or (pr[-1][1] if pr else 0) != c['ktop']:
+        if (pr and pr[0][0] != 0) or any(pr[q][1] != pr[q + 1][0] for q in range(len(pr) - 1)) or (pr[-1][1] if pr else 0) != c['ktop'] \
+                or any(not (0 <= k0 < k1) for k0, k1 in pr):
             ok = False; print('prisms not consecutive', c['id'])
         for k0, k1 in pr:
             nprism += 1; a0, a1 = A_(ALPHA(k0)), A_(ALPHA(k1))
@@ -63,23 +65,29 @@ def check_cells():
     print(res); json.dump(res, open(os.path.join(OUT, 'recheck_cells.json'), 'w'))
     return ok
 
+def _lb_ok(lb, sig, h):
+    """0 < lb <= sigma/(1 + (kappa0 h)^2 sigma) with sigma the value CERTIFIED by rcr.certify (> 0, enforced there
+    and in rcr.cr_bound).  lb > 0 matters downstream: the prism tests use sqrt(b_i b_j)."""
+    lb = dec(lb)
+    return lb > 0 and bool(A_(lb) <= rcr.cr_bound(sig, h))
 def recert_vertex(r):
     a2, A = shapes.tri_data(pw(r['w'])); al = A_(Fr(r['alpha']))
     M = rcr.build_mesh(a2, A, r['n'], r['kind'])
     lam, x, rmin, K, md = rcr.float_eig(M, [al] * 3)
-    rcr.certify(M, [al] * 3, x, sigma=Fr(r['sigma']))
-    return bool(A_(dec(r['lb'])) <= rcr.cr_bound(Fr(r['sigma']), M.h)) and M.N == r['N']
+    sig, _ = rcr.certify(M, [al] * 3, x, sigma=Fr(r['sigma']))
+    return sig == Fr(r['sigma']) and _lb_ok(r['lb'], sig, M.h) and M.N == r['N'] and Fr(r['alpha']) == ALPHA(r['k'])
 def recert_ring(r):
     k, sign, n = r['key']
+    if not (sign in (1, -1) and Fr(r['s']) == config.S_RING and r['kind'] == 'U' and r['n'] == n): return False
     a2, A, beta = shapes.ring_data(Fr(r['s']), sign, Fr(r['alpha']))
     M = rcr.build_mesh(a2, A, n, 'U')
     lam, x, rmin, K, md = rcr.float_eig(M, beta)
-    rcr.certify(M, beta, x, sigma=Fr(r['sigma']))
-    return bool(A_(dec(r['lb'])) <= rcr.cr_bound(Fr(r['sigma']), M.h)) and Fr(r['alpha']) == ALPHA(k)
+    sig, _ = rcr.certify(M, beta, x, sigma=Fr(r['sigma']))
+    return sig == Fr(r['sigma']) and _lb_ok(r['lb'], sig, M.h) and M.N == r['N'] and Fr(r['alpha']) == ALPHA(k)
 def recert_lam2(r):
     k, n = r['key']
-    d = local_ring.lam2_node(k, n, sig2=Fr(r['sigma2']), g=Fr(r['g']))
-    return dec(d['lb']) >= dec(r['lb']) and Fr(r['alpha']) == ALPHA(k)
+    d = local_ring.lam2_node(k, n, sig2=Fr(r['sigma2']), g=Fr(r['g']))     # raises unless sigma2 > 0, g >= 0, B > 0
+    return Fr(d['sigma2']) == Fr(r['sigma2']) and 0 < dec(r['lb']) <= dec(d['lb']) and Fr(r['alpha']) == ALPHA(k) and d['N'] == r['N']
 
 def recert(sample=None):
     cells = read_jsonl('coverB_cells_*.jsonl')

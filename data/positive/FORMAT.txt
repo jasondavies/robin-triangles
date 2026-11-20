@@ -10,8 +10,10 @@ alpha-grid: alpha_k = (1/100) * 2^(k div 16) * RHO[k mod 16]/10^6,
 A "CR lower bound record" claims:  lb <= lambda_1 of a triangle with squared sides a_j^2, area |T| and Robin
 coefficients beta_j on side j, where (i) the Crouzeix-Raviart matrices K, M of the mesh of kind 'U' or 'A' with
 parameter n (paper, Section "Certified lower bounds") satisfy  K x >= sigma M x  for some positive vector x
-(so lambda_{1,h} >= sigma), and (ii) lb <= sigma / (1 + (kappa0*h)^2 sigma), h = largest element diameter.
-(lb was rounded down and multiplied by (1 - 2^-60).)
+(so lambda_{1,h} >= sigma), and (ii) 0 < lb <= sigma / (1 + (kappa0*h)^2 sigma), h = largest element diameter.
+(lb was rounded down and multiplied by (1 - 2^-60).)  Lemma CR needs 0 < sigma <= lambda_{1,h}: a record with
+sigma <= 0 (or sigma2 <= 0 below) is invalid and both checkers reject it; they test the stored sigma EXACTLY (no
+rounding to a grid), and the formula in (ii) is evaluated with that same value.
 
 ring_nodes.jsonl   one JSON object per line:
    key=[k, sign, n], alpha, s="1/10", kind="U", n, N (number of unknowns), sigma, lb, xhash, lam_h, lb_float, sec
@@ -19,8 +21,8 @@ ring_nodes.jsonl   one JSON object per line:
              a_j^2 = s_E^2 * l2_j;  |T| = 1/sqrt(g1 g2);  beta_j = alpha (1 + sign*s*cos 2theta_j)/(sqrt(g1 g2) sqrt(l2_j)).
    claim: lb <= Lambda_{sign}(alpha_k) of Lemma "ring".
 lam2_nodes.jsonl   key=[k, n], alpha, n, N, sigma2, g, lb, lam1_h, lam2_h, gersh_min, lb_float, sec
-   claim: the second eigenvalue of the CR pencil of the mesh 'U' (parameter n) of E with beta = alpha is >= sigma2,
-          and lb <= sigma2/(1 + (kappa0*h)^2 sigma2) <= lambda_2(E, alpha_k).   (k multiple of 4)
+   claim: the second eigenvalue of the CR pencil of the mesh 'U' (parameter n) of E with beta = alpha is >= sigma2 > 0,
+          and 0 < lb <= sigma2/(1 + (kappa0*h)^2 sigma2) <= lambda_2(E, alpha_k).   (k multiple of 4; g >= 0)
 local_cert.json    output of local_check.py: t_loc, shape constants c_l, rho, and per alpha-interval the two sides of
                    inequality (C) (floats, for information); "ok" must be true.
 coverB_roots.json  list of the 100 root triangles; each vertex is a string "p/q,p/q" = (w1, w2).

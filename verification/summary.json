@@ -1,5 +1,5 @@
 {
- "time_utc": "2026-11-19T22:52:21Z",
+ "time_utc": "2026-11-20T00:13:26Z",
  "only": null,
  "cells": false,
  "positive_full": false,
@@ -91,7 +91,7 @@
   {
    "name": "pos_weak",
    "ok": true,
-   "seconds": 5.6,
+   "seconds": 7.7,
    "cmd": [
     "python",
     "weak_cert.py",
@@ -208,7 +208,7 @@
   {
    "name": "thmC_independent",
    "ok": true,
-   "seconds": 1.6,
+   "seconds": 1.8,
    "cmd": [
     "python",
     "indep_cert.py",
@@ -229,6 +229,10 @@
     },
     {
      "ok": true,
+     "check": "the first cell starts at an exact dyadic <= 13/10"
+    },
+    {
+     "ok": true,
      "check": "worst ratio <= 0.6136"
     },
     {
@@ -244,7 +248,7 @@
   {
    "name": "xcheck_tail",
    "ok": true,
-   "seconds": 0.2,
+   "seconds": 0.3,
    "cmd": [
     "python",
     "xcheck_tail.py"
@@ -259,7 +263,7 @@
   {
    "name": "pos_indep",
    "ok": true,
-   "seconds": 161.3,
+   "seconds": 197.2,
    "cmd": [
     "python",
     "./code/verify_positive/verify_indep.py",
@@ -316,6 +320,18 @@
     },
     {
      "ok": true,
+     "check": "negative controls (verifier): sigma, sigma_2 = -1e6, 0, just below the pole rejected by V1 and V2"
+    },
+    {
+     "ok": true,
+     "check": "negative control (verifier): sides 5,5,6, sigma = 15/2 + 2^-61 rejected"
+    },
+    {
+     "ok": true,
+     "check": "negative control (verifier): negative vertex bounds in a cell rejected"
+    },
+    {
+     "ok": true,
      "check": "sandwich (float): smallest relative gap 4e-7"
     }
    ]
@@ -323,7 +339,7 @@
   {
    "name": "pos_indep_pw",
    "ok": true,
-   "seconds": 17.4,
+   "seconds": 19.8,
    "cmd": [
     "python",
     "./code/verify_positive/verify_indep.py",
@@ -372,7 +388,7 @@
   {
    "name": "pos_indep_liu",
    "ok": true,
-   "seconds": 9.1,
+   "seconds": 10.4,
    "cmd": [
     "python",
     "./code/verify_positive/verify_indep.py",
@@ -513,7 +529,7 @@
   {
    "name": "check_quad",
    "ok": true,
-   "seconds": 1.1,
+   "seconds": 1.3,
    "cmd": [
     "python",
     "check_quad.py"
@@ -551,7 +567,7 @@
   {
    "name": "validate_chain",
    "ok": true,
-   "seconds": 1.3,
+   "seconds": 1.4,
    "cmd": [
     "python",
     "validate_chain.py"
@@ -578,7 +594,7 @@
   {
    "name": "run_chain",
    "ok": true,
-   "seconds": 2.0,
+   "seconds": 2.3,
    "cmd": [
     "python",
     "run_chain.py"
@@ -601,7 +617,7 @@
   {
    "name": "t_near_fem",
    "ok": true,
-   "seconds": 17.4,
+   "seconds": 19.7,
    "cmd": [
     "python",
     "t_near_fem.py"
@@ -620,7 +636,7 @@
   {
    "name": "test_independent",
    "ok": true,
-   "seconds": 2.0,
+   "seconds": 2.2,
    "cmd": [
     "python",
     "test_independent.py"
@@ -639,7 +655,7 @@
   {
    "name": "check_misc",
    "ok": true,
-   "seconds": 1.8,
+   "seconds": 2.1,
    "cmd": [
     "python",
     "check_misc.py"
@@ -694,7 +710,7 @@
   {
    "name": "pos_negative",
    "ok": true,
-   "seconds": 0.9,
+   "seconds": 5.2,
    "cmd": [
     "python",
     "negative_controls.py"
@@ -702,7 +718,15 @@
    "gates": [
     {
      "ok": true,
-     "check": "negative controls N1-N5 rejected, sandwich S1 holds"
+     "check": "negative controls N1-N7 rejected, sandwich S1 holds"
+    },
+    {
+     "ok": true,
+     "check": "N6: sigma = -1e6, 0 and just below the pole -1/(kappa0 h)^2 rejected by cr_bound, certify, lambda_2 certifier and re-checks; negative vertex bounds rejected by the cell re-check"
+    },
+    {
+     "ok": true,
+     "check": "N7: exact sigma tested (sides 5,5,6: 15/2 + 2^-61 rejected, 15/2 returned exactly)"
     },
     {
      "ok": true,
@@ -713,7 +737,7 @@
   {
    "name": "pos_float",
    "ok": true,
-   "seconds": 5.0,
+   "seconds": 5.6,
    "cmd": [
     "python",
     "float_local.py"
@@ -744,7 +768,7 @@
   {
    "name": "pos_summary_ls",
    "ok": true,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "cmd": [
     "python",
     "summary.py"
@@ -779,7 +803,7 @@
   {
    "name": "pos_summary_pw",
    "ok": true,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "cmd": [
     "python",
     "summary.py"
@@ -810,7 +834,7 @@
   {
    "name": "pos_summary_liu",
    "ok": true,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "cmd": [
     "python",
     "summary.py"
@@ -841,7 +865,7 @@
   {
    "name": "prior_work_ma",
    "ok": true,
-   "seconds": 1.3,
+   "seconds": 1.4,
    "cmd": [
     "python",
     "ma_run_boxes.py"
@@ -880,7 +904,7 @@
   {
    "name": "paper",
    "ok": true,
-   "seconds": 1.0,
+   "seconds": 1.1,
    "cmd": [
     "latexmk",
     "-pdf",
@@ -904,9 +928,9 @@
  ],
  "inputs_sha256": {
   "CITATION.cff": "e46b3c9d3f1008e2eaed0e09b33be6d6a6353fee0094673fbfd648bbce0b88df",
-  "README.md": "99fadb2c26ea07358424a1a1cfc21f3125f230e775dba5b878a49574ccc34a87",
+  "README.md": "e1079633df70c1b349cfdff7850ea6da5f7a7644282f24c4fc369b24a3817591",
   "claims.json": "686276192ebec27766fba3c865e05fee58ff23f8e252466c0b3098a2f77c6f42",
-  "code/README.md": "9689f7757ef6fc205180b38b6c0aea6b7c9421ac8c265cd6d474b986da886ff9",
+  "code/README.md": "1b2f8f6b1ec3281b89d4ea4f436add33a09048cfd959e05e00d4cddb74f47add",
   "code/check_far_consistency.py": "eac50cc5c8c69afc61d4bb7dc1dd9ee22330e5cd4ddd1ca720c22a356fc3d66c",
   "code/check_misc.py": "46301b6731bafcbcf4b69407ad1e25aa9f317728581c3d8d0a702f82b3c19289",
   "code/check_normalised.py": "21efa0527a247ca4959c46edb6cca0e6e9cd51553ee64bdabd0425fd8b6b2696",
@@ -922,8 +946,8 @@
   "code/fem.py": "31b5504f0f533fd4a3df0dfe552bec728d08b412c212dd5eeb8a931703f208cf",
   "code/fem2.py": "7252c3f9af003aeadc78c9a5c7fc1faff9e4ac94a24654dd0ebd58c1ed7d039d",
   "code/geom.py": "f966516c5de0f26717e8b1fa442f3916ef230867ce459de6fea93956f1b7b964",
-  "code/indep_cert.py": "bcf20901fc8e02f35d581e9830d3ae733e7518d3e4ab05372d5fdceb6652dd1a",
-  "code/large_beta.py": "97e0852d124ede20da55258166f250c2e5b4607a2f6d353a4b0d878fabf5f2b5",
+  "code/indep_cert.py": "0c21713e2cbdd29c943f2bd816f8ca2509fff3b381cb0b4e3e295a21f4f81dab",
+  "code/large_beta.py": "22e894a39f22d288dcd4d8bf580649d02eeb2a36665d68de3ed7a28dd4baf05c",
   "code/local_cert2.py": "771ea5d350141dcf4da1de97c6f48c89bfc86f67d763af64a7b75105fd37912f",
   "code/local_float.py": "c223dad37effe57ee73fac35fc6878ac41df2ce00a0c801fd5ef681604aae470",
   "code/near_cover.py": "b491324993413b9349f637764847cf42509cc3f4852dd873bcd83e77fc5fd000",
@@ -931,15 +955,15 @@
   "code/nums.py": "d2bbb87a49d8f399038229839d6a23bc1d01432098a937e86eee945e83435173",
   "code/out.py": "9f2499eabcd789b5e878768f53ba9e4a7228e099c30485368bc5d0d674ca4cae",
   "code/positive/config.py": "2b8e823de61f656105a1aacdc5bc3bcab318e713f14e95e27c7dd68f09f43c9e",
-  "code/positive/cover.py": "4bea612c220630f9952af317980f5017aef393bcba7f3d6a587d118e465d2109",
-  "code/positive/coverage_check.py": "257e3f77ff30883ea5f8280105a3e92233090f833f746d9feb865db4e79316d5",
+  "code/positive/cover.py": "61d6581731c78f3cee744983e0bfa9de38ff07c69144e3415e4e634ca872b322",
+  "code/positive/coverage_check.py": "736b420948c0e3d626d34705e8549641e9dff9fa70395eae2095984d005b97f3",
   "code/positive/float_local.py": "56bbfab30982d44718fe6d6b8f44958979972b4277ade1b964af14ad0ded7739",
   "code/positive/local_check.py": "1f4eb8559bd5f2e05a2c2444ad5c96af271ea31acd551912c76a87614f54a295",
-  "code/positive/local_ring.py": "6b7ecba67764571c9ccafe2ce735dffc8aa9e2aa3ba8264297c077e7e7d37e52",
-  "code/positive/negative_controls.py": "67f04716356ba595866b8c900b24106ba82a66359ed13cb7e957f43a5548965f",
+  "code/positive/local_ring.py": "92718e92c4cf00a67b64da3cada724a4c2191032da18330968bb6ee4303c80dd",
+  "code/positive/negative_controls.py": "176f4c6c06c47140bc18c96c176c9bc7786ab7a08b27d4648417fcccc6f35fd4",
   "code/positive/p2_reference.py": "9955ad581033e1f4ef7dc9aa5b9a200f443c37e78512a4f852d6a922e04ec3c2",
-  "code/positive/rcr.py": "e783c5d11075ff38726a8234e65a4fe2aae2e950079c0d822d21b625611a25d1",
-  "code/positive/recheck.py": "473719755f320d92abb8254d892222fef187764f7de0ea70e154e04802ba5ec7",
+  "code/positive/rcr.py": "c54faf01803ea5c2a923602849e675a876cc6caa58f0d6303882f4f1c90a8d12",
+  "code/positive/recheck.py": "527f493e0ca99a444a1c974d3a1f45db63630fad7662bced772e66bef40fcfeb",
   "code/positive/shapes.py": "5417af6dd705b7b57921f0e5a3e006e41ce7f4bc5079b3ad67e5920934b17f72",
   "code/positive/summary.py": "f10cba8346a08153f9cb638ede9c232d81e79b206b69f74773b55c8142772ab2",
   "code/positive/weak_cert.py": "7835e9aa44f3977928d52c6568e90fbf44b1c84dfa5982864ac73a0fc9472b92",
@@ -953,25 +977,25 @@
   "code/t_near_fem.py": "3cb8b3c154181c0e08d1aeecdc704bf87302a8fbfb997cc43db8498376d2b392",
   "code/table_c.py": "b597ad0ed48af5f193e2dfb404191d572d80a36e3400fc637e25d852181690b6",
   "code/test_independent.py": "83261f79f4288eee4f290ff33d1e5cb6912a8f440e6946ebf2d2f4e9dc7be8bb",
-  "code/thmA.py": "ee65861daa9d4eb8c4a1f4ce8aa2a0d40dd91214bfa9d97717527dabaddaad59",
+  "code/thmA.py": "a35c9c0bbeb6a4e376db04ee9ea095ebb3778658314bc0881de09e17f354765a",
   "code/three_float.py": "ebfc35df7b4e7d4434d96ea509ec12b44e62dd2e10c68ccd808f5ac57159c06c",
   "code/validate_chain.py": "39b69d6c1ec0f10221ad540e04182357b45d59a6c62aa3c83e732285cc9a742f",
   "code/verify_far.py": "63943202dda177d2b7e9440b11e56b9703eb7acf9501cecc697d350b3fa5edd7",
   "code/verify_local_near.py": "013512cb37804b5c20c72c8ca69d986ed4913223bfd23116012e8a022933105a",
   "code/verify_positive/crmesh.py": "6fcd17ca6b1737ea3671b5d5a56987b61e0e7ddda590edc4e1ff4bc63513cea1",
   "code/verify_positive/eig.py": "7ecc735257846ed0ca41f54a7d8ff51355db5ddd984d4a53c5310735e81383b9",
-  "code/verify_positive/geom.py": "30427f4ee49a12a91b04a7b4c1e6de564c6f1d5d074e95118bda71c880e9a834",
+  "code/verify_positive/geom.py": "aac53e859a13117a6c4b83cef20be46e4170a44823c5dc238bc8bff438dab61b",
   "code/verify_positive/ivnp.py": "727bbb57d9a1d98a4eadbdc9a9c4bd0bb32799d40b802235fa17b3f8575e7f44",
   "code/verify_positive/lam0.py": "c2450361e3e079eb63f15cdf7d631460e5aa0cea7c49552676222b49b4b101d0",
   "code/verify_positive/p2fem.py": "859487ccbf2757f2a25ba31669111bcc39de9d7a8970c26fa68c36f41c97592f",
-  "code/verify_positive/v1.py": "07085b002c5ed2a7a095ac5c85296b764fdd14cc7b377e3d184e86f26ac4d527",
-  "code/verify_positive/v2.py": "76b637d023b2536deae2b3ebff6f7ac5f19d7af88c6e877198fc3b554c2c7104",
+  "code/verify_positive/v1.py": "2c0293a562e4c20185eeb3ad1172473ab6175c142562c06c37c1ccdf45dadec5",
+  "code/verify_positive/v2.py": "92899fdaa30d970d6dc3e44775e55dbce45102d646ea3084e31eb2c48aab419c",
   "code/verify_positive/v3.py": "b19b0708fa75c76716f8c0aa536b5f17a030a753316c8429aa6b3c6903a3ae3a",
-  "code/verify_positive/v4.py": "468ca7b76f8e22ed6bac9f6a564585713e940cc32f69ba2c4b86225704c1b514",
-  "code/verify_positive/verify_indep.py": "21f91076f8cfd087d3e8ebbbbfb7f1f5c7823d4e967539497d7a6c0df1b75eaf",
+  "code/verify_positive/v4.py": "54120fa5b4c0cd5da7b856c413d3b23bd35b66bccecdd2bbb4991d44d2e773fe",
+  "code/verify_positive/verify_indep.py": "22d1d0f1772a44839e3fd454df407b94a2fb738f206ec3ba5bb7641a99812294",
   "code/xcheck_tail.py": "bf3572cd2df3dcb753f6d5a24305e828ff2c4635dbfe8081db3f250573fcae25",
   "data/cells_summary.json": "27273103281e843736e58696b9b144d2783526e4dd00d13972359f32ba8c4179",
-  "data/positive/FORMAT.txt": "fa1db943425e76ab311880362b751bd0e53e082a995675fb928ef261e7efe61e",
+  "data/positive/FORMAT.txt": "a8f12898315f4fe25918b80e911e3e077a498d0a33ade3cfae61f17f38acf305",
   "data/positive/certs/coverB_cells_0.jsonl": "393a33e89ae69836cecbb1e564967581c99374e459f092a49152686d7acaea3d",
   "data/positive/certs/coverB_nodes_0.jsonl": "eb10717d139eb55b3acaae3cdad9e670b789d511d70e74ae0a5e61a22b01f8b9",
   "data/positive/certs/coverB_roots.json": "2380088cb17952c523ea5cbf4bbe4a77447a98fa6d08267c685fb108b96743ad",
@@ -994,12 +1018,13 @@
   "data/positive/certs_pw/profile.json": "567f702cbed2afeb0232d31344f3899536557b4f70d62daa96a17fafee52613b",
   "data/positive/certs_pw/ring_nodes.jsonl": "acc725271830db5326d81d486fef07c73ba3b58579ef91ed54f32811f54035fa",
   "paper/claims.tex": "1102a9c13b9c437f9b1a85a005cd4208e0db9171f570aed077e4ff8fd9daee43",
-  "paper/robin-triangles.tex": "b4fbbce148e8750fcff9aa6ca6049cc2278888d7d149731e29c0c5d5865f4435",
+  "paper/robin-triangles.tex": "a7bb6bb1bb1772782309e4f7b766707511cca03a9a43141b90a668e8c89ec1ad",
   "requirements.txt": "6b0374c61e200355be47653ef032bfcb63eee81a4e95a18f70857856f0e57d8b",
   "scripts/cells.py": "c3eda999e855d8e98a0fce7b6d41f82bcaf392d8828ce5a6b877e69cbe26e8c8",
   "scripts/make_claims_tex.py": "632bef93aa2ef1e205b46923a9a05b605f6a6d825b73be210aaab309b11d9ec9",
-  "scripts/verify.py": "7043839cd94ea2a7cf516b41988623ce14f796dcd6c92cc181beecbcaa51263e"
+  "scripts/verify.py": "8dc0f0a95c9e056663ba099976019bd4c89f0471028805ef1434c5a324d94330"
  },
- "pdf_sha256": "ca0c1a36658f4817d0c1b56620df04e86b516195fe8fbadcbfcf1dede8750d18",
- "overall": "PASS"
+ "pdf_sha256": "39ea40618a6902b3fe62658e0d3a7eeb11a0bd5ea8cc7d2b4ac6d570f4e90d5d",
+ "overall": "PASS",
+ "skipped": []
 }

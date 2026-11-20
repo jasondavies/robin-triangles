@@ -1,8 +1,8 @@
 $ python test_independent.py
 1. lambda0 vs FEM
-   beta 0.5 formula -2.567665225539847 FEM-Richardson -2.567665214580908
-   beta 2.0 formula -16.857437471019832 FEM-Richardson -16.85741648944774
-   beta 4.0 formula -64.02051614448378 FEM-Richardson -64.01935513112403
+   beta 0.5 formula -2.567665225539847 FEM-Richardson -2.5676652145818175
+   beta 2.0 formula -16.857437471019832 FEM-Richardson -16.857416489458654
+   beta 4.0 formula -64.02051614448378 FEM-Richardson -64.01935513047404
 2. PDE and boundary condition of psi0
    beta 0.7 interior residual (-lap - lam psi)/psi -2.2464057897770628e-08
    side 0 BC residual (last) 1.7423481940295565e-09

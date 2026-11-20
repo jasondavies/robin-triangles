@@ -6,7 +6,9 @@ Tail  [MBIG, inf): sympy-derived normalisation (multiply by 16 e^{-2U}), written
       s = e^{-2M}, u = K s, w = e^{2L} (omega), t; evaluated on a box containing (s,u,w,t)(M) for all M >= MBIG.
 Geometry: theta* from sin(theta*/2) = t_lo/2, via half/double angle formulas (different from the paper's)."""
 from mpmath import iv, mp
-import sympy as sp, sys, time
+from mpmath.libmp import to_man_exp
+from fractions import Fraction
+import sympy as sp, sys, time, math
 from out import write, enc_mpf
 
 iv.dps = 150
@@ -57,13 +59,52 @@ def verdict(G0, G1, lN1, bB1, bk, tlo):
     Lam = mu * G1 - rlo * bB1 + lN1
     rhs = (2 * G0 * rlo + bk) ** 2 / (4 * G0 * rhi2)
     if not (Lam < rhs): return False, 'ineq'
-    return True, float(mp.mpf((iv.mpf(Lam.b) / iv.mpf(rhs.a)).b))
+    return True, ratio_up(Lam, rhs)
+
+def iv_lower_mpf(q):
+    """exact mpf with value <= the rational q (the lower endpoint of an outward-rounded iv enclosure of q, at iv.prec);
+    the inequality is verified in exact rational arithmetic."""
+    q = Fraction(q)
+    lo = (iv.mpf(q.numerator) / iv.mpf(q.denominator))._mpi_[0]
+    x = mp.make_mpf(lo)
+    if not _mpf_frac(x) <= q: raise ArithmeticError('lower enclosure of %s failed' % q)
+    return x
+
+def _mpf_frac(x):
+    """exact Fraction of an mpf, or of a point iv interval (e.g. an end point M.a, M.b)"""
+    if hasattr(x, '_mpi_'):
+        lo, hi = x._mpi_
+        if lo != hi: raise ValueError('not a point interval')
+        raw = lo
+    else:
+        raw = x._mpf_
+    m, e = to_man_exp(raw)
+    return Fraction(int(m)) * Fraction(2) ** int(e)
+
+def ratio_up(Lam, rhs):
+    """float >= (upper end of Lam)/(lower end of rhs), rounded UP (reported statistic)"""
+    r = iv.mpf(Lam.b) / iv.mpf(rhs.a)
+    m, e = to_man_exp(r._mpi_[1]); fr = Fraction(int(m)) * Fraction(2) ** int(e)
+    f = float(fr)
+    while Fraction(f) < fr: f = math.nextafter(f, math.inf)
+    return f
 
 def run_body(MC, MBIG, dM0):
-    Ma = mp.mpf(MC); n = 0; worst = 0; dM = mp.mpf(dM0); nfail = 0
-    while Ma < MBIG:
-        Mb = min(Ma + dM, mp.mpf(MBIG))
+    """cells [Ma, Mb] tiling [MC, MBIG]: the first left end point is an exact dyadic <= MC (MC a rational given as
+    a string, e.g. '13/10'), each cell's right end point is the next cell's left end point (the same mpf), and the
+    last right end point is exactly MBIG.  Returns (cells, worst ratio, rejected-cell count, first left end point)."""
+    MCq = Fraction(MC)
+    Ma = iv_lower_mpf(MCq); n = 0; worst = 0; dM = mp.mpf(dM0); nfail = 0
+    M0 = Ma
+    if not (_mpf_frac(M0) <= MCq and MCq - _mpf_frac(M0) < Fraction(1, 10 ** 140)):  # the first cell contains MC
+        raise ArithmeticError('first end point not just below %s' % MCq)
+    MBm = mp.mpf(MBIG)
+    if _mpf_frac(MBm) != Fraction(MBIG): raise ArithmeticError('MBIG not exact')
+    while Ma < MBm:
+        Mb = min(mp.mpf(Ma + dM), MBm)
+        if not Mb > Ma: raise ArithmeticError('cell of length zero')
         M = iv.mpf([Ma, Mb])
+        if not (_mpf_frac(M.a) <= _mpf_frac(Ma) and _mpf_frac(M.b) >= _mpf_frac(Mb)): raise ArithmeticError('cell not enclosed')
         tlo = 1 - 2 / (iv.exp(2 * iv.mpf(Ma)) + 1)
         tlo = iv.mpf(tlo.a)                       # exact lower endpoint as point
         q = body_quantities(M)
@@ -74,7 +115,8 @@ def run_body(MC, MBIG, dM0):
             nfail += 1
             if dM < mp.mpf('1e-7'): print('BODY FAIL at', Ma, r); return None
             dM = dM / 2
-    return n, worst, nfail
+    if _mpf_frac(Ma) != Fraction(MBIG): raise ArithmeticError('last end point is not MBIG')
+    return n, worst, nfail, M0
 
 # ---------------- tail: sympy normalisation
 def tail_exprs():
@@ -109,7 +151,7 @@ def run_tail(MBIG):
     for e in exprs:
         # must be polynomial in s, u, t and Laurent in w (w in [1/3,1]); check no negative powers of s
         P = sp.Poly(e * syms[2]**4, *syms)
-        assert all(mon[0] >= 0 and mon[1] >= 0 for mon in P.monoms()), e
+        if not all(mon[0] >= 0 and mon[1] >= 0 for mon in P.monoms()): raise ArithmeticError('negative power of s or u: %s' % e)
     print('tail expressions (normalised):')
     for e in exprs: print('   ', sp.factor_terms(sp.collect(e, syms[1])))
     b = iv.mpf(MBIG)
@@ -130,14 +172,15 @@ if __name__ == '__main__':
     # beta(13/10)
     M = iv.mpf(13) / 10; t = 1 - 2 / (iv.exp(2 * M) + 1); L = -iv.log(-1 + 4 / (2 - t)) / 2
     print('beta(13/10) in', (t * (M - L) / H), ' (< 6/5:', bool(t * (M - L) / H < iv.mpf(6) / 5), ')')
-    r = run_body('1.3', MBIG, '1e-3')
-    print('body [1.3, %d]: cells, worst ratio Lam/rhs, rejected-cell count =' % MBIG, r, '%.1fs' % (time.time() - t0))
+    r = run_body('13/10', MBIG, '1e-3')
+    print('body [13/10, %d]: cells, worst ratio Lam/rhs, rejected-cell count, first end point =' % MBIG, r, '%.1fs' % (time.time() - t0))
     (ok, ratio), vals = run_tail(MBIG)
     print('tail M >=', MBIG, ': ok =', ok, 'ratio <=', ratio)
     print('   enclosures G0,G1,lN1,bB1,bk:', vals)
     bC = t * (M - L) / H
     write('thmC_independent.json', dict(
         M_C='13/10', M_big=str(MBIG), beta_C_lower=enc_mpf(bC.a), beta_C_upper=enc_mpf(bC.b),
+        body_first_endpoint=enc_mpf(r[3]) if r else None,
         beta_C_below_6_5=bool(bC < iv.mpf(6) / 5), body_ok=r is not None,
         body_cells=r[0] if r else None, body_worst_ratio=repr(r[1]) if r else None,
         tail_ok=bool(ok), tail_ratio=repr(ratio) if ok else None, iv_dps=iv.dps,

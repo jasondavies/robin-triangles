@@ -11,7 +11,9 @@ Each step writes a machine-readable JSON file to verification/.  Each gate below
 compares it with the paper's claims in claims.json, in EXACT rational arithmetic (certified endpoints are
 stored as exact 'man*2^exp' numbers; printed decimals are compared with their rounding intervals).  Logs
 go to verification/<step>.log and a summary with input and PDF hashes to verification/summary.json.  The
-exit status is nonzero if any gate fails, or if the LaTeX log has a warning or a bad box.
+exit status is nonzero if any gate fails, or if the LaTeX log has a warning or a bad box.  If latexmk or
+pdflatex is not installed, the paper build and the log check are reported as SKIPPED (the overall status then
+reads "PASS (SKIPPED: paper, paper_log_clean)"); every other step still runs and is gated.
 
 The six-wave cell certificate (about 100 MB) is not committed: `scripts/cells.py generate` regenerates it
 (several CPU hours) and `--cells` replays it (about half an hour); see README.md.  The certificates of Part II
@@ -19,7 +21,7 @@ The six-wave cell certificate (about 100 MB) is not committed: `scripts/cells.py
 independent verifier (with a from-scratch re-certification of a sample of the default run), and
 `--positive-full` re-certifies every stored bound of all three runs from scratch (about 1.5 CPU hours).
 """
-import argparse, hashlib, json, os, re, subprocess, sys, time
+import argparse, hashlib, json, os, re, shutil, subprocess, sys, time
 from decimal import Decimal
 from fractions import Fraction as Fr
 from pathlib import Path
@@ -147,6 +149,7 @@ def g_indep():
             (d['M_C'] == '13/10' and d['M_big'] == CLAIMS['indepMbig'] and d['iv_dps'] == int(CLAIMS['indepDps']),
              'body [13/10, %s], tail M >= %s, %s digits' % (CLAIMS['indepMbig'], CLAIMS['indepMbig'], CLAIMS['indepDps'])),
             (d['body_cells'] == int(CLAIMS['indepCells']), '%s adaptive cells' % CLAIMS['indepCells']),
+            (X(d['body_first_endpoint']) <= Fr(13, 10), 'the first cell starts at an exact dyadic <= 13/10'),
             (Fr(d['body_worst_ratio']) <= C('indepWorst') < 1, 'worst ratio <= %s' % CLAIMS['indepWorst']),
             (Fr(d['tail_ratio']) <= C('indepTail'), 'tail ratio <= %s' % CLAIMS['indepTail']),
             (C('betaClo') <= lo <= hi <= C('betaChi'), 'same enclosure of beta(13/10)')]
@@ -272,6 +275,11 @@ def g_pos_indep(name, p):
                     (v5['ok'] and v5['v4b_lambda0_times_1.0001_all_cells']['cells_rejected'] == int(CLAIMS['pIndepRej'])
                      and v5['v3_tstar_0.12']['rejected'] and v5['v3_ring_bounds_lowered_0.2pct_k100_139']['rejected'],
                      'negative controls (verifier): 1.0001 lambda_0 rejects %s cells' % CLAIMS['pIndepRej']),
+                    (v5['cr_sigma_positive']['ok'] and len(v5['cr_sigma_positive']['v1']) == 3 and len(v5['cr_sigma_positive']['v2']) == 3
+                     and all(x['rejected'] for x in v5['cr_sigma_positive']['v1'] + v5['cr_sigma_positive']['v2']),
+                     'negative controls (verifier): sigma, sigma_2 = -1e6, 0, just below the pole rejected by V1 and V2'),
+                    (v5['exact_sigma_556']['ok'], 'negative control (verifier): sides 5,5,6, sigma = 15/2 + 2^-61 rejected'),
+                    (v5['v4b_negative_bounds_rejected']['rejected'], 'negative control (verifier): negative vertex bounds in a cell rejected'),
                     (d['sanity_P2']['ok'] and rounds_to(d['sanity_P2']['min_rel_gap'], CLAIMS['pSandLo'].replace('e', 'E')),
                      'sandwich (float): smallest relative gap %s' % CLAIMS['pSandLo'])]
         return out
@@ -320,8 +328,14 @@ def g_pos_summary(p):
 
 def g_pos_negative():
     d = JP('negative_controls.json')
-    return [(all(v for k, v in d.items() if isinstance(v, bool)) and sum(isinstance(v, bool) for v in d.values()) == 6,
-             'negative controls N1-N5 rejected, sandwich S1 holds'),
+    n6 = [k for k in d if k.startswith('N6 ')]; n7 = [k for k in d if k.startswith('N7 ')]
+    return [(all(v for k, v in d.items() if isinstance(v, bool)) and sum(isinstance(v, bool) for v in d.values()) == 8,
+             'negative controls N1-N7 rejected, sandwich S1 holds'),
+            (len(n6) == 1 and d[n6[0]] is True and all(d['N6_detail'].values()),
+             'N6: sigma = -1e6, 0 and just below the pole -1/(kappa0 h)^2 rejected by cr_bound, certify, lambda_2 certifier and re-checks; '
+             'negative vertex bounds rejected by the cell re-check'),
+            (len(n7) == 1 and d[n7[0]] is True and d['N7_detail']['above_rejected'] and d['N7_detail']['exact_15_2_returned'],
+             'N7: exact sigma tested (sides 5,5,6: 15/2 + 2^-61 rejected, 15/2 returned exactly)'),
             (rounds_to(d['S1_gap_max'], CLAIMS['pSandHi'].replace('e', 'E')), 'sandwich (float): largest relative gap %s' % CLAIMS['pSandHi'])]
 
 
@@ -422,13 +436,23 @@ def main():
             steps += [('pos_recheck_full_' + p, [PY, 'recheck.py', 'full'], pos, g_pos_recheck_full(p), penv(p, p)),
                       ('pos_indep_full_' + p, [PY, vind, str(POS / d), k, '--v1', 'full', '--all-nodes', '--fresh', '--no-controls',
                                                '--no-sanity', '--out', str(POSOUT), '--name', 'full_' + d], ROOT, g_pos_indep_full('full_' + d, p), penv(p))]
+    tex = all(shutil.which(t) for t in ('latexmk', 'pdflatex'))
     if want('paper'):
         steps += [('claims_tex', [PY, 'scripts/make_claims_tex.py', '--check'], ROOT,
-                   lambda: [(True, 'paper/claims.tex is in sync with claims.json')]),
-                  ('paper', ['latexmk', '-pdf', '-interaction=nonstopmode', '-halt-on-error', '-gg',
-                             'robin-triangles.tex'], ROOT / 'paper', lambda: [(True, 'latexmk succeeded')])]
+                   lambda: [(True, 'paper/claims.tex is in sync with claims.json')])]
+        if tex:
+            steps += [('paper', ['latexmk', '-pdf', '-interaction=nonstopmode', '-halt-on-error', '-gg',
+                                 'robin-triangles.tex'], ROOT / 'paper', lambda: [(True, 'latexmk succeeded')])]
     results = [run(*s) for s in steps]
-    if want('paper'):
+    skipped = []
+    if want('paper') and not tex:
+        # no TeX installation: the paper build and its log check are reported as SKIPPED (not as PASS)
+        msg = 'latexmk/pdflatex not found on PATH; install TeX Live (latexmk, pdflatex) to build and check the paper'
+        for nm in ('paper', 'paper_log_clean'):
+            results.append({'name': nm, 'ok': True, 'skipped': True, 'reason': msg})
+            print('%-22s SKIPPED (%s)' % (nm, msg))
+        skipped = ['paper', 'paper_log_clean']
+    elif want('paper'):
         log = ROOT / 'paper' / 'robin-triangles.log'
         txt = log.read_text(errors='replace') if log.exists() else 'missing log: There were undefined'
         bad = re.findall(r'(LaTeX Warning|Package \w+ Warning|Overfull \\[hv]box|Underfull \\[hv]box|There were undefined)', txt)
@@ -446,7 +470,8 @@ def main():
     if pdf.exists():
         summary['pdf_sha256'] = sha(pdf)
     allok = all(r['ok'] for r in results)
-    summary['overall'] = 'PASS' if allok else 'FAIL'
+    summary['overall'] = ('PASS' if not skipped else 'PASS (SKIPPED: %s)' % ', '.join(skipped)) if allok else 'FAIL'
+    summary['skipped'] = skipped
     extra = '-'.join(x for x, f in (('cells', a.cells), ('positive-full', a.positive_full)) if f)
     (LOGS / ('summary-partial.json' if a.only else 'summary-%s.json' % extra if extra else 'summary.json')).write_text(
         json.dumps(summary, indent=1) + '\n')

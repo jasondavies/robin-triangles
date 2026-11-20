@@ -33,6 +33,7 @@ def inside_strict(x, tr): return all(orient(tr[i], tr[(i + 1) % 3], x) > 0 for i
 def minF_triangle(tr):
     """exact minimum of the strictly convex quadratic F over a closed triangle"""
     c = (Fr(-1, 82), Fr(0))                                               # the critical point of F
+    if orient(*tr) < 0: tr = (tr[0], tr[2], tr[1])                        # containment test needs positive orientation
     if all(orient(tr[i], tr[(i + 1) % 3], c) >= 0 for i in range(3)): return F(c)
     return min(minF_segment(tr[i], tr[(i + 1) % 3]) for i in range(3))
 def children(v):

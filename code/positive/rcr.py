@@ -83,6 +83,8 @@ def build_mesh(a2, A, n, kind):
        N, elems [ne,3], epatch [ne], npatch, cot[p][k] (arb or exact 0), area[p] (element area, arb),
        bdry: list of (edge ids, side j, edge length arb), h (arb, largest element diameter)."""
     M = Mesh(); M.n = n; M.kind = kind
+    if not (isinstance(n, int) and n >= 1): raise ValueError('mesh parameter must be a positive integer')
+    if not bool(A > 0): raise ValueError('area not certified positive')      # M must be positive diagonal (Lemma CW)
     el, b0, b1, b2 = patch(n); m3 = 3 * n * (n + 1) // 2
     c = tri_cots(a2, A); a = [x.sqrt() for x in a2]
     if kind == 'U':
@@ -176,7 +178,10 @@ def certify(M, beta, x, sigma=None, shrink=1e-10):
     """x: positive float64 vector (untrusted).  It is converted EXACTLY to an integer vector xi (a positive
     multiple of x), and  K xi >= sigma M xi  is verified by a sign test on exact integers, the real coefficients
     entering through rational bounds with denominator 2^BITS obtained from Arb balls.
-    Returns (sigma Fraction, sha256 of xi).  Hence lambda_{1,h} >= sigma (Lemma CW)."""
+    If sigma is given, exactly that rational is tested (it must be > 0) and returned; otherwise the largest
+    multiple of 2^-BITS that the row bounds certify, reduced by a relative `shrink`, is proposed.
+    Returns (sigma Fraction, sha256 of x): the certified value; callers must use THIS value.  Hence
+    lambda_{1,h} >= sigma > 0 (Lemma CW).  Raises ValueError if the test fails or sigma <= 0."""
     N = M.N; el = M.elems; ep = M.epatch
     xi, _ = exact_ints(x)
     w = 30; nparts = (max(int(v) for v in xi).bit_length() + w - 1) // w
@@ -213,16 +218,26 @@ def certify(M, beta, x, sigma=None, shrink=1e-10):
     if min(lo_l) <= 0 or min(mass_l) <= 0: raise ValueError('row sum not positive')
     if sigma is None:
         s = min((a << BITS) // b for a, b in zip(lo_l, mass_l))
-        s = int(s * (1 - shrink))
+        s = int(s * (1 - shrink))                              # (proposal only: the test below decides)
+        sig = Fraction(s, 2 ** BITS)
     else:
-        s = Fraction(sigma) * 2 ** BITS; s = s.numerator // s.denominator
-    if not all((a << BITS) >= s * b for a, b in zip(lo_l, mass_l)): raise ValueError('Collatz-Wielandt test failed')
+        sig = Fraction(sigma)                                    # the EXACT supplied rational is tested, no rounding
+    if not sig > 0: raise ValueError('sigma not positive: Lemma CR requires 0 < sigma <= lambda_{1,h}')
+    p_, q_ = sig.numerator, sig.denominator
+    # (K xi)_i >= a/2^BITS >= sigma b/2^BITS >= sigma (M xi)_i  (the last step uses sigma > 0)
+    if not all(a * q_ >= p_ * b for a, b in zip(lo_l, mass_l)): raise ValueError('Collatz-Wielandt test failed')
     import hashlib
     hx = hashlib.sha256(np.asarray(x, dtype='<f8').tobytes()).hexdigest()
-    return Fraction(s, 2 ** BITS), hx
+    return sig, hx
 
 def cr_bound(sigma, h, C=C_INTERP):
-    """arb lower bound sigma/(1+(C h)^2 sigma) (exact sigma Fraction, h arb upper bound for element diameters)"""
+    """arb lower bound sigma/(1+(C h)^2 sigma) (exact sigma Fraction, h arb upper bound for element diameters).
+    Lemma CR needs 0 < sigma <= lambda_{k,h}; the upper inequality is certified by the caller (Collatz-Wielandt test
+    or inertia test), the positivity is enforced here: for sigma < -1/(C h)^2 the formula is positive and large."""
+    sigma = Fraction(sigma); C = Fraction(C)
+    if not sigma > 0: raise ValueError('sigma not positive: Lemma CR requires 0 < sigma <= lambda_{k,h}')
+    if not C > 0: raise ValueError('interpolation constant not positive')
+    if not (bool(h > 0) and h.is_finite()): raise ValueError('mesh size not certified positive')
     s = frac_to_arb(sigma); Ch = frac_to_arb(C) * h
     return s / (1 + Ch * Ch * s)
 

@@ -107,7 +107,7 @@ class Nodes:
             kind = rcr.choose_kind(a2, A)
             res = rcr.lower_bound(a2, A, [al] * 3, nreq, kind=kind)
             sig = Fr(int(res['sigma'] * 2 ** rcr.BITS * (1 - SHRINK)), 2 ** rcr.BITS)
-            assert 0 < sig <= res['sigma']                       # exact comparison of rationals
+            if not (0 < sig <= res['sigma']): raise ValueError('shrunk sigma not in (0, certified sigma]')   # exact rationals
             lb = rcr.cr_bound(sig, res['h'])
             rec = dict(w=key[0], k=k, alpha=str(ALPHA(k)), n=nreq, kind=kind, N=res['N'], sigma=str(sig), lb=enc(lb), lam_h=res['lam_h'], xhash=res['xhash'])
             recs.append(rec); self.fw.write(json.dumps(rec) + "\n"); self.fw.flush()

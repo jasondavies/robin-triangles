@@ -61,6 +61,8 @@ def in_open_triangle(x, tri):
 def min_F_on_triangle(tri):
     """exact minimum of F over a closed triangle (F strictly convex, minimiser (-1/82, 0))"""
     c = (Fr(-1, 82), Fr(0))
+    if orient(*tri) < 0:                 # the containment test below assumes positive orientation
+        tri = (tri[0], tri[2], tri[1])
     if in_closed_triangle(c, tri):
         return F(c)
     return min(min_F_on_segment(tri[i], tri[(i + 1) % 3]) for i in range(3))

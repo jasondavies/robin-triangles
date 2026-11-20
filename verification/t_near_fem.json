@@ -4,7 +4,7 @@
   {
    "beta": 1.16,
    "shape": "cornerA",
-   "fem_minus_lam0": -0.8672851522999023,
+   "fem_minus_lam0": -0.8672851522999414,
    "ritz3_minus_lam0": -0.592909986481958,
    "fem_err_E": 2.9696929360056856e-09,
    "ok": true
@@ -12,7 +12,7 @@
   {
    "beta": 1.16,
    "shape": "cornerB",
-   "fem_minus_lam0": -0.5405191503393594,
+   "fem_minus_lam0": -0.5405191503393487,
    "ritz3_minus_lam0": -0.47643305568146044,
    "fem_err_E": 2.9696929360056856e-09,
    "ok": true
@@ -20,7 +20,7 @@
   {
    "beta": 1.16,
    "shape": "mid",
-   "fem_minus_lam0": -0.11859150989221146,
+   "fem_minus_lam0": -0.11859150989222211,
    "ritz3_minus_lam0": -0.10958752306836939,
    "fem_err_E": 2.9696929360056856e-09,
    "ok": true
@@ -28,7 +28,7 @@
   {
    "beta": 1.16,
    "shape": "small",
-   "fem_minus_lam0": -0.0034806796910968885,
+   "fem_minus_lam0": -0.0034806796910933357,
    "ritz3_minus_lam0": -0.0033193053788513893,
    "fem_err_E": 2.9696929360056856e-09,
    "ok": true
@@ -36,7 +36,7 @@
   {
    "beta": 1.5,
    "shape": "cornerA",
-   "fem_minus_lam0": -0.7456940460472001,
+   "fem_minus_lam0": -0.745694046047154,
    "ritz3_minus_lam0": -0.5894519739518689,
    "fem_err_E": 1.2889964651208174e-08,
    "ok": true
@@ -44,7 +44,7 @@
   {
    "beta": 1.5,
    "shape": "cornerB",
-   "fem_minus_lam0": -0.4596148412198833,
+   "fem_minus_lam0": -0.45961484121990814,
    "ritz3_minus_lam0": -0.426065497480991,
    "fem_err_E": 1.2889964651208174e-08,
    "ok": true
@@ -52,7 +52,7 @@
   {
    "beta": 1.5,
    "shape": "mid",
-   "fem_minus_lam0": -0.1123653433032974,
+   "fem_minus_lam0": -0.11236534330326187,
    "ritz3_minus_lam0": -0.10648282573202472,
    "fem_err_E": 1.2889964651208174e-08,
    "ok": true
@@ -60,7 +60,7 @@
   {
    "beta": 1.5,
    "shape": "small",
-   "fem_minus_lam0": -0.0033964738133622774,
+   "fem_minus_lam0": -0.0033964738133480665,
    "ritz3_minus_lam0": -0.0032841297567962613,
    "fem_err_E": 1.2889964651208174e-08,
    "ok": true
@@ -70,63 +70,63 @@
    "shape": "cornerA",
    "fem_minus_lam0": -0.47548271269164744,
    "ritz3_minus_lam0": -0.43613804011758006,
-   "fem_err_E": 7.422211822927238e-08,
+   "fem_err_E": 7.422216086183653e-08,
    "ok": true
   },
   {
    "beta": 2.0,
    "shape": "cornerB",
-   "fem_minus_lam0": -0.2847662117368337,
+   "fem_minus_lam0": -0.2847662117368266,
    "ritz3_minus_lam0": -0.2765950528372798,
-   "fem_err_E": 7.422211822927238e-08,
+   "fem_err_E": 7.422216086183653e-08,
    "ok": true
   },
   {
    "beta": 2.0,
    "shape": "mid",
-   "fem_minus_lam0": -0.0776002101042117,
+   "fem_minus_lam0": -0.07760021010419749,
    "ritz3_minus_lam0": -0.07588784017286088,
-   "fem_err_E": 7.422211822927238e-08,
+   "fem_err_E": 7.422216086183653e-08,
    "ok": true
   },
   {
    "beta": 2.0,
    "shape": "small",
-   "fem_minus_lam0": -0.0024247607591938447,
+   "fem_minus_lam0": -0.00242476075920095,
    "ritz3_minus_lam0": -0.0023897113604860465,
-   "fem_err_E": 7.422211822927238e-08,
+   "fem_err_E": 7.422216086183653e-08,
    "ok": true
   },
   {
    "beta": 3.0,
    "shape": "cornerA",
-   "fem_minus_lam0": -0.09284129506330885,
+   "fem_minus_lam0": -0.09284129506335148,
    "ritz3_minus_lam0": -0.09222609678617033,
-   "fem_err_E": 9.046747493357543e-07,
+   "fem_err_E": 9.046748061791732e-07,
    "ok": true
   },
   {
    "beta": 3.0,
    "shape": "cornerB",
-   "fem_minus_lam0": -0.05263759935213841,
+   "fem_minus_lam0": -0.05263759935219525,
    "ritz3_minus_lam0": -0.05250763255272517,
-   "fem_err_E": 9.046747493357543e-07,
+   "fem_err_E": 9.046748061791732e-07,
    "ok": true
   },
   {
    "beta": 3.0,
    "shape": "mid",
-   "fem_minus_lam0": -0.01653479808010161,
+   "fem_minus_lam0": -0.016534798080229507,
    "ritz3_minus_lam0": -0.016502400510994164,
-   "fem_err_E": 9.046747493357543e-07,
+   "fem_err_E": 9.046748061791732e-07,
    "ok": true
   },
   {
    "beta": 3.0,
    "shape": "small",
-   "fem_minus_lam0": -0.0005282245288071863,
+   "fem_minus_lam0": -0.0005282245290203491,
    "ritz3_minus_lam0": -0.0005284008451553746,
-   "fem_err_E": 9.046747493357543e-07,
+   "fem_err_E": 9.046748061791732e-07,
    "ok": true
   }
  ],

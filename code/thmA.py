@@ -41,10 +41,14 @@ out['M_betaA_lower'] = enc(Mlo); out['M_betaA_upper'] = enc(Mhi)
 print('step1', ok1, 'g(beta_A) encl', gA, 'max cell bound', worst)
 
 # ---- Step 2: q(beta_A) = -lambda0(beta_A)/(beta_A P*) <= Q_A ---------------------------------------
+# K is increasing in M, so the value at Mhi gives the certified upper bound; the reported lower endpoint must come
+# from an enclosure of q at the true root M(beta_A) in [Mlo, Mhi], i.e. from the whole interval (or from Mlo).
 qub = 4 * K_of(Mhi) * K_of(Mhi) / (H * H) / (arb(BETA_A) * PSTAR)
+MA_I = I(Mlo, Mhi)
+qencl = 4 * K_of(MA_I) * K_of(MA_I) / (H * H) / (arb(BETA_A) * PSTAR)       # contains q(beta_A)
 ok2 = bool(qub < Q_A)
-out['step2_q_upper'] = enc(qub.upper()); out['step2_q_lower'] = enc(qub.lower()); out['step2_ok'] = ok2
-print('step2', ok2, qub)
+out['step2_q_upper'] = enc(qub.upper()); out['step2_q_lower'] = enc(qencl.lower()); out['step2_ok'] = ok2
+print('step2', ok2, qub, qencl)
 
 # ---- Step 3: Phi = (p-1) - G_A (tau-2) > 0 on {p <= Q_A} in the fundamental domain, minus equilateral
 G = arb(G_A); q = arb(Q_A)

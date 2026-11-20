@@ -95,7 +95,7 @@ and trial values.
 | `coverage_check.py` | Proposition "middle"(a): exact coverage check | §15 |
 | `recheck.py cells` | All prism and closing inequalities from the stored bounds | §15 |
 | `recheck.py sample N`, `recheck.py full` | From-scratch re-certification of N (or all) stored bounds | §17 |
-| `negative_controls.py` | Perturbed statements must be rejected; P₂ sandwich (`p2_reference.py`, floating point) | §17 |
+| `negative_controls.py` | Perturbed statements must be rejected (N1–N7; N6: σ ≤ 0 in Lemma CR, N7: the exact supplied σ is tested); P₂ sandwich (`p2_reference.py`, floating point) | §17 |
 | `float_local.py` | Floating-point values of Remark "local" and the text (P₂ finite elements; not a proof step) | §14 |
 | `summary.py` | Statistics of a run (Table 2) | §16 |
 
@@ -113,7 +113,8 @@ V1 re-certifies Crouzeix–Raviart records with its own meshes (from coordinates
 outward-rounded interval arithmetic (`crmesh.py`, `eig.py`, `ivnp.py`, `v1.py`); V2 the λ₂ records by an
 interval LDLᵀ factorisation and Sylvester's law of inertia (`v2.py`); V3 Lemma "shapeconst" and the
 inequalities (C) in mpmath.iv (`v3.py`, `lam0.py`); V4 the coverage in exact rationals and all prism
-inequalities (`v4.py`, `geom.py`); V5 negative controls; and a floating-point P₂ sanity check (`p2fem.py`).
+inequalities (`v4.py`, `geom.py`); V5 negative controls (including σ, σ₂ ≤ 0, which V1 and V2 reject before
+any other test, since Lemma CR needs σ > 0); and a floating-point P₂ sanity check (`p2fem.py`).
 
 # Check of prior work (`code/prior_work/`)
 

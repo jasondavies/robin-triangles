@@ -25,7 +25,7 @@ $ python weak_cert.py ./verification/positive/weak_cert.json
  "fails": [],
  "n_fails": 0,
  "ok": true,
- "seconds": 5.5
+ "seconds": 7.6
 }
 
 [gate] ok   Theorem uniform weak coupling: every box decided

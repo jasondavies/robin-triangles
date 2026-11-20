@@ -29,6 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import numpy as np  # noqa: E402
+from mpmath import iv  # noqa: E402
 
 import ivnp  # noqa: E402
 import geom  # noqa: E402
@@ -385,6 +386,49 @@ def run_v3(certdir):
 
 
 # ------------------------------------------------------------------------------------------- V5
+def cr_positivity_controls(flat, kappa0):
+    """V1 and V2 must reject a nonpositive sigma (sigma2), with the explicit reason, before anything else."""
+    kappa0 = Fr(kappa0)
+    out = {}
+    # V2 on the small mesh n = 3 of E (alpha = 1/100); the record of the external review: sigma2 = -10^6, lb = 40
+    base = {"key": [0, 3], "alpha": "1/100", "n": 3, "N": 18}
+    h2 = crmesh.build_mesh(geom.tri_equilateral(Fr(1, 100)), "U", 3).h2_hi
+    pole2 = -(1 + Fr(1, 10 ** 9)) / (kappa0 * kappa0 * h2)
+    rows = []
+    for s, lb in ((Fr(-10 ** 6), Fr(40)), (Fr(0), Fr(1, 1000)), (pole2, Fr(1000))):
+        rr = dict(base, sigma2="%d/%d" % (s.numerator, s.denominator), lb="%d/%d" % (lb.numerator, lb.denominator))
+        o = v2.verify_lam2(rr, kappa0)
+        rows.append({"sigma2": float(s), "lb": float(lb), "rejected": not o["ok"], "reason": o.get("reason"),
+                     "formula_value": float(s / (1 + kappa0 * kappa0 * h2 * s)) if s != 0 else 0.0})
+    out["v2"] = rows
+    # V1 on the smallest stored vertex record (mesh, eigenvector and lb unchanged; only sigma replaced)
+    r = sorted(flat, key=lambda q: q["N"])[0]
+    tri, alpha = v1.tri_from_node_record(r)
+    h2v = crmesh.build_mesh(tri, r["kind"], r["n"]).h2_hi
+    polev = -(1 + Fr(1, 10 ** 9)) / (kappa0 * kappa0 * h2v)
+    rows = []
+    for s, lb in ((Fr(-10 ** 6), Fr(1000)), (Fr(0), geom.parse_rat(r["lb"])), (polev, Fr(1000))):
+        o = v1.verify_cr(tri, r["kind"], r["n"], s, lb, kappa0, r["N"])
+        rows.append({"sigma": float(s), "lb": float(lb), "rejected": not o["ok"], "reason": o.get("reason")})
+    out["v1"] = rows
+    out["v1_record"] = [r["w"], r["k"], r["n"]]
+    out["ok"] = bool(all(x["rejected"] and "not positive" in (x["reason"] or "") for x in out["v2"] + out["v1"])
+                     and out["v2"][2]["formula_value"] > 1000)
+    return out
+
+
+def exact_sigma_control(kappa0):
+    tri = geom.Triangle([iv.mpf(25), iv.mpf(25), iv.mpf(36)], [iv.mpf(6), iv.mpf(6), iv.mpf(5)], iv.mpf(12), "5-5-6")
+    x = np.ones(3)
+    run = lambda s: v1.verify_cr(tri, "U", 1, s, Fr(1, 10), Fr(kappa0), 3, x_override=x)
+    above = run(Fr(15, 2) + Fr(1, 2 ** 61))
+    below = run(Fr(15, 2) * (1 - Fr(1, 10 ** 9)))
+    out = {"above_rejected": not above["ok"] and not above.get("cw_ok", True), "above_reason_cw": above.get("cw_ok") is False,
+           "below_accepted": bool(below["ok"]), "sigma_cert_float": below.get("sigma_cert")}
+    out["ok"] = bool(out["above_rejected"] and out["below_accepted"] and out["sigma_cert_float"] <= 7.5)
+    return out
+
+
 def run_controls(certdir, kappa0):
     rep = {}
     t0 = time.time()
@@ -450,6 +494,12 @@ def run_controls(certdir, kappa0):
         c2.append({"key": r["key"], "rejected": not o["ok"], "neg_pivots": o.get("neg_pivots")})
     rep["v2"] = c2
     rep["v2_ok"] = bool(c2 and all(c["rejected"] and (c["neg_pivots"] is None or c["neg_pivots"] >= 2) for c in c2))
+    # --- hypothesis 0 < sigma of Lemma 'CR' (V1 and V2): sigma = -10^6, 0, and just below the pole -1/(kappa0 h)^2,
+    # where sigma/(1 + (kappa0 h)^2 sigma) is large and positive and the inertia test (K - sigma M > 0) passes.
+    rep["cr_sigma_positive"] = cr_positivity_controls(flat, kappa0)
+    # --- exact sigma (V1): one-element mesh 'U' of the triangle with sides 5,5,6, Robin coefficients 6,6,5, x = (1,1,1):
+    # mass 4I, stiffness 30I + graph Laplacian, discrete eigenvalue exactly 15/2
+    rep["exact_sigma_556"] = exact_sigma_control(kappa0)
     # --- V3 controls
     mu, lam2 = load_local_inputs(certdir)
     if all((k, s) in mu for k in range(v3.KTOP + 1) for s in (1, -1)) and all(k in lam2 for k in range(0, v3.KTOP + 1, 4)):
@@ -515,7 +565,20 @@ def run_controls(certdir, kappa0):
         del c0["prisms"][1]
         o = v4.check_B_cell(c0, nodes_d, v4.LamTab())
         rep["v4b_prism_removed_rejected"] = {"rejected": not o["ok"], "reason": o.get("reason")}
+    # negative vertex bounds at the closing node (b_i b_j > 0), with matching node records
+    c0 = copy.deepcopy(cells["r0"][0])
+    nodes_n = copy.deepcopy(nodes_d)
+    for key in c0["nodes"]:
+        i, k = map(int, key.split(":"))
+        if k == c0["ktop"]:
+            c0["nodes"][key][0] = "-10000*2^0"
+            for rr in nodes_n[(c0["verts"][i], k, int(c0["nodes"][key][1]))]:
+                rr["lb"] = "-10000*2^0"
+                rr["sigma"] = "-1000000"
+    o = v4.check_B_cell(c0, nodes_n, v4.LamTab())
+    rep["v4b_negative_bounds_rejected"] = {"rejected": not o["ok"], "reason": o.get("reason")}
     rep["v4b_ok"] = bool(r100["b"]["ok"] and not r101["b"]["ok"] and rep["v4b_altered_bound_rejected"]["rejected"]
+                         and rep["v4b_negative_bounds_rejected"]["rejected"]
                          and rep.get("v4b_prism_removed_rejected", {"rejected": True})["rejected"])
     # synthetic split cell (code path not exercised by the data)
     P = (Fr(0), Fr(0)), (Fr(1), Fr(0)), (Fr(0), Fr(1))
@@ -523,7 +586,8 @@ def run_controls(certdir, kappa0):
     m01, m12, m20 = mid(P[0], P[1]), mid(P[1], P[2]), mid(P[2], P[0])
     kids = [(P[0], m01, m20), (m01, P[1], m12), (m20, m12, P[2]), (m01, m12, m20)]
     rep["v4_split_selftest"] = {"good_split_accepted": v4.check_split(P, kids), "incomplete_split_rejected": not v4.check_split(P, kids[:3])}
-    rep["ok"] = bool(rep["v1_ok"] and rep["v2_ok"] and rep["v3_ok"] in (True, None) and rep["v4a_ok"] and rep["v4b_ok"]
+    rep["ok"] = bool(rep["v1_ok"] and rep["v2_ok"] and rep["cr_sigma_positive"]["ok"] and rep["exact_sigma_556"]["ok"]
+                     and rep["v3_ok"] in (True, None) and rep["v4a_ok"] and rep["v4b_ok"]
                      and rep["v4a_flipped_orientation_rejected"]
                      and rep["v4_split_selftest"]["good_split_accepted"] and rep["v4_split_selftest"]["incomplete_split_rejected"])
     rep["seconds"] = round(time.time() - t0, 1)

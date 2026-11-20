@@ -3,17 +3,17 @@
   {
    "beta": 0.5,
    "formula": -2.567665225539847,
-   "fem_richardson": -2.567665214580908
+   "fem_richardson": -2.5676652145818175
   },
   {
    "beta": 2.0,
    "formula": -16.857437471019832,
-   "fem_richardson": -16.85741648944774
+   "fem_richardson": -16.857416489458654
   },
   {
    "beta": 4.0,
    "formula": -64.02051614448378,
-   "fem_richardson": -64.01935513112403
+   "fem_richardson": -64.01935513047404
   }
  ],
  "bc_residual_max": 5.017411671611732e-08,

@@ -83,7 +83,11 @@ inertia test, mpmath and exact rationals.
 You need:
 - Python 3.12 with the pins in `requirements.txt`: python-flint 0.9.0, numpy 2.5.5, scipy 1.18.1,
   mpmath 1.3.0, sympy 1.14.0. sympy 1.14 requires mpmath < 1.4.
-- `latexmk`/`pdflatex`.
+- a TeX installation with `latexmk` and `pdflatex` on `PATH` (e.g. TeX Live; the paper uses only
+  standard packages), for the **paper** steps: the build of `paper/robin-triangles.pdf` and the check
+  that its log is clean. Without it, `scripts/verify.py` still runs and gates every computational step,
+  reports `paper` and `paper_log_clean` as SKIPPED, and prints `OVERALL PASS (SKIPPED: paper,
+  paper_log_clean)` instead of `OVERALL PASS`.
 
 ```sh
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -104,6 +108,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 - Logs go to `verification/<step>.log`. A summary with input and PDF hashes goes to
   `verification/summary.json`, or to `summary-cells.json` or `summary-positive-full.json`.
 - It exits nonzero on any failed gate, LaTeX warning or bad box. It uses one core (BLAS threads = 1).
+  Without `latexmk`/`pdflatex` the two paper steps are SKIPPED (see above), not passed.
 
 The default run covers:
 - **certified:**
@@ -139,6 +144,29 @@ canonical JSON without the run-time field `seconds`.
 - The replay also reports whether the content hashes agree with the recorded run. With the pinned
   versions, the trial generation (pure-Python mpmath) is deterministic. A regeneration of the far piece
   G11 reproduced its hash. The replay does not depend on this.
+
+## Corrections after an external review
+
+An external AI review (ChatGPT Pro) of commit 195dc13 found four defects in the checking code; none
+affects a committed certificate, and all are fixed:
+- the two checkers of the λ₂ bounds (and, in our code, also the re-checks of the ring and vertex
+  bounds) did not enforce the hypothesis 0 < σ of the Crouzeix–Raviart lemma; for σ below the pole
+  −1/(κ₀h)² the formula σ/(1 + (κ₀h)²σ) is large and positive, so a forged record with a very negative
+  σ was accepted. Every place where the lemma is applied now rejects σ ≤ 0. All committed σ and σ₂
+  (2 × 2575 + 2529 + 3 × 85 records) are positive;
+- `rcr.certify` rounded a supplied σ down to the 2⁻⁶⁰ grid before the test while `recheck.py` used
+  the unrounded value. The exact supplied rational is now tested and returned, and the callers use the
+  returned value (all committed σ lie on the grid, so nothing changes for them);
+- the first cell of the mpmath certificate of Lemma 4.8 started at the double nearest to 1.3, about
+  4.4·10⁻¹⁷ above 13/10. It now starts at an exact dyadic number ≤ 13/10, which the gate checks;
+- the reported lower endpoint for q(6/5) was evaluated at the upper end of the enclosure of M(6/5). It
+  is now taken from the whole enclosure (q(6/5) = 1.38350370915652…, still < 1.384).
+
+The further audit added: the cell re-check requires positive vertex bounds (the prism tests use
+√(bᵢbⱼ)), the ring re-check requires s = 1/10, mesh (U) requires a certified positive area, the λ₂
+certifier requires g ≥ 0, and the reported worst ratio of the mpmath certificate is rounded upward.
+Negative controls for each of these are run by `scripts/verify.py` (N6, N7 in `negative_controls.py`;
+`cr_sigma_positive` and `exact_sigma_556` in the independent verifier).
 
 ## What is proved, certified, or only numerical
 

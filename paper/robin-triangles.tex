@@ -816,7 +816,8 @@ $[13/10,\clindepMbig]$ it evaluates the un-normalised closed forms directly from
 definitions of the $\Sigma_k$, $\Gamma$ and $N$, on $\clindepCells$ adaptively chosen cells. On the tail
 $M\ge\clindepMbig$ it uses a normalisation derived separately with a computer algebra system; the
 resulting expressions have integer coefficients. It computes the geometric bounds from half- and
-double-angle formulas rather than from~\eqref{eq:geomt}. It confirms (i) and (ii) on every cell, with
+double-angle formulas rather than from~\eqref{eq:geomt}. Its first cell starts at an exact dyadic
+number below $13/10$. It confirms (i) and (ii) on every cell, with
 worst ratio $\Lambda_{\rm hi}/\mathcal R\le\clindepWorst$ on the body and $\le\clindepTail$ on the tail,
 and it confirms $\beta(13/10)<6/5$. At $M=2,5,10,30$ its two forms agree to more than $100$ digits. The same referee found no fatal or serious issue in the arguments of
 Sections~\ref{sec:prelim}--\ref{sec:main}.
@@ -1417,7 +1418,10 @@ according to the sign of its exact integer cofactor. The inequality $Kx\ge\sigma
 Lemma~\ref{p-lem:CW} then becomes a sign test on exact integers, and the nonnegativity of the
 cotangents is checked on their lower bounds. This gives $\lambda_{1,h}\ge\sigma$ for a dyadic
 rational $\sigma$, and Lemma~\ref{p-lem:CR} gives a lower bound for $\lambda_1(\Omega,\beta)$,
-evaluated in ball arithmetic with an upper bound for $h$. For the second eigenvalue of $E$ the
+evaluated in ball arithmetic with an upper bound for $h$. The hypothesis $\sigma>0$ of
+Lemma~\ref{p-lem:CR} is checked explicitly wherever the lemma is applied (for $\sigma$ below
+$-1/C_h^2$ the right-hand side would be positive and large), and a re-check tests the stored
+rational $\sigma$ itself, without rounding. For the second eigenvalue of $E$ the
 matrices of Lemma~\ref{p-lem:inertia} are formed in ball arithmetic, with $x$ and $S$
 floating-point matrices that are entered exactly ($S$ approximates an inverse Cholesky factor).
 
@@ -2148,7 +2152,10 @@ reject perturbed statements; between them: a $\sigma$ larger by a factor $1+10^{
 $1+10^{-4}$), mesh (U) on an obtuse triangle, $\lambda_0$ replaced by $1.01\lambda_0$ (the independent verifier rejects
 $\clpIndepRej$ cells already for $1.0001\lambda_0$), the false bound
 $\lambda_1(T_w,\alpha)\ge\lambda_0(1+0.6t^2)$ near $E$, $t_*$ replaced by $3/25$, ring bounds lowered by
-$0.2$ per cent near $\alpha=2$, and a cover with a triangle removed. (iv) \emph{Sanity checks in
+$0.2$ per cent near $\alpha=2$, a cover with a triangle removed, a nonpositive $\sigma$ or $\sigma_2$
+($-10^6$, $0$, and just below the pole $-1/C_h^2$ of $\sigma/(1+C_h^2\sigma)$), a vertex bound
+$\le0$ in a cell, and, on the one-element mesh (U) of the triangle with sides $5,5,6$ and Robin
+coefficients $6,6,5$ (discrete eigenvalue exactly $15/2$), the value $\sigma=15/2+2^{-61}$. (iv) \emph{Sanity checks in
 floating point}, not used in the proof: the certified vertex bounds lie below conforming $P_2$ finite
 element values, by relative amounts between $\clpSandLo$ and $\clpSandHi$ on random samples, and the
 quantities of Remark~\ref{p-rem:local} are computed with $P_2$ elements. (v) An AI referee re-derived the
@@ -2158,7 +2165,18 @@ in~\eqref{p-eq:C}) are repaired. A second AI referee pass, made when the two par
 checked the cell identity (Lemma~\ref{p-lem:cell}), the ring bound (Lemma~\ref{p-lem:ring}), the
 uniformity in $\alpha$ (Lemma~\ref{p-lem:Ccheck}), the closing test of Corollary~\ref{p-cor:prism}(b),
 Lemmas~\ref{p-lem:CR} and~\ref{p-lem:CW} and the coverage lemma, and the corresponding code, and found no
-error.
+error. (vi) An external AI review (ChatGPT Pro) of the code found four defects, now corrected, none of
+which affects a stored certificate: both checkers of the bounds for $\lambda_2$ (and our re-checks of
+the other bounds) did not enforce $\sigma>0$ in Lemma~\ref{p-lem:CR}, so that a forged record with
+a very negative $\sigma$ would have been accepted (all stored values of $\sigma$ and $\sigma_2$ are
+positive); our re-check rounded a given $\sigma$ down to a multiple of $2^{-60}$ before the test of
+Lemma~\ref{p-lem:CW} but then used the unrounded value (all stored values are such multiples); the
+first cell of the second certificate of Lemma~\ref{lem:certC} started about $4\cdot10^{-17}$ above
+$13/10$; and the reported lower end of the enclosure of $q(6/5)$ was evaluated at the upper end of the
+enclosure of $M(6/5)$ (the upper bound $q(6/5)<\clqA$, which is what the proof uses, was correct). A
+subsequent audit of both programs added explicit checks of further hypotheses: positive vertex bounds
+in the prism tests (with a negative control), the ring parameter $s=1/10$ in our re-check, and $g\ge0$
+in Lemma~\ref{p-lem:inertia}.
 
 \paragraph{Check of prior work.} The repository also contains, clearly separated from our proof, the
 AI referee's re-implementation of the middle-range criterion of Ma~\cite[Proposition~2]{Ma} in Arb, which
@@ -2294,9 +2312,10 @@ Theorem~\ref{thm:main} is computer-assisted and its proof is reproduced by \text
 At the time of writing, the mathematics and the code have been checked only by AI systems and by
 computer verification. These checks include the certificates described above; adversarial reviews by
 independent AI referees, of Part~I, of Part~II, and of the merged manuscript; a second certificate of
-Lemma~\ref{lem:certC}, written by the referee of Part~I; and an independent verification program for the
+Lemma~\ref{lem:certC}, written by the referee of Part~I; an independent verification program for the
 certificates of Part~II, written by a separate AI instance from the text and the certificate format
-only. The comparison with Ma's preprint~\cite{Ma} was also made by an AI referee. No independent human
+only; and an external AI review of the code (ChatGPT Pro), whose findings are corrected
+(\S\ref{sec:verif}). The comparison with Ma's preprint~\cite{Ma} was also made by an AI referee. No independent human
 expert has reviewed the manuscript. The human author has not read this manuscript or checked its
 arguments. The author takes responsibility for the accuracy of this disclosure.
 

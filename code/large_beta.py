@@ -124,7 +124,7 @@ def certify(MC, Mtail, dM, verbose=True):
     Mtail = fmpq(Mtail); dM = fmpq(*dM)
     # (I1) beta(M_C) <= 6/5 and theta*(M_C) >= pi/4
     a = arb(MC); tC = a.tanh(); KC = a + (tC / 2).atanh(); betaC = tC * KC / H
-    assert betaC < arb(6) / 5, betaC
+    if not betaC < arb(6) / 5: raise ArithmeticError('beta(M_C) < 6/5 not certified: %s' % betaC)
     res = dict(M_C=str(MC), beta_C_lower=enc(betaC.lower()), beta_C_upper=enc(betaC.upper()), cells=0)
     worst = arb(0); n = 0
     Ma = MC
@@ -140,7 +140,7 @@ def certify(MC, Mtail, dM, verbose=True):
         n += 1; Ma = Mb
     # tail  M >= Mtail :  s in (0, s_b],  u = K s in (0, u_b]  (K e^{-2M} is decreasing for M >= 3/4),  t in [t_b, 1)
     b = arb(Mtail); sb = (-2 * b).exp(); tb = b.tanh(); Kb = b + (tb / 2).atanh(); ub = Kb * sb
-    assert b > arb(3) / 4
+    if not b > arb(3) / 4: raise ArithmeticError('tail needs M_tail > 3/4 (monotonicity of K e^{-2M})')
     s = I(0, sb.upper()); u = I(0, ub.upper()); t = I(tb.lower(), 1)
     ok, ratio, why = check(s, u, t, arb(tb.lower()), 'tail')
     if not ok:

@@ -149,6 +149,17 @@ def verify_lam2(rec, kappa0):
         out["alpha_matches_grid"] = bool(alpha == geom.alpha_grid(k) and n == rec["n"])
         sigma2 = geom.parse_rat(rec["sigma2"])
         lb = geom.parse_rat(rec["lb"])
+        kappa0 = Fr(kappa0)
+        # hypotheses of Lemma 'CR': 0 < sigma2 <= lambda_{2,h}, kappa0 > 0.  The inertia test below only gives
+        # lambda_{2,h} > sigma2; for sigma2 <= 0 the formula sigma/(1 + C_h^2 sigma) is meaningless (it is large
+        # and positive just below its pole -1/C_h^2), so a nonpositive sigma2 is rejected outright.
+        out["sigma2_positive"] = bool(sigma2 > 0)
+        if not sigma2 > 0:
+            out["reason"] = "sigma2 not positive (Lemma CR requires 0 < sigma2)"
+            raise ValueError(out["reason"])
+        if not kappa0 > 0:
+            out["reason"] = "kappa0 not positive"
+            raise ValueError(out["reason"])
         m, K, M, h2, area = assemble_arb_E(n, alpha)
         out["N"] = len(M)
         out["N_matches"] = bool(len(M) == rec["N"])
@@ -167,9 +178,10 @@ def verify_lam2(rec, kappa0):
         bound = sigma2 / (1 + kappa0 * kappa0 * h2_hi * sigma2)
         out["lb_ok"] = bool(0 < lb <= bound)
         out["lb_rel_slack"] = float((bound - lb) / bound)
-        out["ok"] = bool(out["inertia_ok"] and out["lb_ok"] and out["N_matches"] and out["alpha_matches_grid"]
+        out["ok"] = bool(out["sigma2_positive"] and out["inertia_ok"] and out["lb_ok"] and out["N_matches"] and out["alpha_matches_grid"]
                          and out["area_is_one"] and out["h2_cross_check"] and m.topo_ok)
     except Exception as ex:
-        out["reason"] = "exception: %r" % (ex,)
+        out["reason"] = out.get("reason") or "exception: %r" % (ex,)
+        out["ok"] = False
     out["sec"] = round(time.time() - t0, 2)
     return out

@@ -118,10 +118,10 @@ def tri_cover(w, alpha):
 
 def tri_ring(sign, s, alpha):
     """Lemma 'ring' / FORMAT.txt: G = diag(g1, g2), g1 = 1 - 2 sign s, g2 = 1 + 2 sign s."""
-    assert sign in (1, -1)
+    if sign not in (1, -1): raise ValueError('sign must be +-1')
     g1 = 1 - 2 * sign * Fr(s)
     g2 = 1 + 2 * sign * Fr(s)
-    assert g1 > 0 and g2 > 0
+    if not (g1 > 0 and g2 > 0): raise ValueError('G not positive definite')
     l2 = [COS2[j] / g1 + SIN2[j] / g2 for j in range(3)]          # exact rationals
     a2 = [SE2 * ivq(l2[j]) for j in range(3)]
     sg = iv.sqrt(ivq(g1 * g2))

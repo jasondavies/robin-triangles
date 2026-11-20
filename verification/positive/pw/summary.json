@@ -35,8 +35,8 @@
  "alpha_top_max": 2403.87096576,
  "cover_sec": 293,
  "kinds": {
-  "A": 339,
-  "U": 1440
+  "U": 1440,
+  "A": 339
  },
  "shape_vertices": 68
 }

@@ -1,10 +1,31 @@
 {
 "N1 CW rejects sigma above lambda_h": true,
 "N2 mesh U refused for obtuse triangle": true,
+"N6 nonpositive sigma (-1e6, 0, below the pole) rejected everywhere Lemma CR is applied": true,
+"N6_detail": {
+"cr_bound": true,
+"formula_would_be_positive_below_pole": true,
+"certify": true,
+"unmodified_records_pass": true,
+"recert_vertex": true,
+"recert_ring": true,
+"recert_lam2": true,
+"lam2_node": true,
+"cell_with_negative_vertex_bounds_rejected": true,
+"its_node_records_rejected": true
+},
+"N7 CW test on the exact supplied sigma: 15/2 + 2^-61 rejected, 15/2 certified exactly (sides 5,5,6; beta 6,6,5)": true,
+"N7_detail": {
+"N": 3,
+"above_rejected": true,
+"exact_15_2_returned": true,
+"non_dyadic_returned_unchanged": true,
+"proposed_le_15_2": true
+},
 "N3 cell certifier: passes for lambda_0, fails for 1.01*lambda_0 and for lambda_0(1+0.6 t^2)": true,
 "N4 local check: fails for t_loc=3/25 and for ring/lambda_2 bounds lowered by 1%; passes unchanged": true,
 "N5 coverage check fails with one root triangle removed": true,
 "S1 sandwich lb < P2-FEM value, relative gap < 1.5e-2": true,
-"S1_gap_min": 0.00011522792000990146,
-"S1_gap_max": 0.013028815198444408
+"S1_gap_min": 0.0001152279200102679,
+"S1_gap_max": 0.01302881519844364
 }
